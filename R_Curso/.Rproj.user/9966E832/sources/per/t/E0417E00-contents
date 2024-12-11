@@ -20,15 +20,25 @@ Data in R .
 
 1 Data in R
 
-# 1.1 Modes and Classes 
+# 1.1 Modes and Classes
 
-Every object in R contains a number of attributes to describe the nature of the information in that object. Two of the most important attributes of data in R are the mode and the class. When managing data, it is important to understand the diﬀerences among the diﬀerent types of data that R supports, and when problems arise with data, the problem is often that the data is the incorrect mode or class for a particular operation.
+Every object in R contains a number of attributes to describe the nature of the information in that object. Two of the most important attributes of data in R are the **mode** and the **class**.
 
-The \`\`\``mode`\`\``function returns the mode of any object in R, and the`\`\``class`\`\`\` function returns the class. When working with data, the most commonly en- countered modes of individual objects are numeric, character, and logical. However, since data in R usually revolves around a collection of data (for example, a matrix or dataset), other modes will often be encountered. When deciding on how data should be stored in R, one important consideration has to do with the mode of the data being studied. Some objects (like matrices or other arrays) demand that all the data contained in them be of the same mode; others (like lists and data frames) allow for multiple modes within a single object.
+When managing data, it is important to understand the diﬀerences among the diﬀerent types of data that R supports, and when problems arise with data, the problem is often that the data is the incorrect mode or class for a particular operation.
 
-In addition to the `mode` and `` class function, the `typeof `` function can some- times provide additional information about the type of an object, although it is not generally as useful as that returned by `` mode` or class ``\`.
+The \`\`\``mode`\`\``function returns the mode of any object in R, and the`\`\``class`\`\`\` function returns the class.
 
-One other consideration when planning how data should be entered into R has to do with categorical data. R provides the factor class to store this type of data, and factors are automatically treated specially in statistical models and plotting functions. Values stored as factors require less storage than regular values, because R need only store each unique level once. If you examine the mode of a factor object, you’ll notice that it is always numeric, even though it may display as character data, so special care is needed when working with factors. The class function, or one of the predicate functions described in Section 1.3 can be used to recognize factors once they are stored in R. Further information about factors can be found in Chapter 5.
+When working with data, the most commonly encountered modes of individual objects are **numeric**, **character**, and **logical**.
+
+However, since data in R usually revolves around a collection of data (for example, a matrix or dataset), other modes will often be encountered. When deciding on how data should be stored in R, one important consideration has to do with the mode of the data being studied.
+
+Some **objects** (like matrices or other arrays) demand that all the data contained in them be of the same mode; others (like lists and data frames) allow for multiple modes within a single object.
+
+In addition to the `mode` and `` class function, the `typeof `` function can sometimes provide additional information about the type of an object, although it is not generally as useful as that returned by `` mode` or class ``\`.
+
+One other consideration when planning how data should be entered into R has to do with **categorical data**.
+
+R provides the **factor class** to store this type of data, and factors are automatically treated specially in statistical models and plotting functions. Values stored as factors require less storage than regular values, because R need only store each unique level once. If you examine the mode of a factor object, you’ll notice that it is always numeric, even though it may display as character data, so special care is needed when working with factors. The **class function**, or one of the predicate functions described in Section 1.3 can be used to recognize factors once they are stored in R. Further information about factors can be found in Chapter 5.
 
 Another important data type concerns dates and times. While this sort of information can be stored as a simple character representation, it is diﬃcult to manipulate in this form. R provides several mechanisms for storing dates, in- cluding the built-in Date, POSIXlt, and POSIXct classes, and the contributed chron package. The diﬀerences among these diﬀerent representations as well as information on manipulating dates and times are provided in Chapter 4.
 
@@ -54,7 +64,7 @@ a b d
 
 \`\`\`
 
-### 1.2 Data Storage in R 
+### 1.2 Data Storage in R
 
 It’s very rare that single values (scalars) will be the center of an R session, so one of the ﬁrst questions encountered when working with data in R is what sort of object should be used to hold collections of data. The vector is the simplest way to store more than one value in R. The c function (mnemonic for catenate or combine) allows you to quickly enter data into R:
 
@@ -226,8 +236,7 @@ Like other objects in R, list elements can be named, either when the list is bei
 
 \> mylist
 
-\$first
-\[1\] 1 3 5
+\$first \[1\] 1 3 5
 
 \$second
 
@@ -243,83 +252,134 @@ The same result can be achieved using the names function after creating the (unn
 
 \> names(mylist) = c(’first’,’second’,’third')
 
-Many data analyses revolve around the idea of a dataset, a collection of related values which can be treated as a single unit. For example, you might collect information about diﬀerent companies; for each company you would have a name, an industry type, the number of employees, type of health
-care plans oﬀered, etc. For each of the companies you study you would have values for each of these variables. If we store the data in a matrix, with rows
-representing observations and columns representing variables, it would be easy
-to access the data, but since the modes of the variables in a dataset will often
-not be the same, a matrix would force, say, numeric variables to be stored as
-character variables. To allow the ease of indexing that a matrix would provide
-while accommodating diﬀerent modes, R provides the data frame. A data
-frame is a list with the restriction that each element of the list (the variables)
-must be of the same length as every other element of the list. Thus, the mode
-of a data frame is list, and its class is data.frame. While there is some
-overhead for storing data in a data frame as opposed to a matrix, data frames
-are the preferred method for working with “observations and variables”-style datasets.
+Many data analyses revolve around the idea of a dataset, a collection of related values which can be treated as a single unit. For example, you might collect information about diﬀerent companies; for each company you would have a name, an industry type, the number of employees, type of health care plans oﬀered, etc. For each of the companies you study you would have values for each of these variables. If we store the data in a matrix, with rows representing observations and columns representing variables, it would be easy to access the data, but since the modes of the variables in a dataset will often not be the same, a matrix would force, say, numeric variables to be stored as character variables. To allow the ease of indexing that a matrix would provide while accommodating diﬀerent modes, R provides the data frame. A data frame is a list with the restriction that each element of the list (the variables) must be of the same length as every other element of the list. Thus, the mode of a data frame is list, and its class is data.frame. While there is some overhead for storing data in a data frame as opposed to a matrix, data frames are the preferred method for working with “observations and variables”-style datasets.
 
 ### 1.3 Testing for Modes and Classes
 
-While the mode or class of an object can easily be examined through the
-mode and class functions, in many cases R provides a simpler way to verify
-whether an object has a particular mode, or is a member of a particular
-class. A large number of functions in R, beginning with the string “is.”,
-can be used to test if an object is of a particular type. Among the many
-such predicate functions available in R are is.list, is.factor, is.numeric,
-is.data.frame, and is.character. These functions can be used to make
-sure that the data you’re working with will behave the way that you expect,
-or that functions that you write will work properly with a variety of data.
-Although R is not a true object-oriented language, many functions in R,
-collectively known as generic functions, will behave diﬀerently depending on
-the class of their arguments. For a given class, you can ﬁnd out which func-
-tions will treat the class specially through the methods function. For more
-information about the object-oriented models in R, see Section 2.5.
-1.4 Structure of R Objects
-For simple cases such as vectors, matrices, and data frames, it’s usually
-straightforward to determine what an object in R contains; examining the
-class and mode of the object, along with its length or dim attribute, should
-be suﬃcient to allow you to work eﬀectively with the object. This process can
-conveniently be carried out for all the objects in a workspace with the ls.str
-function. However, in some cases, especially with nested lists, it can be diﬃ-
-cult to understand how information is arranged in the object, and displaying
-the object in its entirety rarely elucidates the structure in these cases. The fol-
-lowing examples are artiﬁcial, and have been kept small to reduce space, but
-they illustrate some strategies for getting an understanding of the structure
-of data in R.
+While the mode or class of an object can easily be examined through the mode and class functions, in many cases R provides a simpler way to verify whether an object has a particular mode, or is a member of a particular class. A large number of functions in R, beginning with the string “is.”, can be used to test if an object is of a particular type. Among the many such predicate functions available in R are is.list, is.factor, is.numeric, is.data.frame, and is.character. These functions can be used to make sure that the data you’re working with will behave the way that you expect, or that functions that you write will work properly with a variety of data.
+
+Although R is not a true object-oriented language, many functions in R, collectively known as generic functions, will behave diﬀerently depending on the class of their arguments. For a given class, you can ﬁnd out which func- tions will treat the class specially through the methods function. For more information about the object-oriented models in R, see Section 2.5.
+
+### 1.4 Structure of R Objects 
+
+For simple cases such as vectors, matrices, and data frames, it’s usually straightforward to determine what an object in R contains; examining the class and mode of the object, along with its length or dim attribute, should be suﬃcient to allow you to work eﬀectively with the object. This process can conveniently be carried out for all the objects in a workspace with the ls.str function. However, in some cases, especially with nested lists, it can be diﬃ- cult to understand how information is arranged in the object, and displaying the object in its entirety rarely elucidates the structure in these cases. The fol- lowing examples are artiﬁcial, and have been kept small to reduce space, but they illustrate some strategies for getting an understanding of the structure of data in R.
+
 Returning to an earlier example, suppose we have the following list:
-> mylist = list(a=c(1,2,3),b=c("cat","dog","duck"),
-+
-d=factor("a","b","a"))
-The summary function will provide the names, lengths, classes, and modes of
-the elements of the list:
-> summary(mylist)
+
+\> mylist = list(a=c(1,2,3),b=c("cat","dog","duck"),
+
+\+ d=factor("a","b","a"))
+
+The summary function will provide the names, lengths, classes, and modes of the elements of the list:
+
+\> summary(mylist)
+
 Length Class Mode
-a 3
--none- numeric
-b 3
--none- character
-d 1
-factor numeric
-This provides useful information, but only looks at top-level elements of the
-list. If we have a list whose elements are lists, summary will not examine the
-structure of those interior lists:8
-1 Data in R
-> nestlist = list(a=list(matrix(rnorm(10),5,2),val=3),
-+
-b=list(sample(letters,10),values=runif(5)),
-+
-c=list(list(1:10,1:20),list(1:5,1:10)))
-> summary(nestlist)
+
+a 3 -none- numeric
+
+b 3 -none- character
+
+d 1 factor numeric
+
+This provides useful information, but only looks at top-level elements of the list. If we have a list whose elements are lists, summary will not examine the structure of those interior lists:
+
+\> nestlist = list(a=list(matrix(rnorm(10),5,2),val=3),
+
+\+ b=list(sample(letters,10),values=runif(5)),
+
+\+ c=list(list(1:10,1:20),list(1:5,1:10)))
+
+\> summary(nestlist)
+
 Length Class Mode
-a 2
--none- list
-b 2
--none- list
-c 2
--none- list
-In situations where direct examination provides too much detail, and
-summary or similar functions provide too little detail, the str function tries
-to provide a workable compromise. With the current example, it can be seen
-that str provides details about the nature of all the components of the object,
-presented in a display whose indentation provides visual cues to the structure
-of the object:
-> str(nestlist)
-List of 3$ a:List of 2 ..$ : num [1:5, 1:2] 0.302 -1.534 1.133 -2.304 ... ..$ val: num 3 $ b:List of 2 ..$ : chr [1:10] "v" "i" "e" "z" ... ..$ values: num [1:5] 0.438 0.696 0.722 0.164 0.435 $ c:List of 2 ..$ :List of 2 .. ..$ : int [1:10] 1 2 3 4 5 6 7 8 9 10 .. ..$ : int [1:20] 1 2 3 4 5 6 7 8 9 10 ... ..$ :List of 2 .. ..$ : int [1:5] 1 2 3 4 5 .. ..$ : int [1:10] 1 2 3 4 5 6 7 8 9 10 0.305 The number of elements displayed for each component is controlled by the vec.len= argument, and can be set to 0 to suppress any values being printed; the depth of levels displayed for each object is controlled by the max.level= argument, which defaults to NA, meaning to display whatever depth of levels is actually encountered in the object. 1.5 Conversion of Objects To temporarily change the way an object in R behaves, a variety of conversion routines, each beginning with the string “as.”, are provided. If it makes sense, these functions can be used to create an object equivalent to the one that you’re working with, but which has a diﬀerent mode or class. A simple example involves numbers which are stored as characters. This may occur when data is ﬁrst entered into R, or it may arise as a side eﬀect of some other operation.1.5 Conversion of Objects 9 Consider the table function, discussed in detail in Section 8.1. This func- tion will return a vector of integer counts representing how many times each unique value in an object appears. The vector it returns is named, based on the unique values encountered. Suppose we use the table function on a vector of numbers, and then try to use this tabled version of the data to calculate a sum of all the values: > nums = c(12,10,8,12,10,12,8,10,12,8) > tt = table(nums) > tt nums 8 10 12 3 3 4 > names(tt) [1] "8" "10" "12" > sum(names(tt) * tt) Error in names(tt) * tt : non-numeric argument to binary operator Since the error message suggests that sum was expecting a numeric vector, we can create a numeric version of names(tt) (without modifying the original version) using as.numeric: > sum(as.numeric(names(tt)) * tt) [1] 102 Of course, not all possible conversions make sense. If an inappropriate conversion is attempted, R will produce an error or warning message, and may generate missing values. (See Section 1.6.) Note that the as. forms for many types of objects behave very diﬀer- ently than the function which bears the type’s name. For example, notice the diﬀerence between the list function and the as.list function: > x = c(1,2,3,4,5) > list(x) [[1]] [1] 1 2 3 4 5 > as.list(x) [[1]] [1] 1 [[2]] [1] 2 [[3]] [1] 310 1 Data in R [[4]] [1] 4 [[5]] [1] 5 The list function creates a list (of length one) containing the argument it was passed while as.list converts the vector into a list of the same length as the vector. One useful conversion that will take place automatically concerns logical variables. When a logical variable is used in a numeric context, each occurrence of TRUE will be treated as 1, while values of FALSE will be treated as 0. Coupled with the vectorization of most functions, this allows many counting operations to be performed easily. For example, to ﬁnd all the values in a vector, x, that are greater than 0, the expression sum(x > 0) could be used; the number of unequal elements in two matrices a and b could be calculated as sum(a != b). 1.6 Missing Values Missing values arise in data for a variety of reasons. The missing values may be part of the original data, or they may arise as part of a computation or conversion that takes place after you’ve read your data into R. In all cases, missing values are treated consistently, and will propagate across any com- putation that involves them, so it’s important to recognize missing values as early as possible when you’re working with data. The value NA, without quotes, represents a missing value. You can assign a variable a value of NA, but to test for a missing value you must use the is.na function. This function will return TRUE if a value is missing and FALSE otherwise. If a missing value occurs as the result of certain computations (for example, division by zero or taking the logarithm of a negative number), it may display as Inf or NaN. While the is.na function will recognize these values as missing, the is.nan function can be used to distinguish this type of missing value from the ordinary NA value. 1.7 Working with Missing Values Many of the functions provided with R have arguments that are useful when your data contain missing values. Most of the statistical summary functions (mean, var, sum, min, max, etc.) accept an argument called na.rm=, which can be set to TRUE if you want missing values to be removed before the summary is calculated. For functions that don’t provide such an argument, the negation1.7 Working with Missing Values 11 operator (!) can be used in an expression like x[!is.na(x)] to create a vector which contains only the nonmissing values in x. The statistical modeling functions (lm, glm, gam, etc.) all have an argu- ment called na.action=, which allows you to specify a function that will be applied to the data frame speciﬁed by the data= argument before the mod- eling function processes the data. One very useful choice for this argument is na.omit, which will return a data frame with any row containing one or more missing values eliminated. Don’t overlook the fact that na.omit can be called directly to create such a data frame independent of the modeling functions. The complete.cases function may also be useful to achieve the same task. Normally, missing values are not included when a variable is made into a factor; if you want the missing values to be considered a valid factor level, use the exclude=NULL argument to factor when the factor is ﬁrst created. (See Chapter 5 for more details.) When importing data from outside sources, missing values may be repre- sented by some string other than NA. In those cases, the na.strings= argu- ment of read.table (Section 2.2) can be passed a vector of character values that should be treated as missing values. Since the na.strings= argument cannot be set selectively for diﬀerent columns, it may sometimes be prudent to read the missing values into R in whatever form they occur, and convert them later.2 Reading and Writing Data 2.1 Reading Vectors and Matrices The c function has already been introduced as a way to input small amounts of data into R. When the amount of data is large, and especially when typing the data into the console is inappropriate, the scan function can be used. scan is most appropriate when all the data to be read is of the same mode, so that it can be accommodated by a vector or matrix. For reading data with variables of mixed modes, see Section 2.2. The ﬁrst argument to scan can be a quoted string or character variable containing the name of a ﬁle or a URL, or it can be any of a number of connections (Section 2.1) to allow other input sources. If no ﬁrst argument is given, scan will read from the console, stopping when a completely blank line is entered. By default, scan expects all of its input to be numeric data; this can be overridden with the what= argument, which speciﬁes the type of data that scan will see. For example, to read a vector of character values with scan, you can specify what="": > names = scan(what="") 1: joe fred bob john 5: sam sue robin 8: Read 7 items > names [1] "joe" "fred" "bob" "john" "sam" "sue" "robin" When reading from the console, R will prompt you with the index of the next item to be entered, and report on the number of elements read when it’s done. If the what= argument to scan is a list containing examples of the expected data types, scan will output a list with as many elements as there are data types provided. To specify numeric values, you can pass a value of 0:14 2 Reading and Writing Data > names = scan(what=list(a=0,b="",c=0))
+
+a 2 -none- list
+
+b 2 -none- list
+
+c 2 -none- list
+
+In situations where direct examination provides too much detail, and summary or similar functions provide too little detail, the str function tries to provide a workable compromise. With the current example, it can be seen that str provides details about the nature of all the components of the object, presented in a display whose indentation provides visual cues to the structure of the object:
+
+\> str(nestlist)
+
+List of 3
+
+\$ a:List of 2
+
+..\$ : num \[1:5, 1:2\] 0.302 -1.534 1.133 -2.304 ... ..\$ val: num 3 \$ b:List of 2 ..\$ : chr \[1:10\] "v" "i" "e" "z" ... ..\$ values: num \[1:5\] 0.438 0.696 0.722 0.164 0.435 \$ c:List of 2 ..\$ :List of 2 .. ..\$ : int \[1:10\] 1 2 3 4 5 6 7 8 9 10 .. ..\$ : int \[1:20\] 1 2 3 4 5 6 7 8 9 10 ... ..\$ :List of 2 .. ..\$ : int \[1:5\] 1 2 3 4 5 .. ..\$ : int \[1:10\] 1 2 3 4 5 6 7 8 9 10 0.305
+
+The number of elements displayed for each component is controlled by the vec.len= argument, and can be set to 0 to suppress any values being printed; the depth of levels displayed for each object is controlled by the max.level= argument, which defaults to NA, meaning to display whatever depth of levels is actually encountered in the object.
+
+### 1.5 Conversion of Objects 
+
+To temporarily change the way an object in R behaves, a variety of conversion routines, each beginning with the string “as.”, are provided. If it makes sense, these functions can be used to create an object equivalent to the one that you’re working with, but which has a diﬀerent mode or class. A simple example involves numbers which are stored as characters. This may occur when data is ﬁrst entered into R, or it may arise as a side eﬀect of some other operation.
+
+Consider the table function, discussed in detail in Section 8.1. This func- tion will return a vector of integer counts representing how many times each unique value in an object appears. The vector it returns is named, based on the unique values encountered. Suppose we use the table function on a vector of numbers, and then try to use this tabled version of the data to calculate a sum of all the values:
+
+\> nums = c(12,10,8,12,10,12,8,10,12,8)
+
+\> tt = table(nums)
+
+\> tt
+
+nums
+
+8 10 12
+
+3 3 4
+
+\> names(tt)
+
+\[1\] "8" "10" "12"
+
+\> sum(names(tt) \* tt)
+
+Error in names(tt) \* tt : non-numeric argument to binary operator
+
+Since the error message suggests that sum was expecting a numeric vector, we can create a numeric version of names(tt) (without modifying the original version) using as.numeric:
+
+\> sum(as.numeric(names(tt)) \* tt)
+
+\[1\] 102
+
+Of course, not all possible conversions make sense. If an inappropriate conversion is attempted, R will produce an error or warning message, and may generate missing values. (See Section 1.6.)
+
+Note that the as. forms for many types of objects behave very diﬀer- ently than the function which bears the type’s name. For example, notice the diﬀerence between the list function and the as.list function:
+
+\> x = c(1,2,3,4,5)
+
+\> list(x)
+
+\[\[1\]\]
+
+\[1\] 1 2 3 4 5
+
+\> as.list(x)
+
+\[\[1\]\] \[1\] 1 \[\[2\]\] \[1\] 2 \[\[3\]\] \[1\] 310 1 Data in R \[\[4\]\] \[1\] 4 \[\[5\]\] \[1\] 5
+
+The list function creates a list (of length one) containing the argument it was passed while as.list converts the vector into a list of the same length as the vector.
+
+One useful conversion that will take place automatically concerns logical variables. When a logical variable is used in a numeric context, each occurrence of TRUE will be treated as 1, while values of FALSE will be treated as 0. Coupled with the vectorization of most functions, this allows many counting operations to be performed easily. For example, to ﬁnd all the values in a vector, x, that are greater than 0, the expression sum(x \> 0) could be used; the number of unequal elements in two matrices a and b could be calculated as sum(a != b).
+
+### 1.6 Missing Values 
+
+Missing values arise in data for a variety of reasons. The missing values may be part of the original data, or they may arise as part of a computation or conversion that takes place after you’ve read your data into R. In all cases, missing values are treated consistently, and will propagate across any com- putation that involves them, so it’s important to recognize missing values as early as possible when you’re working with data.
+
+The value NA, without quotes, represents a missing value. You can assign a variable a value of NA, but to test for a missing value you must use the is.na function. This function will return TRUE if a value is missing and FALSE otherwise.
+
+If a missing value occurs as the result of certain computations (for example, division by zero or taking the logarithm of a negative number), it may display as Inf or NaN. While the is.na function will recognize these values as missing, the is.nan function can be used to distinguish this type of missing value from the ordinary NA value.
+
+### 1.7 Working with Missing Values 
+
+Many of the functions provided with R have arguments that are useful when your data contain missing values. Most of the statistical summary functions (mean, var, sum, min, max, etc.) accept an argument called na.rm=, which can be set to TRUE if you want missing values to be removed before the summary is calculated. For functions that don’t provide such an argument, the negation operator (!) can be used in an expression like x\[!is.na(x)\] to create a vector which contains only the nonmissing values in x.
+
+The statistical modeling functions (lm, glm, gam, etc.) all have an argu- ment called na.action=, which allows you to specify a function that will be applied to the data frame speciﬁed by the data= argument before the mod- eling function processes the data. One very useful choice for this argument is na.omit, which will return a data frame with any row containing one or more missing values eliminated. Don’t overlook the fact that na.omit can be called directly to create such a data frame independent of the modeling functions. The complete.cases function may also be useful to achieve the same task.
+
+Normally, missing values are not included when a variable is made into a factor; if you want the missing values to be considered a valid factor level, use the exclude=NULL argument to factor when the factor is ﬁrst created. (See Chapter 5 for more details.)
+
+When importing data from outside sources, missing values may be repre- sented by some string other than NA. In those cases, the na.strings= argu- ment of read.table (Section 2.2) can be passed a vector of character values that should be treated as missing values. Since the na.strings= argument cannot be set selectively for diﬀerent columns, it may sometimes be prudent to read the missing values into R in whatever form they occur, and convert them later.
+
+Phil Spector, Data Manipulation with R

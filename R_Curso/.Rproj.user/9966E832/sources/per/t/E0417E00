@@ -1,9 +1,9 @@
 {
     "id": "E0417E00",
-    "path": "~/Desktop/R_Curso/data_in_R.qmd",
+    "path": "~/rstudio/R_Curso/data_in_R.qmd",
     "project_path": "data_in_R.qmd",
     "type": "quarto_markdown",
-    "hash": "3165844962",
+    "hash": "319487628",
     "contents": "",
     "dirty": false,
     "created": 1733909128286.0,
@@ -17,16 +17,16 @@
         "Source": "Source",
         "docOutlineVisible": "1",
         "rmdVisualCollapsedChunks": "",
-        "cursorPosition": "56,0",
+        "cursorPosition": "22,0",
         "scrollLine": "0",
-        "rmdVisualModeLocation": "10538:7155"
+        "rmdVisualModeLocation": "2181:1521.5999755859375"
     },
     "folds": "",
-    "lastKnownWriteTime": 1733914960,
+    "lastKnownWriteTime": 1733921877,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1733914960590,
+    "last_content_update": 1733921877144,
     "read_only": false,
     "read_only_alternatives": []
 }
