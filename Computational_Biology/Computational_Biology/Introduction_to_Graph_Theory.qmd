@@ -1,0 +1,381 @@
+---
+title: "Introduction to Graph Theory"
+---
+
+Introduction to Graph Theory ............................................. 3 1.1 Definitions and Examples ............................................. 3 1.2 Spectral Graph Theory ................................................ 6 1.3 Centrality Measures ................................................... 8 1.3.1 Geometric Centralities ....................................... 9 1.3.2 Closeness ..................................................... 9 1.3.3 Path-Based Centralities ...................................... 10 1.3.4 Spectral Measures............................................ 12 1.4 Axioms for Centrality ................................................. 15 1.4.1 The Size Axiom .............................................. 16 1.4.2 The Density Axiom .......................................... 17 1.4.3 The Score-Monotonicity Axiom ............................ 17
+
+## Chapter 1 Introduction to Graph Theory
+
+### 1.1 Definitions and Examples 
+
+In this section, we give the definitions of **graphs**, **graphs’ properties**, and the data structures that serve to contain information on the graph nodes and topology and that are used by almost all graph analysis algorithms.
+
+**Definition 1.1 (Graph)** An undirected graph is an ordered pair G = (V , E) of sets, where
+
+E ⊂ {(v, w)\|v, w ∈ V,v = w}.
+
+$$
+E ⊂ \{ (v, w)|v, w ∈ V,v \neq w \}.
+$$
+
+The elements of V are called vertices (or nodes) of the graph G, and the elements of E are called edges. So in a graph G with vertex set $\{ v_1, v_2,...,v_n \}, (v_i, v_j ) ∈ E$ if and only if there is a line in G that connects the two vertices $v_i$ and $v_j$.
+
+A directed graph is similar to an undirected graph, except for the fact that in a directed graph the elements of the edge set are ordered pairs of nodes, i.e., $E ∈ V × V$. The order of the pairs indicates the direction of the edge, e.g., $v_1, v_2 ∈ V × V$ , means that the edge connected $v_1$ to $v_2$ starts from v1 and ends in n2.
+
+**Definition 1.2 (Complete Graph)** In a graph G = (V , E), two vertices $v_i, v_j ∈ V$ are adjacent or neighbours if $(v_i, v_j ) ∈ E$.
+
+If all the vertices of G are pairwise adjacent, then we say G is complete. A complete graph with n vertices is denoted as $K^n$. For example, the graph of a triangle is $K^3$, the complete graph with three vertices. An undirected complete graph is a connected graph, but the vice versa is not true, see in this regard Fig. 1.1. Graph B. is connected, but it is not complete. Graph A. instead is complete.
+
+**Definition 1.3 (Degree)** The degree $d(v)$ of a vertex v is the number of vertices in G that are adjacent to $v$.
+
+![](images/Captura de pantalla 2024-12-11 a la(s) 8.32.39.png){width="1176"}
+
+In particular, out-degree of a node is the number of edges starting from it. The in-degree of a node is instead the number of edges ending to it. The total degree (simply said “degree”) of a node is then the sum of out- and in-degrees of it.
+
+We can get two matrices from a graph G. One is called adjacency matrix, which we denote as $A_G$. The other is called Laplacian matrix, which we denote as LG. Let us assume that a graph G has the vertex set V = {1, 2,...,n}. The adjacency matrix, incidence matrix, and the Laplacian matrix of G are defined as follows:
+
+**Definition 1.4 (Adjacency Matrix for an Undirected Graph)** The entries of the adjacency matrix $A_G$ of the graph G are
+
+$$
+ a_{ij}= \begin{cases}1 & \text{ if } (i,j) \in E\\ 0 & \text{ otherwise. } \end{cases}
+$$
+
+**Definition 1.5 (Adjacency Matrix for a Directed Graph)** The entries of the adjacency matrix $A_G$ of the graph G are
+
+$$
+ m_{ij}= \begin{cases} -1 & \text{ if } j \to i \\ 1 & \text{ if } i \to j \\
+0 & \text{ otherwise.}
+ \end{cases}
+$$
+
+**Definition 1.6 (Laplacian Matrix)** The entries of the Laplacian matrix $L_G$ of the graph G are
+
+$$
+ L_{ij}= \begin{cases} -1 & \text{ if } (i,j) \in E \\ d(i) & \text{ if } i = j \\
+0 & \text{ otherwise.}
+ \end{cases}
+$$
+
+For an undirected graph, the adjacency matrix is equal to the incidence matrix.
+
+![](images/Captura de pantalla 2024-12-11 a la(s) 8.50.22.png)
+
+**Definition 1.7 (Incident Edge)** An edge $(v_j , v_j ) ∈ E$ is incident with a vertex $v ∈ V$ if $v = v_i$ or $v = v_j$.
+
+**Definition 1.8 (Isomorphism)** Two graphs $G_1$ and $G_2$ are isomorphic if there is a one–one correspondence between the vertices of $G_1$ and those of $G_2$ such that the number of edges joining any two vertices of $G_1$ is equal to the number of edges joining the corresponding vertices of $G_2$.
+
+Thus the two graphs shown in Fig. 1.2 are isomorphic under the correspondence $e ↔ n, f ↔ m, g ↔ h, a ↔ o, b ↔ i, c ↔ l$ \[207\].
+
+**Definition 1.9 (Walk and Path)** A walk on a graph is a sequence of vertices that alternate with edges, beginning and ending with a vertex. In walk, each edge is incident with the vertex immediately preceding it and the vertex immediately following it. A path is a walk in which vertices are all distinct from each other.
+
+**Theorem 1.1** A walk between two vertices $u$ and $v$ is called a $u − v$ walk. The length of a walk is the number of edges it has. For a graph G with vertex set $V = {1, 2,...,m}$, the entry an $a_{ij}^n$ of the matrix $A^n_G$ obtained by taking the nth power of the adjacency matrix $A_G$ equals the number of $i − j$ walks of length n.
+
+**Proof** The theorem can be proved by induction: 1. Base step. When n = 1, aij = 1 if (i, j ) ∈ E. By definition, i(i, j )j is then an i −j walk of length 1 and this is the only one. So the statement is true for n = 1. 2. Inductive step. Now, we assume the statement is true for n = k and then prove the statement is also true for k + 1. Since Ak+1 ij = Ak ijAij ,
+
+an+1 ij = m k=1 aik n akj . (1.1)
+
+6 1 Introduction to Graph Theory aik n akj is the number of those walks i − j of length n joined by the edge (k, j ) because aki = 0 if (k, i) /∈ E and aki = 0 if (k, i) ∈ E. Noting that all walks from i to j of length n + 1 are of this form for some vertex k, an+1
+
+ij in Eq. (8.54) is the total number of walks i − j of length n + 1. This proves the statements for n + 1.
+
+We dedicate the end of this section to a special case of graph: the tree.
+
+**Definition 1.10 (Tree)** A tree is a connected graph with no cycle.
+
+If we remove any one edge from the spanning tree, it will make it disconnected. If we add one edge in a spanning tree, then it will create a cycle.
+
+**Definition 1.11 (Spanning Graph and Spanning Tree)** A connected subgraph $G' = (V' , E' )$ of G is a spanning subgraph of G if $V' = V$ . It is a spanning tree if it is a tree and a spanning subgraph of G. A disconnected graph does not have any spanning tree.
+
+**Definition 1.12 (Complexity)** The complexity of a graph G, denoted with $κ(G)$, is the number of spanning trees of G.
+
+If a graph is a complete graph G with \|V \| vertices, its complexity is
+
+$$
+κ(G) = |V|^{ (|V |−2)}  
+$$
+
+. (1.2)
+
+The formula (1.2) is known as Cayley’s formula. If a graph is connected but not complete, the number of spanning trees is equal to any cofactor of the Laplacian matrix (Kirchhoff’s theorem).
+
+Finally, we recall the following properties hold:
+
+-   All spanning trees have \|V \| − 1 edges.
+
+-   To find a spanning tree from a selected node, we can use the minimum spanning tree on an unweighted graph.
+
+-   A disconnected graph does not have any spanning tree.
+
+### 1.2 Spectral Graph Theory 
+
+Spectral graph theory is the study of properties of the Laplacian matrix or adjacency matrix associated with a graph. This theory is of particular interest because it highlights the connection between the eigenvalues of the Laplacian matrix and graph connectivity.
+
+Following what was suggested in Jiang \[109\], we should consider a definition of the Laplacian that differs from (but is equivalent to) Definition 1.1 given in the previous section. Jiang proposes the following definition.
+
+**Definition 1.13** For a graph G = (V.E),
+
+$$
+L_G = \sum_{\{u,v\}∈E} l_{G_{\{u,v\}}}.
+$$
+
+Using this definition, it is easy to verify that $L_G$ is a self-adjoint matrix, i.e., $L_G$ is equal to its conjugate transpose, and consequently, its eigenvalues are all real. Moreover, $L_G$ is positive semi-definite, i.e., its eigenvalues are all positive.
+
+With the help of this definition, we will show how the Laplacian contains the information concerning the connectivity of a graph. We first recall that a path is in fact a walk with no repeating vertices and the following definition.
+
+**Definition 1.14** A non-empty graph G is called connected if any two of its vertices are contained in a path in G.
+
+The eigenvalue 0 of the graph Laplacian is related to the connectedness of the graph, as stated by the Lemma 1.1 This Lemma has been proved by J. Jiang in \[109\]. We report here the proof of J. Jiang using the same notation of the author.
+
+**Lemma 1.1** For any graph G, $λ_1 = 0$ for $L_G$. If G = (V , E) is a connected graph where V = {1, 2,...,n}, then $λ_2 > 0$.
+
+**Proof** Let x = (1, 1,..., 1) ∈ Rn. Then the entry m1 of the matrix M = LGx is
+
+m1 = n k=1 l1k.
+
+From Definition 1.1 of LG, it follows that mi = 0 since the row entries of LG add up to zero. So LGx
+
+= 0. Therefore, 0 is an eigenvalue of LG. Since 0 ≤ λ1 ≤ λ2 ≤
+
+···≤ λn, it follows that λ1 = 0. To show that λ2 \> 0 for a connected graph, we proceed in the following way. Let z be a nonzero eigenvector of 0. Then z T LGz = zT · 0 = 0.
+
+So
+
+# zT LGz
+
+{u,v}∈E (zu − z∇) 2 = 0.
+
+This implies that for any {u, v} such that {u, v} ∈ E, zu = zv. Since G is connected, this means zi = zj for all i, j ∈ V . Therefore,
+
+z = α ⎛ ⎜ ⎜ ⎜ ⎝ 1 1 . . . 1 ⎞ ⎟ ⎟ ⎟ ⎠ ,
+
+8 1 Introduction to Graph Theory where α is some real number. So,
+
+Uλ1 = Span((1, 1,..., 1)),
+
+where Uλ1 is the eigenspace of λ1. Therefore, the multiplicity of eigenvalue 0 is 1. It follows that λ2 = 0,so2 \> 0.
+
+Indeed, the multiplicity of the eigenvalue 0 of $L_G$ tells us the number of connected components in the graph G. Let us define rigorously what a connected component of a graph is.
+
+**Definition 1.15** A connected component of a graph $G = (V , E)$ is a subgraph $G' = (V' , E')$, $(V' ⊂ V, E' = \{ \{x, y \}  ∈ E | x, y ∈ V' \} )$, in which any two vertices $i, j ∈ V$ are connected, while for any $i ∈ V'$ and $k ∈ V \V'$, i, k are not connected.
+
+From Lemma 1.1, Corollary 1.1 follows.
+
+**Corollary 1.1** Let $G = (V , E)$ be a graph. Then the multiplicity of 0 as an eigenvalue of $L_G$ equals the number of connected components of G.
+
+**Proof** Suppose G1 = (V1, E1), G2 = (V2, E2),...,Gk = (Vk, Ek) are the connected components of G. Let w
+
+i be defined by (w1)j =
+
+1 if j ∈ Vi 0 otherwise .
+
+Then, it follows from the previous lemma that if x ∈ Rn is a nonzero eigenvector of 0, then xi = xj for any (i.j ) ∈ V such that i, j are in the same connected component. So
+
+Uλ1 = Span({w1, w2,...,wk})
+
+w1, w2....,wk are linearly independent, and therefore, the multiplicity of the null eigenvalue of LG is the number of connected components in G.
+
+### 1.3 Centrality Measures
+
+Node centrality measures can be classified into three categories: geometric cen- trality measures, path-based centrality measures, spectral measures, and dynamic measures. Measures that belong to the first category quantify the importance of a node based on the geometry of its connections with its first neighbours; measures of centrality that belong to the second category describe and quantify the importance of a node based on the quantitative properties of the paths that pass through it; measures that belong to the third category are derived from the spectral properties of graph matrices; finally, the central measures belonging to the fourth category quantify the importance of a node based on the intensity of the node’s response to external stresses exerted on the node.
+
+### 1.3.1 Geometric Centralities 
+
+Among the most commonly used measures of geometric centrality are the clustering coefficient, the closeness, the Lin’s index, and the harmonic centrality. Here is a brief description and reference to the author’s papers that introduced them.
+
+#### 1.3.1.1 Clustering Coefficient 
+
+The clustering coefficient \[206\] $C_i$ of a vertex i is the frequency of pairs of neighbours of i that are connected by an edge, that is, it is the ratio of the number mi of pairs of neighbours of i that are connected and the number of possible pairs of neighbours of i, which is $k_i(k_i − 1)/2$, where $k_i$ is the degree of i:
+
+$$
+C_i = \frac{2m_i}{k_i(k_i − 1)}  
+$$
+
+$C_i$ is said to be local clustering coefficient and can be interpreted as the probability that a pair of neighbours of i are connected. It quantifies how close its neighbours are to being a clique (complete graph).
+
+Two versions of this measure exist: the global and the local. The global version was designed to give an overall indication of the clustering in the network, whereas the local gives an indication of the embeddedness of single nodes.
+
+**1.3.2 Closeness**
+
+The closeness centrality of node i was introduced by Bavelas \[16\] and is defined by
+
+$$
+S_i = \frac{1}{\sum_j d(i,j)}
+$$
+
+where d(i, j ) is the distance between node i and node j , i.e., the number of edges in a shortest path connecting them. Nodes with a high closeness score have the shortest distances to all other nodes. It is assumed that nodes with an empty co-reachable set have closeness centrality 0 by definition.
+
+The normalized form of the closeness centrality is the average length of the shortest paths between two nodes. It is given by
+
+$$
+S_i = \frac{N − 1}{\sum_j d(i, j )}, 
+$$
+
+where N is the number of nodes in the graph.
+
+#### 1.3.2.1 Lin’s Index 
+
+Nan Lin \[133\] reformulated the definition of closeness provided by Bavelas \[16\] for graphs with infinite distances by weighting closeness using the square of the number of co-reachable nodes and provided this definition for the centrality of a node i with a non-empty co-reachable:
+
+$$
+\frac{|\{j | d(i, j ) < ∞ \}|^2}{\sum_{d(i,j )<∞} d(i, j)} .
+$$
+
+**1.3.2.2 Harmonic Centrality**
+
+The harmonic centrality of a node i proposed by \[138\] is the denormalized reciprocal of the harmonic mean of all distances (even ∞) from i, i.e.: We thus define the harmonic centrality of x as
+
+$$
+\sum_{i \neq j} \frac{1}{d(i, j )} = \sum_{d(i,j )<∞,i\neq j} \frac{1}{d(i, j )}. 
+$$
+
+This measure is useful in the case in which in a graph a large number of pairs of nodes are not reachable. In that case, the average of finite distances can be misleading, as a graph might have a very low average distance, while it is almost completely disconnected.
+
+#### 1.3.3 Path-Based Centralities 
+
+Path-based centrality measures include betweenness centrality, subgraph centrality, and information centrality that are currently the most used centrality measures to define the ability of each node to exert influence on the flow of information. These centrality indices and their comparison on large networks have received much attention from the biological science community. As reported in \[75\], for example, in protein–protein interaction networks, a comparison of path-based centrality measures showed proteins with phenotypic importance during adaptation to shifting nitrogen environments.
+
+#### 1.3.3.1 Betweenness Centrality
+
+Betweenness centrality \[68\] quantifies the relative importance of a node in the com- munication between other pairs of nodes. Nodes with high betweenness centrality highly facilitate or highly inhibit the communication between other nodes in the network.
+
+Assuming that the information from one node to another node travels only through the shortest paths connecting those nodes, we can express mathematically the betweenness centrality of a node i as
+
+$$
+BC_i = \sum_i \sum_j \frac{ρ(i, k, j )}{ρ(i, j )} ,
+$$
+
+where $ρ(i, j )$ is the number of shortest paths from node i to node j , and ρ(i, k, j ) is the number of these shortest paths that pass through node k.
+
+### 1.3.3.2 Subgraph Centrality 
+
+The subgraph centrality \[60\] of the node i is the number of closed walks of different lengths in the network starting and ending at node i. Mathematically, the number of closed walks of length L starting and ending on node i is given by the i-th diagonal entry of the L-th power of the adjacency matrix A:
+
+$$
+SC_i = (A^L)_{ii}.
+$$
+
+Subgraph centrality characterizes the participation of each node in all subgraphs in a network. Smaller subgraphs are given more weight than larger ones, so that subgraph centrality measure is appropriate for characterizing network motifs.
+
+### 1.3.3.3 Information Centrality 
+
+The weighted function of the set of all paths connecting node i to node j is any weighted linear combination of the paths such that the sum of the weights is unity. Assuming that each link in a path is independent, and the variance of a single link is unity, it can be concluded that the variance of a path is simply its length.
+
+The information measure between two nodes i and j is the inverse of the variance of the weighted function. Mathematically, it is defined as the harmonic mean of all the information measures between i and all other nodes in the network
+
+$$
+IC_i = [ \frac{1}{n} \sum_j \frac{1}{I_{ij}} ]
+$$
+
+ICi =
+
+1 n
+
+j 1 Iij ,
+
+where n is the number of nodes, Iij = (cii+cjj −cij )−1, and C = (cij ) = D−A+J with D the degree matrix, A the adjacency matrix, and J a matrix with all elements equal to 1.
+
+1.3.4 Spectral Measures To this category belong centrality measures based on the spectral properties of the matrices describing a graph, such as the Laplacian matrix. 1.3.4.1 Eigenvector Centrality Eigenvector centrality is an extension of degree centrality. In-degree centrality awards one centrality point for every link a node receives. However, since not all vertices are equivalent (some are more important than others), and, reasonably, endorsements from important nodes count more. Eigenvector centrality assumes the thesis by which “a node is important if it is linked to by other important nodes”. Let A = (ai,) be the adjacency matrix of a graph (i.e., aij = 1 if node i is linked to vertex j , and aij = 0 otherwise). The eigenvector centrality EVi of node i is recursively defined:
+
+EVi = 1 λ
+
+k∈N (i) akiEVk
+
+where N (i) is the set of neighbours of i, and initial vertex centrality EVk = 1, ∀k including i. λ = 0 is a constant such that λx = Ax. 1.3.4.2 Hub Centrality The hub scores (also known as Kleinberg centralities) of the nodes are defined as the principal eigenvector of AAT , where A is the adjacency matrix of the graph. Kleinberg centrality \[118\] is a generalization of eigenvector centrality that prevents the problem of ordinary eigenvector centrality on directed networks, that nodes outside strongly connected components, or their out-components get null centrality.
+
+1.3 Centrality Measures 13 1.3.4.3 Katz’s Index The fact that eigenvector centrality only functions well when the graph is (strongly)
+
+connected is a practical issue. A strongly connected component, whose size is pro- portionate to the network’s size, is typical of real undirected networks. Real directed
+
+networks, however, do not. Only vertices in strongly connected components or in the out-component of such components can have nonzero eigenvector centrality if a directed network is not strongly connected. The null centrality of all the remaining vertices, even those in the in-components of strongly connected components, is mostly unjustified. This occurs because nodes with no incoming edges have nodes that are pointed to solely by nodes with a null centrality score, which are themselves defined to have nodes with a null eigenvector centrality score. Giving each node a modest amount of free centrality, irrespective of the vertex’s location in the network, is one technique to get around this issue. Each node, then, has a minimum, positive quantity of centrality that it can refer to other nodes and transfer to them. In particular, linked nodes have higher centrality than unlinked nodes, the centrality of which is exactly this minimum positive quantity. Therefore, independent of the centrality of the linkers, strongly linked nodes have high centrality. However, if the linkers have high centrality, even nodes that receive few links may still have high centrality. This method has been proposed by L. Katz \[115\]. Let the adjacency matrix of a directed graph be A = {ai,j }. The formula for the Katz centrality of a node i is Ki = ∞ h=1 n j=1 αh(aij ) k + β, (1.7) where α and β are two constants. From the definition, we see that the centrality vector K is defined by two components: an endogenous component ( ∞ h=1 n j=1 αh(aij )k) taking into consideration the network topology represented by the adjacency matrix and an exogenous component that is independent of the network structure (β). It follows that, in matrix form, the Katz centrality vector K can be computed as
+
+K = β(I − αA)−1 = β ∞ h=0 (αA)h, (1.8) where α and β are vectors. The formula (1.8) states that the Katz index of a node is the number of weighted paths reaching the node in the network plus an exogenous factor, a generalization of the in-degree measure that counts only paths of length one. By adopting the attenuation factor α (known as damping factor), long paths are weighted less than short ones. In this way, over long chains of links, endorsement lose value. As α decreases, the contribution of path longer than one decreases, and
+
+14 1 Introduction to Graph Theory Katz’s index is dominated by short path (mostly in-degree) and by the exogenous factor of the system. When α is large, long paths are devalued smoothly, and Katz’s index is more influenced by the endogenous topological part of the system. It is recommended to choose α between 0 and 1/λmax \[67, 113\], where λmax is the largest eigenvalue of A (the measure diverges at α = 1/λmax). 1.3.4.4 Vibrational Centrality A network’s vulnerable nodes must be identified for a variety of practical reasons. It enables, for example, the study of the preservation of ecosystem functionalities or the building of robust infrastructure networks and the efficient elimination of malevolent networks. Approaches to assessing network susceptibility to external changes, or changes irrespective of network structure, are particularly important
+
+\[98\]. Examples include intermolecular interactions, whose structure varies signif- icantly depending on whether a substance is in a solid, liquid, or gaseous state
+
+of matter. Here we report the Estrada et al. \[58, 59\] model of node vulnerability. According to the Estrada’s model, a network immersed in a thermal bath at temperature T can be used to simulate a network that has been subjected to some form of external stress. The network is thought to be perturbed by the heat variations. The vibrational potential energy of the network can be expressed as follows, assuming that xi represents the displacement of node I from its static position:
+
+V (x) = k 2 xT Lx, (1.9) where k is the spring constant and x is the vector of node displacements over the network. The probability distribution of the displacement of the nodes is defined by the Boltzmann distribution P (x) = e− V (x) T Z = 1 z exp − k 2T xT Lx , (1.10)
+
+where the partition function Z of the network is defined as follows:
+
+Z =
+
+dx exp − k 2T xT Lx . (1.11)
+
+The mean displacement of a node i is by definition
+
+Δxi =
+
+x2 i P (x) dx. (1.12)
+
+1.4 Axioms for Centrality 15 It can be shown that \[58, 59\]
+
+Δxi =
+
+N j=2 U2 ij βkλj = T k (L+)ii, (1.13) where U is the matrix whose columns are the orthonormal eigenvectors, λ the eigenvalues of the Laplacian matrix L, and L+ the pseudo-inverse of L. Node
+
+displacement depends on the eigenvectors corresponding to all non-trivial eigenval- ues of the Laplacian matrix. Nodes displaying higher values of the displacement
+
+are more vulnerable to changes in external conditions. We can understand this interpretation by analysing the displacement in terms of the Laplacian spectrum. Let us consider 0 = λ1 \< λ2 \< ··· \< λN . Since the eigenvalues of the Laplacian appear in the denominator of node displacement, the term U2 i2 λ2 has the largest contribution to Δxi. The smallest non-trivial eigenvalue and its corresponding eigenvector are known respectively as the algebraic connectivity and the Fiedler vector of the network. Accordingly, the nodes of the network are partitioned into two sets V1 and V2, as follows: V1 = i \| Ui,2 \< 0
+
+, V2 = i \| Ui,2 ≥ 0
+
+. That is, a node belongs strongly to a partition if it has a large positive or a large negative value of the corresponding entry in the Fiedler vector, whereas a node with U i,2 close to zero does not belong strongly to either partition. As a result, the latter nodes might be regarded as nodes of articulation between the partitions. Such articulation nodes are removed, isolating the positive and negative vector components’ positive and negative partitions. It is important to note that algebraic connectedness represents how strong a network is; the higher the algebraic connectivity, the more challenging it is to isolate individual components of a network. Then, the two main contributions to the displacement make sure that the nodes that mostly aid in dividing the network into detached components correspond to the nodes with the least displacements.
+
+Compared to topological measurements such as node degree, vibrational central- ity was found to yield excellent resolution in the identification of vulnerable nodes
+
+\[59\].
+
+1.4 Axioms for Centrality
+
+For many different reasons, comparing centrality measurements is a tough, challeng- ing, and laborious endeavour. Here we report an interesting analysis of this problem
+
+and an attempt of axiomatization by Boldi et al. \[24\]. The authors in \[24\] recommend using a set of axioms to explain how a centrality metric behaves. They assume that the centrality metrics under investigation are isomorphically invariant, which means that they depend solely on the structure of the graph and not on the particular labelling scheme selected for each node. They advise looking at how centrality measurements react to variations in size, density,
+
+16 1 Introduction to Graph Theory and arc additions in order to abide by these limitations. Nodes having a denser neighbourhood should likewise be more significant when every other parameter is fixed, as should nodes belonging to larger groups. How can we genuinely tell if this occurs precisely and perhaps in an asymptotic environment? To achieve this, we must try something completely novel by exactly (i.e., in algebraic closed form) evaluating all relevant measures on each node of selected typical networks. Selecting two graphs that are at opposite ends of the density spectrum should better illustrate how centrality measurements respond to density. Additionally, there are directed p-cycles and k-cliques for every k and p. (This might not happen for more complicated structures, e.g., a cubic graph.) In order that this happens precisely and maybe in an asymptotic setting, according to Bold’s suggestion, we must take a completely innovative approach: assessing all pertinent measures on each node of selected typical networks precisely (i.e., in algebraic closed form). It should be easier to understand how centrality measurements respond to density if two graphs are chosen that are at opposing
+
+extremities of the density spectrum. For every k and p, there are also directed p- cycles and k-cliques (this might not happen for more complicated structures, e.g., a
+
+cubic graph). Among the centrality measures listed in the previous sections, according to the analysis of Boldi et al. \[24\], to only harmonic centrality, turns out to satisfy all axioms.
+
+1.4.1 The Size Axiom Let us consider a graph made by a k-clique and a p-cycle. A clique is a collection of vertices in an undirected graph G such that every two different vertices in the clique are nearby, implying that the induced subgraph is complete. All nodes of the clique and the cycle have equal scores due to isomorphism’s invariance; if p = k, the elements on the clique are more significant. This axiom is trivial and can be satisfied by almost any measure that we are aware of, but if we are interested in determining the sensitivity to size, the first axiom is as follows: Definition 1.16 (Size Axiom \[24\]) Consider the graph Sk,p made by a k-clique and a directed p-cycle. A centrality measure satisfies the size axiom if for every k there is a Pk such that for all p ≥ Pk in Sk,p the centrality of a node of the p-cycle is strictly larger than the centrality of a node of the k-clique, and if for every p, there is a Kp such that for all k ≥ Kp in Sk,p the centrality of a node of the k-clique is strictly larger than the centrality of a node of the p-cycle. Nodes of the cycle will be less significant than nodes of the clique when p = k. The reasoning behind the case k → ∞ is rather straightforward: since the denser community is also growing, its members are anticipated to eventually become even more significant. On the other hand, if the cycle grows extremely large (more specifically, if its size reaches infinity), its nodes are still a part of a very large (albeit
+
+1.4 Axioms for Centrality 17 poorly connected) community, and we anticipate that they will eventually become more important than the nodes of a fixed-size community, regardless of how dense it may be.
+
+1.4.2 The Density Axiom Since we must be able to specify a rise in density “with all other parameters fixed”, including size, creating an axiom for density is a more challenging task. Let us begin by connecting a node x of the k-cycle with a node y of the p-cycle through
+
+a bidirectional arc, or the bridge, starting from a graph made up of a directed k- cycle and a directed p-cycle. The vertices x and y must necessarily have the same
+
+score if k = p because they are symmetric. The k-cycle is now transformed into a k- clique by increasing its density as much as possible. Because the degree of y has not
+
+changed, it should be noted that this change in density is limited to x. By keeping all other parameters constant while tightly increasing the local density around x, we can assume that the x score will rise. Definition 1.17 (Density Axiom \[24\]) Consider the graph Dk,p made by a k-clique and a p-cycle (p, k ≥ 3) connected by a bidirectional bridge x ↔ y, where x is a node of the clique and y is a node of the cycle. A centrality measure satisfies the density axiom if for k = p the centrality of x is strictly larger than the centrality of y. Note that our axiom does not specify any constraint when k = p. While studying the behaviour of the graph Dk,p of the previous definition when k = p shades some lights of the inner behaviour of centrality measures, it is essential, in an axiom asserting the sensitivity to density, that size is not involved.
+
+1.4.3 The Score-Monotonicity Axiom This axiom specifies strictly monotonic behaviour upon the addition of an edge: Definition 1.18 (Score-Monotonicity Axiom \[24\]) A centrality measure satisfies the score-monotonicity axiom if for every graph G and every pair of nodes x, y such that x y, when we add x → y to G, the centrality of y increases. Every centrality metric we consider for strongly linked graphs satisfies this axiom. It is a suitable approach to verify that a measure can handle partially disconnected graphs as a result. The reader may define a weak monotonicity axiom that just demands that y’s rank not drop. The centrality metric, which gives each network node a fixed value, would satisfy this axiom if employed alone, rendering it uninteresting for our goals.
+
+Chapter 2 Biological Networks
+
+2.1 Networks: The Representation of a System at the Basis of Systems Biology Engineering, social sciences, and physical sciences all frequently use network science as an analytical field. For telecommunications (such as the Internet), social
+
+groupings and interactions (such as the spread of ideas or illnesses), and infor- mation and semantic descriptions (such as workflow diagrams or decision trees),
+
+among many other applications, network representations have been developed. The biological sciences are likewise rife with network representations, such as food webs or evolutionary connections between species, biological brain networks, and interactions between specific genes, proteins, or metabolites. The representations are composed of a set of objects, commonly referred to as nodes or vertices, and connections between pairs of objects, typically referred to as edges or links. Depending on the situation, nodes could be computers, organisms, proteins, people, or even concepts. Similar to nodes, the meaning of edges will vary depending on the application. Edges can carry additional information such as direction (they point from one node to another node), extent (different edges have different numeric weights representing some quantity), or quality (different types of edges with different meanings are present in the same network). It is possible to describe and study the properties of networks from a variety of fields using computational techniques because the shared representations of the nodes and edges make this possible. However, the interpretation of the outcomes of such analyses is still domain-specific and calls on familiarity with the characteristics of the objects (the nodes) and the significance of the interactions (the edges) between them. A variety of temporal and space scales, including those for signal transmission, gene regulation, protein interaction, metabolic, phylogenetic, and ecological networks, are common in biology.
+
+© The Author(s), under exclusive license to Springer Nature Switzerland AG 2023 P. Lecca, B. Carpentieri, Introduction to Mathematics for Computational Biology, Techniques in Life Science and Biomedicine for the Non-Expert, <https://doi.org/10.1007/978-3-031-36566-9_2>
+
+19
+
+20 2 Biological Networks 2.2 Biochemical Networks 2.2.1 Metabolic Networks The chemical process of metabolism is how cells transform food and nutrients into functional building pieces, which are then put back together to create the biological molecules required for the cell to carry out its various functions. This dismantling and reassembling process frequently involves chains or pathways, which are collections of subsequent chemical reactions that transform initial inputs into useful end products over time. The metabolic network is made up of the entire collection of all reactions along all paths. Chemicals created and ingested by the processes are the nodes in a metabolic network. These substances are referred to as metabolites. These are relatively small molecules including lipids, amino acids, and nucleotides as well as carbohydrates and lipids. The metabolites consumed are referred to as the reaction’s substrates, while the metabolites created are referred to as its products. The majority of metabolic reactions either do not happen spontaneously or happen very infrequently. The cell uses a variety of enzymes, which are chemical catalysts, to speed up reactions so that they happen at a rate that is useful. In the reactions that they catalyse, enzymes are not consumed. The cell can switch a reaction on or off or control its rate by varying the concentration of the enzyme that catalyses that reaction. In the reaction they catalyse, enzymes frequently exhibit extreme specificity. A bipartite graph is the most accurate depiction of a metabolic network. Metabolites and metabolic processes are represented by the two different types of vertices, and edges connect each metabolite to the reaction in which it takes part. Since some metabolites (the substrates) enter the reaction and others (the products) exit it, the edges are directed. A third class of vertex can be added to represent enzymes, and undirected edges can be added to connect them to the reactions they catalyse. A mixed (directed and undirected) tripartite network is the final graph. However, the bipartite network is projected onto the metabolite vertices in the majority of metabolic network representations. According to one method, metabolites are represented as the network’s vertices, and any two metabolites that take part in the same reaction—either as substrates or products—have an undirected edge. It is obvious that a large portion of the information in the bipartite network is lost in this projection. If there is a reaction in which the first metabolite appears as a substrate and the second as a product, the network can be represented as a directed graph with a single kind of vertex representing metabolites and a directed edge connecting them. Compared to the undirected representation, this one has a greater information reach, but the relationship between metabolites and reactions is still lost.
+
+2.2 Biochemical Networks 21 2.2.2 Protein–Protein Interaction Networks Although proteins do interact with other large and small biomolecules as well as with one another, these interactions are not just chemical in nature. Long-chain molecules known as proteins are created by concatenating a number of amino acid
+
+building blocks. Once it is formed, a protein does not remain in a loose chain- like structure but instead folds in on itself, taking on the shape of the amino acid
+
+sequence. The physical interactions it can have with other molecules are determined by its folded configuration. Since their intricate folded structures interact to form the so-called protein complexes without the particle exchange that characterizes chemical reactions, proteins interact with one another primarily through physical rather than chemical means. In a network of protein–protein interactions, proteins serve as the vertices, and if two proteins interact, an undirected edge connects them. This portrayal, meanwhile, leaves out some crucial details. Multiple edges are used to depict interactions involving three or more proteins, and the network itself makes it impossible to determine which edges are part of the same interaction. Adopting a bipartite model with undirected edges connecting proteins to the interactions in which they engage and proteins and interactions as various types of vertex could solve this issue.
+
+2.2.3 Genetic Regulatory Networks Small chemicals required by living things, such sugars and lipids, are produced in cells by chemical processes known as metabolism. Proteins, which are much bigger molecules, are created in a different way, using instructions found in the DNA that makes up each cell. Amino acid concatenation creates the long-chain molecules known as proteins. A matching sequence contained in the DNA of the cell where the protein is generated determines the amino acid sequence of the protein. The fundamental role of DNA is to serve as a data storage medium by holding the protein sequences required by cells. The building blocks of DNA are known as nucleotides, and there are four different species of them: A, C, G, and T. Codons, which are sets of three consecutive nucleotides that represent one amino acid, are used to represent the amino acids in proteins in DNA. Codons such as ACG and TTT represent the entire sequence of amino acids found in a protein. Numerous proteins can be encoded by a single strand of DNA, and the start and end codons, two unique codons, serve as markers for the start and finish of a protein-coding sequence. A gene is the whole DNA sequence that encodes a single protein. In the cell, proteins are produced by a two-stage process. An enzyme creates a duplicate of a single gene’s coding sequence during the initial stage of transcription. The replica is created from RNA, another information-carrying molecule such as DNA. The protein is pieced together from the RNA sequence in the second
+
+22 2 Biological Networks stage, known as translation. In molecular biology jargon, translation is called ‘gene expression’. In general, the cell does not have to constantly manufacture every protein for which it has a gene. Individual proteins have distinct functions, such as catalysing metabolic processes, and it is critical for the cell to adjust the production of individual proteins in response to its environment. It accomplishes this by utilizing transcription factors, which are proteins. Depending on the type of transcription factor present in the cell, the presence of the gene’s transcription factor activates, increases, or suppresses the gene’s expression (promoting and inhibiting). The network is now here. Being proteins, transcription factors are created by the transcription of genes. Subsequent transcription factors, which are also proteins, control the transcription process. A genetic regulatory network is created when all such interactions are taken into account. The proteins that make up this network’s vertices, or genes that produce them, are shown as directed edges from gene A to gene B, which shows that A controls B’s expression. The network has two different kinds of edges because it can discriminate between transcription factors that promote and inhibit gene expression.
+
+2.2.4 Neural Networks One of the main functions of the brain is to process information, and the primary information processing element is the neuron, a specialized
