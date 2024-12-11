@@ -1,0 +1,12 @@
+https://quarto.org/docs/get-started/computations/rstudio.html
+https://docs.posit.co/ide/user/ide/guide/documents/quarto-project.html
+
+https://rpubs.com/liu_wilson/qmd
+
+https://docs.posit.co/ide/user/READMEOverlay.html
+
+
+https://stackoverflow.com/questions/73445074/how-to-make-quarto-qmd-files-appear-like-r-markdown-files-rmd-in-visual-st
+
+https://www.appsilon.com/post/r-quarto-tutorial
+
