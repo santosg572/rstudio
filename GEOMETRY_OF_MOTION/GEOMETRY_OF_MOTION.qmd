@@ -1,0 +1,1039 @@
+---
+title: "GEOMETRY OF MOTION"
+---
+
+GEOMETRY OF MOTION ............................... 1 1 Trajectories in R3 and Intrinsic Triads ..................... 1 2 Areolar Velocity and Central Motions ...................... 3 3 Geometry of Rigid Motions ............................... 5 4 The Euler Angles........................................ 6 5 Rotation Matrices and Angular Velocity .................... 7 6 Velocity and Acceleration................................. 10 6.1 Translations ...................................... 10 6.2 Precessions ....................................... 10 6.3 Rototranslations .................................. 11 7 The Axis of Motion ...................................... 11 8 Relative Rigid Motions and Coriolis’s Theorem .............. 12 9 Composing Rigid Motions ................................ 13 9.1 Connecting the Euler Angles and ω .................. 15 10 Fixed and Moving Axodes ................................ 16 10.1 Precessions: Fixed and Moving Cones ................ 17 11 Plane Rigid Motions ..................................... 18 11.1 Center of Instantaneous Rotation .................... 19 11.2 Centrodes ........................................ 20
+
+Problems and Complements ............................... 20 2c Areolar Velocity and Central Motions ...................... 20 2.1c Cycloidal Trajectories .............................. 20 2.2c The Brachistochrone and Tautochrone ............... 20 2.3c Hypocycloidal and Epicycloidal Trajectories .......... 21 2.4c Kepler’s Gravitational Laws ........................ 22 2.5c Apsidal Points .................................... 22 2.6c Elliptic Trajectories of Some Central Motions ......... 23
+
+v
+
+vi Contents 8c Relative Rigid Motions and Coriolis’s Theorem .............. 24 9c Composing Rigid Motions ................................ 25 9.1c Connecting the Euler Angles and ω .................. 25 10c Fixed and Moving Axodes ................................ 25 10.1c Cone with Fixed Vertex and Rolling without Slipping . . 25 10.2c Cylinder Rolling without Slipping ................... 26 11c Plane Rigid Motions ..................................... 27 11.1c Parametric Equations of Fixed and Moving Centrodes . 27 11.2c Centrodes for Hypocycloidal Motions ................ 29 11.3c The Cardano Device ............................... 29 11.4c More on the Cardano Device ........................ 30
+
+1 GEOMETRY OF MOTION
+
+### 1 Trajectories in R3 and Intrinsic Triads 
+
+A triple of vectors $\{e_1, e_2, e_3\}$ is positively oriented if $e_i ∧ e_j = e_k$ for every cyclic permutation {i, j, k} of the indices. A positive triad is a Cartesian reference system $\{O; e_1, e_2, e_3\}$ in R3 with origin in O and positively oriented unit vectors $\{e_1, e_2, e_3\}$. A vector-valued function
+
+$$
+(a, b) \ni t → v(t) = x_j(t)e_j = \sum^3_{j=1} x_j(t)e_j
+$$
+
+from an interval $(a, b) ⊂ R$ into $R^3$ is continuous or differentiable at a point of (a, b) or in the whole (a, b) if so are the scalar functions $x_j(·)$ for j = 1, 2, 3.
+
+The summation notation will be used throughout, that is, a monomial expression with repeated indices is intended to be summed over those indices.
+
+Calculus operations are effected in terms of components. If $v$ and $w$ are differentiable vector-valued functions, then
+
+$$
+(v ∧ w)' = v' ∧ w + v ∧ w' , (v · w)'= v' · w + v · w' .
+$$
+
+(v ∧ w) = v ∧ w + v ∧ w , (v · w)= v · w + v · w .
+
+The latter equality implies that $(||v||^2)' = 2v · v'$. Therefore if v has constant length, then v and v' are orthogonal. Let $t → P(t)$ be a continuously differentiable vector-valued function defined in (a, b) and such that
+
+P ̇ = x ̇ 2 1 + ̇x2 2 + ̇x2 3 \> 0 in (a, b).
+
+The set of points {P(t)}t∈(a,b) is a curve γ in R3 and the vector P is tangent to γ in P. The intrinsic parameter of γ is its arc length
+
+s = t a P (τ)dτ, t ∈ (a, b).
+
+With improper but suggestive symbolism, we denote by s → P(s) the function s → P(s) = P(t(s)), to stress that corresponding values of the parameters t E. DiBenedetto, Classical Mechanics: Theory and Mathematical Modeling, 1 Cornerstones, DOI 10.1007/978-0-8176-4648-6 1, c Springer Science+Business Media, LLC 2011
+
+2 1 GEOMETRY OF MOTION and s identify the same geometric point P on γ. In terms of s the unit tangent t(s) and unit normal n(s) to γ in P(s) are t(s) = d dsP(s) = P ̇(t) P ̇(t) , n(s) = t (s) t (s) , provided t (s) = 0. If t = 0 the normal n is not defined. Since t has constant length, t · t = 0. Therefore n is normal to t and in this sense is the unit normal to γ. Set
+
+t = κn, κ = t
+
+, b = t ∧ n.
+
+The quantity κ(s) is the curvature of γ at P(s) and it measures by how much γ deviates from t(s) by an infinitesimal variation of s. This formula also determines the orientation of n and hence the orientation of b. The unit vector b is the binormal to γ at P. The triple of unit vectors {t, n, b} is positive and the triad {P; t, n, b} is called the intrinsic triad to γ at P. Taking derivatives of b2 ≡ 1 and b · t ≡ 0 with respect to the parameter s gives b · b = 0, t · b + b · t = 0.
+
+These imply that db/ds is orthogonal to both b and t. Therefore b is parallel to n. Thus there exists a scalar function s → λ(s) such that b = λn, \|λ\| = b .
+
+The quantity λ(s) is the torsion of γ at P(s) and it measures by how much the curve γ deviates from the plane through P(s) and normal t(s) ∧ n(s) by an infinitesimal variation of the parameter s. These relations between tangent t, normal n, and binormal b of a curve γ are called Frenet formulas \[58\]. If the parameter t is time, the map t → P(t) is interpreted as a point moving along its trajectory γ. Its velocity v = P ̇ and its acceleration a = P ̈ may be expressed in terms of a Cartesian triad {O; e1, e2, e3} or in terms of its intrinsic triad as
+
+P ̇ = v =( ̇x1, x ̇ 2, x ̇ 3) t = ts, ̇
+
+P ̇ = v =
+
+x ̇ 2 1 + ̇x2 2 + ̇x2 3 = \|s ̇\|,
+
+P ̈ = a = ( ̈x1, x ̈2, x ̈3) t = ̈st + κs ̇ 2n,
+
+a =
+
+x ̈2 1 + ̈x2 2 + ̈x2 3 = s ̈2 + κ2s ̇4.
+
+Note that the acceleration a has zero component along the binormal b. If s ̈ ≡ 0, the motion is uniform. If κ ≡ 0, it is a straight-line motion. The uniform straight-line motions are those for which κ ≡ 0 and ̈s ≡ 0. Throughout we will avoid specifying the range of variation of t, and for all times will mean for all times within the range of variation of t.
+
+2 Areolar Velocity and Central Motions 3
+
+2 Areolar Velocity and Central Motions A motion is planar if its trajectory lies in a plane π. Select a Cartesian system {O; e1, e2, e3} with origin O ∈ π and e3 ⊥ π and set P − O = ρu, ρ = P − O, u = cosφe1 + sin φe2, φ = e1 u, where φ from e1 to P −O is spanned counterclockwise. By time differentiation,
+
+u ̇ = ̇φu⊥, u ̈ = −φ ̇ 2u + ̈φu⊥.
+
+One verifies that u⊥ = e3 ∧ u and therefore the triple {u, u⊥, e3} is positive. From this one computes the expression of velocity and acceleration in terms of its radial (i.e., along u) and transversal (i.e., along u⊥) components as P ̇ = ̇ρu + ρφ ̇u⊥, P ̈ = ρ ̈− ρφ ̇ 2 u + (2 ̇ρφ ̇ + ρφ ̈) u⊥. (2.1) For a planar motion t → P(t) and a fixed point O, denote by 2A the moment of the velocity P ̇ with respect to the pole O, i.e.,
+
+2A = (P − O) ∧ P ̇ = ρ2φ ̇u ∧ (e3 ∧ u) = ρ2φ ̇e3. (2.2)
+
+e2
+
+e1
+
+1⁄2+d1⁄2 '+d' ' 1⁄2 P(t+ dt) P(t)
+
+O
+
+Fig. 2.1.
+
+The vector A is normal to the plane of the motion, and it is called areolar velocity. Consider the area swept out by the vector radius P−O in an elemental time dt during which the angle φ undergoes a variation dφ. Such an area is given by 1 2 ρ2dφ up to terms of higher order in dt. Formally dividing by dt gives A = 1 2 ρ2\|φ ̇\|. This justifies the name areolar velocity given to A. A motion t → P(t) is central if there exists a point O, called center of motion, such that
+
+(P − O) ∧ P ̈ = 0 for all times.
+
+4 1 GEOMETRY OF MOTION Equivalently, the motion is central if the vector radius P − O and the acceleration P ̈ are parallel at all times. If t → P(t) is central, then 2A ̇ = d dt (P − O) ∧ P ̇
+
+= 0, which implies A = const. Therefore, apart from the case A = 0, the motion takes place in the plane π through O and normal to A. This implies that central motions are planar. The vector radius P −O sweeps out equal areas in equal times and it keeps its rotation orientation at all times. Also, there exists a constant ao \> 0, called the area constant, such that A = 1 2 ao, φ ̇ = ao
+
+ρ2 . (2.3)
+
+The second equality implies the formal operation
+
+d dt = ̇φ d dφ = ao ρ2 d dφ. (2.4)
+
+In particular, the radial component of the velocity is
+
+ρ ̇ = ao ρ2 d dφρ = −ao d dφ 1 ρ .
+
+From the second of (2.3), by taking the time derivatives we obtain ρ (2 ̇ρφ ̇+
+
+ρφ ̈) = 0. Therefore in view of (2.1), the transversal component of the accel- eration is zero. To compute the radial component, observe that
+
+ρ ̈ = −ao d dt d dφ 1 ρ = −a2 o ρ2 d2 dφ2 1 ρ , ρφ ̇ 2 = a2 o ρ3 .
+
+Combining these remarks with (2.1) yields the expressions of velocity and acceleration of a central motion in the form v = −ao d dφ 1 ρ u + ao ρ u⊥, a = −a2 o ρ2 1 ρ + d2 dφ2 1 ρ u. (2.5) These are known as the Binet formulas. Their interest is in that the geometric trajectory alone determines velocity and acceleration. A motion is circular if its trajectory is a circle. In such a case the Binet formulas take the form
+
+v = ao ρ u⊥, a = −a2 o ρ2 1 ρ u, (2.6)
+
+where ρ is the radius of the trajectory.
+
+3 Geometry of Rigid Motions 5
+
+3 Geometry of Rigid Motions A set E ⊂ R3 is in rigid motion if the mutual distance of any two of its points is constant in time, that is, if for all P, Q ∈ E t → P(t) − O(t) = (const)O,P for all t. The rigid motion of E is determined by the motion of any triple {P1, P2, P3} of noncollinear points of E. Any other point Q ∈ E is uniquely determined, along its motion, from the three independent relations Q − Pi = (const)i, i = 1, 2, 3. Having fixed a triple of noncollinear points {P1, P2, P3} in E, the three equations
+
+Pi − Pj = (const)ij , i, j = 1, 2, 3, i = j are linearly independent. Therefore of the nine coordinates
+
+x1(Pi), x2(Pi), x3(Pi)
+
+, i = 1, 2, 3,
+
+only six are linearly independent. The rigid motion of E is uniquely determined by any six, linearly independent, of these functions of t, and therefore a rigid motion has at most six degrees of freedom. The rigid motion of E is described with respect to a triad Σ = {Ω; e1, e2, e3} with origin at Ω and positively oriented unit vectors
+
+{e1, e2, e2}. Such a Cartesian reference system will be called fixed. Intro- duce now a triad S = {O; u1, u2, u3}, clamped to E, with origin at O and
+
+positively oriented unit vectors {u1, u2, u3}. These are uniquely determined by O and three points Qj, j = 1, 2, 3, by the formula ui = Qi − O, (Qi − O) · (Qj − O) = δij , i, j = 1, 2, 3, where δij is the Kronecker delta. The uj are equivalence classes, and this formula identifies them through representatives. The points O and Qi might or not belong to E. The triad {O; u1, u2, u3} is clamped to E, in the sense that every P ∈ E is required to satisfy P − O = (const)o P − Qi = (const)i, i = 1, 2, 3. Therefore the rigid motion of the system E coincides with the rigid motion of the system E = E ∪ {O; Q1, Q2, Q3}. Thus the rigid motion of E may be regarded as the motion of the triad S with respect to the fixed triad Σ. In this sense, the notion of rigid motion is independent of the presence of a possible material rigid body E and is identified with the geometric positions of the triad S with respect to the fixed triad Σ, following a parameter t. For this reason S is called the moving triad. For a point P denote by P = P − O = (x1, x2, x3) = xiui, P = P − Ω = (y1, y2, y3) = yiei,
+
+its representations with respect to the moving triad S and the fixed triad Σ.
+
+6 1 GEOMETRY OF MOTION The first three linearly independent functions, determining the rigid
+
+motion of S, will be chosen as the functions t → yo,i(t), i = 1, 2, 3, coordi- nates of O −Ω with respect to Σ. The remaining three could be, for example,
+
+the Euler angles of S with respect to Σ of the three components of the instantaneous angular velocity vector ω. In the next sections we introduce these choices and trace their connection.
+
+4 The Euler Angles Modulo a translation, assume that Ω = O. If e3 and u3 are not parallel, the fixed plane {e1; e2} and the moving plane {u1; u2} intersect along a line called line of the nodes. Denote by n the unit vector along the line of the nodes oriented so that the triple {n, e3, u3} is positively oriented. The Euler angles are defined as follows \[54\], \[46, pp. 99–125\]. Angle φ (of Precession): The angle φ ∈ \[0, 2π) between e1 and n counted from e1, counterclockwise with respect to e3. Angle ψ (of Proper Rotation): The angle ψ ∈ \[0, 2π) between n and u1, counted from n counterclockwise with respect to u3. Angle θ (of Nutation): The angle θ ∈ \[0, π\] between e3 and u3 counted from e3 counterclockwise with respect to n.
+
+' Ã μ e3 u2
+
+e2 u1
+
+u3
+
+e1 n Fig. 4.1.
+
+By keeping Ω = O fixed, the triad Σ can be moved to coincide with S by effecting sequentially the following three rotations:
+
+5 Rotation Matrices and Angular Velocity 7 1. Rotation of Σ about e3 of an angle φ to bring e1 to coincide with n. The new position of Σ is the positive triad Σ1 = {O; n, e
+
+2, e3}, and it is
+
+realized by the rotation matrix A1 = ⎛ ⎝ cosφ sin φ 0 − sinφ cosφ 0 0 01 ⎞ ⎠ .
+
+2.  Rotation of Σ1 about n of an angle θ to bring e3 to coincide with u3. The new position of Σ1 is the positive triad Σ2 = {O; n, e
+
+2 , u3}, and it is
+
+realized by the rotation matrix A2 = ⎛ ⎝ 10 0 0 cos θ sin θ 0 − sin θ cos θ ⎞ ⎠ .
+
+3.  Rotation of Σ2 about u3 of an angle ψ to bring n to coincide with u1. This last rotation takes Σ2 into S, and it is realized by the rotation matrix
+
+A3 = ⎛ ⎝ cosψ sin ψ 0 − sinψ cosψ 0 0 01 ⎞ ⎠ .
+
+The composition of these matrices, in the indicated order, is A = A3A2A1, A = cos ψ cos φ − cos θ sin φ sin ψ cos ψ sin φ + cos θ cos φ sin ψ sin ψ sin θ − sin ψ cos φ − cos θ sin φ cos ψ − sin ψ sin φ + cos θ cos φ cos ψ cos ψ sin θ sin θ sin φ − sin θ cos φ cos θ
+
+. (4.1) The matrix A carries points y = (y1, y2, y3) in Σ into points x = (x1, x2, x3) in S by the formula x = Ay. One verifies that A is unitary and that A−1 = At . The composition A3A2A1 is not commutative, since interchanging the order of any two of these matrices does not carry Σ into S. 5 Rotation Matrices and Angular Velocity For a vector w denote by wS and wΣ its representations in S = {O; u1, u2, u3} and Σ = {O; e1, e2, e3}, i.e.,
+
+wS = x1u1 + x2u2 + x3u3, where xi = w · ui, wΣ = y1e1 + y2e2 + y3e3, where yj = w · ej.
+
+The transformation from wS to wΣ is realized by the matrix (αij )=(ei ·uj ). This is unitary and (αij )−1 = (αji). Therefore ⎛ ⎝ y1 y2 y3 ⎞ ⎠ = αij ⎛ ⎝ x1 x2 x3 ⎞ ⎠ and ⎛ ⎝ x1 x2 x3 ⎞ ⎠ = (αji) ⎛ ⎝ y1 y2 y3 ⎞ ⎠ . (5.1)
+
+8 1 GEOMETRY OF MOTION If w is fixed in S and moves with it, the components xj of wS are constant in time, whereas the components yi of wΣ are, in general, nonconstant functions of the parameter t. The velocity u ̇ i of the unit vector ui is a free vector in space, representable in S and Σ. Representing it in S, u ̇ i,S = (u ̇ i · u) u.
+
+The coefficient (u ̇ i · u) is zero for = i. Let j, k be the values of the index for which = i. If the permutation {i, j, k} is even, then u ̇ i,S = (u ̇ i · uj )uj + (u ̇ i · uk)uk = (u ̇ i · uj )uk ∧ ui − (u ̇ i · uk)uj ∧ ui = \[−(u ̇ i · uk)uj + (u ̇ i · uj )uk\] ∧ ui.
+
+If the permutation {i, j, k} is odd, the same conclusion holds up to a sign change on the right-hand side. Let ω be the free vector whose components in S are given by ωk,S = (u ̇ i · uj )ijk, where ijk = (ui ∧ uj ) · uk. (5.2) The symbol ijk, called Ricci alternator. It is zero if any two of the indices i, j, k are equal and equals ±1 according to the parity of the permutation {i, j, k} \[134, 135\]. With this notation,
+
+u ̇ i,S = ω ∧ ui for i = 1, 2, 3.
+
+If w = xiui is fixed with S, then
+
+w ̇ S = xiu ̇ i,S = ω ∧ xiui = ω ∧ wS.
+
+Since the exterior and scalar product of two vectors are independent of their representation,
+
+w ̇ = ω ∧ w for every vector w fixed with S. (5.3) Although defined in terms of its components in S, the vector ω is intrinsic and it can be equivalently represented in the coordinates of Σ. The vector ω is an intrinsic characteristic of the rigid motion of S with respect to Σ and, as such, is independent of the representation of S. Indeed, let S = {O ; u 1, u 2, u 3} be a new triad, clamped to S and following the same rigid motion of S. Denoting by ω the vector defined as in (5.2) with ui replaced with u i,
+
+ω ∧ u i = u ̇ i = (u i · uj )u ̇ j = (u
+
+i · uj )ω ∧ uj = ω ∧ (u
+
+i · uj )uj = ω ∧ u i.
+
+From this, (ω − ω ) ∧ u i = 0 for i = 1, 2, 3. Therefore ω − ω is parallel to three nondegenerate mutually orthonormal vectors, and hence it must be zero. The vector ω is the angular velocity of the rigid motion of S, or the vector of instantaneous rotation.
+
+5 Rotation Matrices and Angular Velocity 9 The same vector calculus can be effected starting from the transformation formulas (5.1). Given a vector w, identify wS and respectively wΣ with the column vector of its components in S and Σ. Let w be fixed with S. Then by taking the time derivative of the second equality of (5.1),
+
+(αji)w ̇ Σ +( ̇αji) wΣ = 0. (5.4)
+
+Using the first equality of (5.1),
+
+w ̇ S = − \[( ̇αji)(αij )\] (αji)wΣ = − \[( ̇αji)(αij )\] wS.
+
+The element of position ij of the product matrix ( ̇αji)(αij ) is computed from \[( ̇αji)(αij )\]ij
+
+= ̇αiαj = u ̇ i · uj , ui = (α1,i, α2,i, α3,i) t .
+
+From this,
+
+w ̇ S = − ⎛ ⎝ 0 u ̇ 1 · u2 u ̇ 1 · u3 u ̇ 2 · u1 0 u ̇ 2 · u3 u ̇ 3 · u1 u ̇ 3 · u2 0 ⎞ ⎠ wS
+
+= − ⎛ ⎝ 0 ω3,S −ω2,S −ω3,S 0 ω1,S ω2,S −ω1,S 0 ⎞ ⎠ wS = (ω ∧ w)S.
+
+One arrives at the same formula in terms of the components in Σ. From (5.4),
+
+w ̇ Σ = −(αij )( ̇αji)wΣ. The element of position ij in the product matrix is \[(αij )( ̇αji )\]ij = αiα ̇ j = (ei · u)(ej · u ̇ )
+
+# = (ei · u)\[ej · (u ̇ · uh)uh\]=(u ̇ · uh)(ei · u)(ej · uh)
+
+\<h (u ̇ · uh) \[(ei · u)(ej · uh) − (ei · uh)(ej · u)\] = ωn,S(ei ∧ ej) · un = αknωn,Sijk = ωk,Σijk.
+
+Therefore
+
+w ̇ Σ = − ⎛ ⎝ 0 ω3,Σ −ω2,Σ −ω3,Σ 0 ω1,Σ ω2,Σ −ω1,Σ 0 ⎞ ⎠ wΣ = (ω ∧ w)Σ.
+
+While written in terms of the coordinates of Σ or S, these formulas are in- trinsic and are equivalent to (5.3).
+
+10 1 GEOMETRY OF MOTION 6 Velocity and Acceleration For a moving point P denote by v(P) = P ̇ its velocity and by a(P) = P ̈ its acceleration. If P − O is fixed to S, its derivatives are computed from (5.3) as v(P) = v(O) + ω ∧ (P − O), (6.1) a(P) = a(O) + ω ̇ ∧ (P − O) + ω ∧ (P − O)
+
+(6.2)
+
+= a(O) + ω ̇ ∧ (P − O) + ω ∧ \[ω ∧ (P − O)\].
+
+These are the Poisson formulas of the rigid motion of S \[132\]. Velocities and accelerations are those recorded by an observer on the fixed triad Σ. However, these vectors are independent of reference frames and as such, could be represented equivalently in S or Σ. All kinematic information on the motion of any point P fixed with S are included in the two vector-valued functions of time v(O) and ω, which are called the characteristics of the rigid motion. Examples of rigid motions are obtained by specifying the form of these two functions. 6.1 Translations A rigid motion is a translation if ω ≡ 0. The degrees of freedom reduce to
+
+three. From (6.1)–(6.2), it follows that all points in S have the same veloc- ity and acceleration of O, and the system moves with the axes of the triad
+
+{O; u1, u2, u3} remaining parallel. If v(O) = const, the translation occurs along a straight line. 6.2 Precessions A rigid motion is a precession if S has a fixed point O, called a pole of the precession. The degrees of freedom are three, and (6.1) takes the form
+
+v(P) = ω ∧ (P − O) for all P ∈ S. Therefore at every instant t, all the points of the straight line (t) = {P − O = λω(t), λ real parameter}
+
+have zero velocity. Such a straight line is called the axis of instantaneous rotation, and it varies with t. If the direction of ω is constant, the line is constant in time, and all points of S rotate about with the same angular velocity. If the direction of ω is constant, the precession is a rotation. If ω is constant, the precession is uniform. The name precession given to these rigid motions will be justified in §1.5c of Chapter 7.
+
+7 The Axis of Motion 11
+
+6.3 Rototranslations A rigid motion is a rototranslation if the directions of v(O) and ω are constant in time. The degrees of freedom are two. If v(O)∧ω ≡ 0, the system translates along the axis through O and parallel to ω with velocity v(O) and rotates about the same axis with angular velocity ω. If v(O) · ω ≡ 0, the system translates along the constant direction of v(O) and rotates about the variable
+
+axis through O and directed as ω. Instantaneously, i.e., during an infinitesi- mal variation dt of the parameter t, any rigid motion can be regarded as an
+
+instantaneous translation followed by an instantaneous rotation. 7 The Axis of Motion For a point P fixed with S, we wish to compute the component of its velocity v(P) along ω. Assuming ω = 0 and using the Poisson formula (6.1),
+
+v(P) = (v(P) · ω) ω
+
+ω2 = (v(O) · ω) ω ω2 def = I(ω), (7.1) where O is any point fixed in S. Therefore v(P) = I(ω) for all P ∈ S. Equivalently, the velocity of every point P ∈ S has the same component along ω. Since I(ω) is independent of P ∈ S, it is called the vectorial invariant of the rigid motion. We decompose the velocity of a point P ∈ S as
+
+v(P) = v(P) + v(P) ⊥ = I(ω)+\[v(P) − I(ω)\]
+
+= I(ω) + v(O) ⊥ − (P − O) ∧ ω ,
+
+where we have used the Poisson formula (6.1). The first vector is parallel to ω and is independent of P. The vector in brackets is perpendicular to ω and depends on P. Since these two vectors are orthogonal,
+
+v(P)2 = I(ω)2 + v(O)
+
+⊥ − (P − O) ∧ ω2. For a fixed t, we seek the set of all points P ∈ S for which
+
+v(O) ⊥ − (P − O) ∧ ω = 0. (7.2) Equivalently, we look for the geometric locus (t) of those points P ∈ S whose velocity, at time t, is parallel to ω(t) and has least modulus. Indeed, a point P fixed with S satisfies (7.2) if and only if v(P) ∧ ω = 0 and v(P) = inf
+
+Q∈S v(Q). (7.3) Let P and P be any two distinct points of (t). Writing (7.2) for each of them and subtracting gives (P −P
+
+)∧ω = 0. Therefore the locus (t) is a line parallel to ω(t). Such a line is denoted by μ(ω) and is called instantaneous
+
+12 1 GEOMETRY OF MOTION axis of motion, or axis of Mozzi \[122\]. If Po is a point in (t), the parametric equation of μ(ω) is P = Po+λω for λ ∈ R. Therefore determining the equation μ(ω) reduces to finding one of its points Po. For example, Po might be the projection on μ(ω) of a point O ∈ S. To identify such a projection, write (7.2) for such a Po and form the exterior product by ω to obtain (Po − O)ω2 = ω ∧ v(O) =⇒ Po = O + ω ∧ v(O) ω2 , ω = 0. Therefore the parametric equation of μ(ω) is \[22, pages 92–120\],
+
+P − O = ω ∧ v(O)
+
+ω2 + λω, ω = 0, λ ∈ R. (7.4) The axis of motion μ(ω) is independent of the point O. That is, if (7.4) were written with O replaced by any other point Q ∈ S, it would describe the same set of points (t). Moreover, (7.4) is written in intrinsic vectorial form and as such is independent of any reference system. Having identified it, one could write it alternatively in the coordinates of Σ or S. The velocity of every point P ∈ μ(ω) is parallel to ω. If P ∈ S has zero velocity, then P ∈ μ(ω). The vectorial invariant I(ω) vanishes if and only if all points of the axis of motion μ(ω) have instantaneous zero velocity. In a precession of pole O, the axis of motion is a line through O and direction ω; moreover, I(ω) = 0. In a translation, ω ≡ 0 and the axis of motion is not defined. More generally, μ(ω) is not defined for those values of the parameter t for which ω(t) = 0. 8 Relative Rigid Motions and Coriolis’s Theorem Let S be in rigid motion with respect to Σ with characteristics v(O) and ω. If P is a point moving with respect to S,
+
+P(t) − O = xi(t)ui, (8.1) the velocity and acceleration of P with respect to S are vS (P)= ̇xiui and aS(P)= ̈xiui. Regard now P and O as a pair of points moving with respect to Σ. Taking the time derivative of (8.1) and using the differentiation formula (5.3) for vectors fixed with S gives P ̇ = O ̇ + ̇xiui + xiu ̇ i = vS(P)+\[v(O) + ω ∧ (P − O)\]. (8.2) By the Poisson formula (6.1), the vector in brackets is the velocity of P as if it were fixed with S and moving following the same rigid motion of S; it is called the transport velocity of P and is denoted by
+
+vT (P) = v(O) + ω ∧ (P − O). (8.3)
+
+9 Composing Rigid Motions 13 Combining these remarks, one obtains the expression of the velocity vΣ(P) with respect to Σ in the form
+
+vΣ(P) = vS(P) + vT (P). (8.4)
+
+From (8.1) by double differentiation,
+
+P ̈ − O ̈ = ̈xiui +2 ̇xiu ̇ i + xiu ̈i.
+
+By the differentiation formula (5.3), xiu ̈i = xi(ω ∧ ui)
+
+= xiω ̇ ∧ ui + xiω ∧ (ω ∧ ui) = ω ̇ ∧ (P − O) + ω ∧ \[ω ∧ (P − O)\]. Therefore the acceleration aΣ(P) of P with respect to Σ is given by aΣ(P) =a(O) + ω ̇ ∧ (P − O) + ω ∧ \[ω ∧ (P − O\] + aS (P)+2ω ∧ vS (P).
+
+By the second Poisson formula (6.2) the sum of the first three terms on the right-hand side is the acceleration of P as if it were fixed with S and moving following the same rigid motion of S; it is called the transport acceleration of P, and it is denoted by
+
+aT (P) = a(O) + ω ̇ ∧ (P − O) + ω ∧ \[ω ∧ (P − O)\]. (8.5) The last term is the deflection, or Coriolis acceleration, denoted by aC (P)=2ω ∧ vS (P). (8.6)
+
+Theorem 8.1 (Coriolis \[34\]). The acceleration aΣ(P) of P with respect to Σ is the sum of the relative acceleration aS(P) of P with respect to S, the transport acceleration aT (P) of P, regarded as instantaneously fixed with S, and the deflection acceleration aC (P), i.e.,
+
+aΣ(P) = aS (P) + aT (P) + aC (P). (8.7)
+
+9 Composing Rigid Motions Let Σ, S, and S be triads in mutual rigid motion, i.e., Σ = {Ω; e1, e2, e3}, S = {O; u1, u2, u3}, S = {O ; u 1, u 2, u 3}, where S is in rigid motion with respect to Σ with characteristics vΣ(O) and ω, and S is in rigid motion with respect to S with characteristics vS (O )
+
+14 1 GEOMETRY OF MOTION and ω . By (8.4), the velocity vΣ(P) with respect to Σ of a point P ∈ S is the sum of vT (P) given by (8.3) and vS (P) given by
+
+vS(P) = vS (O
+
+) + ω ∧ (P − O ).
+
+Therefore vΣ(P) = vS(O ) + vΣ(O) + ω ∧ (O − O)
+
+-   (ω + ω ) ∧ (P − O ).
+
+The first term vS (O
+
+) is the velocity of O relative to S, whereas the vector
+
+in brackets is the transport velocity of O
+
+, regarded as instantaneously fixed with S. By (8.2) the sum of these first two vectors on the right-hand side is the velocity of O with respect to Σ. Combining these remarks yields
+
+vΣ(P) = vΣ(O
+
+)+(ω + ω ) ∧ (P − O
+
+) (9.1)
+
+for all pairs of points P, O ∈ S
+
+. The motion of S with respect to Σ results from the composition of the motion of S with respect to Σ and the motion of S with respect to S. Proposition 9.1 The triad S moves with rigid motion with respect to Σ with characteristics vΣ(O
+
+) and ω + ω . Proof. Write (9.1) in the form P ̇ − O ̇ = (ω + ω ) ∧ (P − O ). Taking the scalar product of this by P − O gives P − O = (const)(P,O) for every pair of points P, O ∈ S . Therefore the motion of S with respect to Σ is rigid and has characteristics vΣ(O ) and ω∗ given by (5.2) with S replaced by S and uj replaced by u j .
+
+Since P − O is fixed with S
+
+, by the differentiation formula (5.3), \[ω∗ − (ω + ω
+
+)\] ∧ (P − O )=0
+
+for all pairs of points P, O ∈ S
+
+. Thus ω∗ = ω + ω .
+
+Proposition 9.2 Let So = Σ be a fixed triad and let Si, i = 1,...,n, be triads such that Si is in rigid motion with respect to Si−1 with characteristics vSi−1 (Oi) and ωi. Then the motion of Sn with respect to Σ is rigid with characteristics vΣ(On) and ω = n i=1 ωi.
+
+Therefore the composition of finitely many rigid motions is a rigid motion. Conversely, any rigid motion can be decomposed into one or several rigid motions. The decomposition, however, in general is not unique. The composition of n translations is a translation. The composition of n precessions with the same pole is a precession with the same pole. If the
+
+9 Composing Rigid Motions 15 precessions are uniform, the composite precession is uniform. The composition of two precessions of poles O1 and O2 and angular characteristics ω1 and ω2 is a rigid motion of characteristics
+
+vΣ(O2) = ω1 ∧ (O2 − O1), ω = ω1 + ω2.
+
+This is not a precession unless vΣ(O2) ≡ 0. As an example consider a horizontal platform rotating about a fixed axis with angular velocity ω = ωu3 for a scalar ω. A cylinder is installed on the platform with axis directed as u2, and at a distance d \> 0 from the axis of
+
+motion of the platform. The cylinder rotates about its axis with angular ve- locity ω = ω
+
+u2. Determine the characteristics of the composite rigid motion,
+
+identifying the triads Σ, S, and S
+
+. Write down the expression of the velocity of the generic point P of the cylinder with respect to the fixed triad Σ. 9.1 Connecting the Euler Angles and ω Let Σ and S be two triads with the same origin Ω = O and assume that S
+
+moves by a precession of pole O with respect to Σ, with angular characteris- tic ω. Let φ, ψ, and θ be the instantaneous Euler angles relative to the two
+
+triads. The nodal line has direction n and is the intersection of the planes through the pole O and normals e3 and u3 respectively. The precession of S can be regarded as the composition of three precessions with the same pole O as follows: (a) Precession about e3 with angular velocity ω1 = ̇φe3; (b) Precession about n with angular velocity ω2 = ̇ θn; (c) Precession about u3 with angular velocity ω3 = ψ ̇u3. The rigid motion of S with respect to Σ is the precession of pole O and angular characteristic
+
+ω = ̇φe3 + ̇ θn + ψ ̇u3. (9.2)
+
+From the definition of the line of the nodes we obtain
+
+n = cosψu1 − sin ψu2, n = cosφe1 + sin φe2. (9.3) Moreover, from the transformation matrix from S to Σ, introduced in (4.1),
+
+e3 = sin ψ sin θu1 + cosψ sin θu2 + cos θu3.
+
+Putting this in (9.2) gives the expression of ω in the coordinates of the moving triad S in terms of the Euler angles ω =( ̇φ sinψ sin θ + ̇ θ cosψ)u1 +( ̇φ cosψ sin θ − ̇
+
+θ sin ψ)u2 +( ̇φ cos θ + ψ ̇)u3. (9.4)
+
+The expression of ω in the coordinates of the fixed triad Σ is
+
+ω = (ψ ̇ sin θ sin φ + ̇ θ cosφ)e1 − (ψ ̇ sin θ cosφ − ̇
+
+θ sinφ)e2 + (ψ ̇ cos θ + ̇φ)e3. (9.5)
+
+16 1 GEOMETRY OF MOTION 10 Fixed and Moving Axodes Equation (7.4) of the axis of motion is defined for a fixed value of the parameter t. As t ranges over its domain of definition, (7.4) may be regarded as a map
+
+(t, λ) → P(t; λ) = O(t) + ω(t) ∧ v(O(t))
+
+ω(t)2 + λω(t) (10.1) of the pair of parameters (t, λ). With this interpretation, (10.1) defines a surface, which we denote by G. Since for every t fixed (10.1) represents a line, such a surface is a ruled surface, called an axode. The equation (10.1) of the axode is intrinsic, i.e., independent of any reference system. When written in coordinates of Σ it represents a surface fixed with Σ called a fixed axode and denoted by GΣ. When it is written in the coordinates of S, it represents a
+
+!
+
+Fig. 10.1.
+
+surface fixed with S and moving with it, called a moving axode and denoted by GS. The surfaces GΣ and GS are geometric representations of the positions of the axis of motion μ(ω) along its motion relative to the triads Σ and S. Therefore μ(ω) = GΣ ∩ GS. A geometric point P ∈ μ(ω) can be regarded as the instantaneous position of a point moving on GΣ. As such, it has velocity
+
+vΣ(P) = time derivative of the right-hand side of (10.1) written in the coordinates of Σ.
+
+Similarly, the same point P ∈ μ(ω) can also be regarded as the instantaneous position of a point moving in GS, and as such it has velocity vS(P) = time derivative of the right-hand side of (10.1) written in the coordinates of S.
+
+Finally, the very same P ∈ μ(ω), regarded as instantaneously fixed with S, and thus instantaneously following the rigid motion of S, has a velocity given
+
+10 Fixed and Moving Axodes 17 by the vectorial invariant I(ω). Thus the same geometric point P ∈ μ(ω) can be interpreted in three different ways as the instantaneous position of t → PΣ(λ;t), motion of P(λ; ·) on the surface GΣ; t → PS(λ;t), motion of P(λ; ·) on the surface GS; t → P(t; λ), motion of P(λ; ·) transported by S.
+
+Theorem 10.1. The two surfaces GΣ and GS are mutually tangent at points P ∈ μ(ω) such that vΣ(P) ∧ ω = 0. Proof. By definition of the axis of motion, the transport velocity of a point P ∈ μ(ω) is the vectorial invariant I(ω). From (8.4), vΣ(P) − vS (P) = vT (P) = I(ω).
+
+Since vΣ(P) is tangent to GΣ at P and μ(ω) is entirely contained in σΣ, the tangent plane to GΣ at a point P ∈ μ(ω) has normal vΣ(P) ∧ ω. Similarly, vS(P) is tangent to GS at P, and the tangent plane to GS at such a point has normal vS(P) ∧ ω. Taking the exterior product of the previous relation by ω yields
+
+vΣ(P) ∧ ω = vS(P) ∧ ω.
+
+Therefore at every point of the axis of motion for which vS(P) ∧ ω = 0, the two surfaces GΣ and GS have the same tangent plane. The surface GS is attached to S, and as such it shares the same rigid motion of S. Moreover, for each value of the parameter t it must be tangent to GΣ along the axis of rotation. Therefore GS rolls over GΣ and slides along μ(ω). The sliding velocity is I(ω). If the vectorial invariant is zero, then GS rolls without sliding over GΣ. The relevance of these ruled surfaces is in that a
+
+rigid motion can be realized as the motion of rolling and sliding of a ruled sur- face GS over another ruled surface GΣ along their common generators μ(ω).
+
+This correspondence between rigid motions and mutual rolling and sliding of two ruled surfaces with the same generators is at the foundation of the theory of mechanical gears. If ω, although variable, has constant direction, then the axodes GS and GΣ are both cylindrical surfaces. Using (10.1), we write down the equations of these cylindrical surfaces and examine the case that there is a point O ∈ S such that v(O) ∧ ω ≡ 0. 10.1 Precessions: Fixed and Moving Cones In a precession of pole O and characteristic ω the axodes are cones with vertex at O, called Poinsot cones \[129\]. If ω, although variable, forms a constant angle θ ∈ (0, π 2 ) with e3, then GΣ is a right circular cone. In general, however, GS, while a cone, need not be circular. If ω has constant direction, one might take e3 = ω/ω. Then the fixed axode GΣ degenerates into an axis through the
+
+18 1 GEOMETRY OF MOTION
+
+O
+
+u3
+
+e3
+
+O
+
+u3
+
+e3
+
+Fig. 10.2.
+
+pole of the precession and directed like ω. In this case the precession is a rotation. The moving axode GS is a right circular cone, possibly degenerate. For this it suffices to show that the angle θ between e3 and u3 is constant. Since u3 is fixed with S, by the differentiation formula (5.3),
+
+d dt(e3 · u3) = − ̇
+
+θ sin θ = e3 · (ω ∧ u3)=0.
+
+Let Σ,S1, S2 be triads with the same origin O. Assume that S2 precesses with respect to S1 with characteristic ω2u3. Assume, moreover, that S1 precesses with respect to Σ with characteristic ω1e3. The composition is a precession of pole O and characteristic ω = ω2u3 + ω1e3. If ω1 and ω2 are constant, then the ruled surfaces GΣ and GS2 relative to the resulting precession are both right circular cones. Indeed, the parallelogram of the two vectors ω2u3 and ω1e3 keeps a constant configuration along the rigid motion. Therefore its diagonal that is directed as ω forms a constant angle with the axes e3 and u3.
+
+11 Plane Rigid Motions Let Σ = {Ω; e1, e2, e3} and S = {O; u1, u2, u3} be two triads and denote by π the coordinate plane y3 = 0 in Σ and by p the coordinate plane x3 = 0 in S. If S moves with rigid motion with respect to Σ in such a way that π = p at all times, the rigid motion of S is said to be planar. In such a case e3 ≡ u3 and the trajectory of O is in π, i.e., (Ω − O) · u3 ≡ 0. Since u ̇ 3 = ω ∧ u3 = e ̇ 3 ≡ 0, the vector ω is always parallel to u3 and the plane p slides over π in the sense that the trajectory of every point in p is in π. Let P ∈ S and denote by Pp its projection on p. By the Poisson formula (6.1), v(P) = v(O) + ω ∧ (P − O) = v(O) + ω ∧ (Pp − O) = v(Pp). Therefore the velocity of any point P ∈ S is uniquely determined by its projection on p. In particular, v(P) is normal to ω. In this sense the plane p is called the representative plane of the rigid motion.
+
+11 Plane Rigid Motions 19
+
+11.1 Center of Instantaneous Rotation The axis of motion is parallel to u3 at all times. Its trace C on the representative plane p is called the center of instantaneous rotation. By equation (7.4) of the axis of motion such a trace may be realized, with no loss of generality, for λ = 0. Therefore C = O + ω ∧ v(O) ω2 , provided ω = 0. (11.1) Since the vectorial invariant I(ω) is zero, the velocity v(C) of the center of instantaneous rotation is identically zero. This permits an entirely geometrical determination of C.
+
+!
+
+°1⁄4
+
+1⁄4 = p
+
+°p C
+
+Fig. 11.1.
+
+Theorem 11.1 (Chasles \[27\]). If ω = 0, the center C is on the normal line to the trajectory of any point P of the representative plane p, drawn through P. Proof. Write the Poisson formula (6.1) for O = C, and equation (11.1) with O replaced by the generic point P. This gives v(P) = ω ∧ (P − C), C = P + ω ∧ v(P) ω2 .
+
+Chasles’s theorem implies that C is geometrically determined by the trajec- tories of any two points P1 and P2 of the representative plane p. The normal
+
+lines to these trajectories drawn through P1(t) and P2(t) intersect at C(t). If ω(t) = 0, the center of instantaneous rotation C(t) is not defined. If ω is identically zero, the motion is a translation and the trajectories of any two points are parallel lines. In such a case C might be defined as the point at infinity of the normal bundle of such parallel lines.
+
+20 1 GEOMETRY OF MOTION
+
+v(P1 ) P1
+
+v(P2 ) P2
+
+C
+
+Fig. 11.2.
+
+11.2 Centrodes The traces of GΣ and GS on the fixed plane π and the representative plane p
+
+are two curves Γπ and Γp, called centrodes. Since I(ω) ≡ 0, the moving cen- trode Γp rolls without slipping over the fixed centrode Γπ, and their tangency
+
+point is the center of instantaneous rotation. Problems and Complements 2c Areolar Velocity and Central Motions 2.1c Cycloidal Trajectories A circle of center O and radius R rolls without slipping on a line, as in Figure 2.1c. A point P of the rolling circle traces a curve called a cycloid. Assume that P starts from the origin Ω. Denote by C the contact point of the rolling circle with the line and by φ the angle formed by OC and OP, measured counterclockwise from OC. With this notation,
+
+P C= ΩC = Rφ,
+
+and the parametric equations of the cycloid are
+
+x1 = R(φ − sin φ), x2 = R(1 − cosφ),
+
+and the corresponding Cartesian form is x1 = R arccosR − x2 R
+
+−
+
+2Rx2 − x2 2.
+
+Compute t(φ), n(φ), and the curvature κ(φ). 2.2c The Brachistochrone and Tautochrone Consider an arc of a cycloid, inverted and translated as in Figure 2.2c. A point “falls” from A along a curve γAB of extremities A and B, subject
+
+2c Areolar Velocity and Central Motions 21 only to gravity. The time it takes the point to reach B depends on the curve γAB. The problem of the brachistochrone is that of finding the curve γAB
+
+that minimizes this time. The arc of the cycloid through A and B, as in Fig- ure 2.2c, is the curve of least time (§1.3c of the Complements of Chapter 9).
+
+Points starting to “fall” from A, M1, M2,... = B at the same instant all reach B simultaneously. In this sense the brachistochrone is also the tautochrone through A and B. x2
+
+x1
+
+Ω C O R
+
+21⁄4R Fig. 2.1c.
+
+A M1 M2 B
+
+x1
+
+x2
+
+xo
+
+yo
+
+xo+21⁄4R
+
+Fig. 2.2c.
+
+2.3c Hypocycloidal and Epicycloidal Trajectories A circle of center O and radius ρ rolls without slipping in the interior of a fixed circle of center Ω and radius R\>ρ (left of Figure 2.3c). A point P of the rolling circle traces a curve called a hypocycloid. If P starts from Po = (R, 0) and φ = P oΩO, the parametric equations of the hypocycloid are x1 = (R − ρ) cosφ + ρ cos R − ρ ρ φ, x2 = (R − ρ) sin φ − ρ sin R − ρ ρ φ. For R = 4ρ, the Cartesian form of the hypocycloid is the astroid
+
+x 2/3 1 + x 2/3 2 = R2/3.
+
+22 1 GEOMETRY OF MOTION A circle of center O and radius ρ rolls without slipping on the exterior of a fixed circle of center Ω and radius R (right of Figure 2.3c). A point P of the rolling circle traces a curve called an epicycloid. If P starts from Po = (R, 0) and φ = P oΩO, the parametric equations of the epicycloid are x1 = (R + ρ) cosφ − ρ cos R + ρ ρ φ, x2 = (R + ρ) sin φ − ρ sin R + ρ ρ φ.
+
+x1
+
+x2
+
+Ω R O ' P
+
+Po
+
+x1
+
+x2
+
+Ω R O
+
+' P
+
+Po
+
+Fig. 2.3c. 2.4c Kepler’s Gravitational Laws Planets move about the Sun by Kepler’s laws (\[92, 93\]): 1. The orbits of the planets are ellipses and the Sun occupies one of its foci. 2. The vector radius from the Sun to one of the planets sweeps equal areas in equal intervals of time (law of areas). 3. The square of the period of revolution of a planet is proportional to the cube of the semimajor axis of the planet’s orbit (harmonic law). It follows that the motion of the planets is central. Assume that a planet revolves along an ellipse of semiaxes a\>b. Denote by S the focus on the semiaxis (0, a) and by φ the angle between the generic position P − S of the planet and the positive direction of the major axis of the ellipse. Using the second of the Binet formulas (2.5), prove that a = −a a2
+
+o/b2ρ2u. By the
+
+harmonic law, the proportionality factor a a2
+
+o/b2 is the same for all planets
+
+(§4.1 and §5 of Chapter 3). 2.5c Apsidal Points Given a central motion t → P(t) of center O, decompose P ̇ and P ̈ in their radial and transversal components as in (2.1). A point Po, on the trajectory of P is an apsis if the radial velocity at Po is zero. If ̈ρ(Po) = 0, an apsis
+
+2c Areolar Velocity and Central Motions 23 is an extremal point for the function t → ρ(t). A maximum is an apocenter, whereas a minimum is a pericenter. If Po is an apsis, the line trough the center of motion O and Po is an apsidal axis and ρo = Po − O is an apsidal radius. In a circular motion all points of the trajectory are apsidal, and there is only one apsidal radius. Assume now that the acceleration a(ρ) is a known function
+
+O Po
+
+Po Po
+
+Qo
+
+Fig. 2.4c.
+
+of ρ, and is explicitly independent of t. An example is the gravitational motion of a planet about the Sun. In such a case the apocenter and pericenter are called aphelion and perihelion respectively. Then the motion is governed by the system of differential equations
+
+ρ ̈− ρφ ̇ 2 = a(ρ) · u, 2 ̇ρφ ̇ + ρφ ̈ = a(ρ) · u⊥, (2.1c) complemented by some initial data that we choose at an apsis Po. Denoting by ao the area constant and using (2.3), such initial data take the form ρ(0) = ρo = Po − O, ρ ̇(0) = 0, φ ̇(0) = ao ρ2 o . (2.2c)
+
+The system (2.1c) does not change by changing t into −t. Therefore the solu- tion of (2.1c)–(2.2c) is symmetric with respect to the apsidal axis through Po.
+
+Proposition 2.1c The trajectory of a central motion whose acceleration de- pends only on ρ is symmetric with respect to any of its apsidal axes. Moreover,
+
+there exist at most two apsidal radii. Proof. Let Po be an apsis. If there are no other apsides, the statement is trivial. This occurs, for example, if the trajectory is a parabola (§5 of Chapter 3). If P o is the next apsis, its symmetric P
+
+o with respect the apsidal axis
+
+through Po is also an apsis. By symmetry, P
+
+o − O = P
+
+o − O. The same
+
+argument, starting from P
+
+o, shows that the apsis next to P
+
+o must have a distance from O equal to Po − O. Iteration of the same argument shows that Po − O and P
+
+o − O are the only possible apsidal radii. 2.6c Elliptic Trajectories of Some Central Motions If a point P moves with acceleration −k(P −O), for a given positive constant k and a fixed point O, then its trajectory is an ellipse, possibly degenerate.
+
+24 1 GEOMETRY OF MOTION The motion is central and thus planar. In a suitable coordinate system ̈x = −kx and ̈y = −ky, from which x = a cos(ωt + φ) y = b sin(ωt + ψ), where ω2 = k for nonnegative constants a, b and real constants φ, ψ. Therefore
+
+x2 a2 + y2 b2 − 2 xy ab sin(ψ − φ) = cos2(ψ − φ).
+
+8c Relative Rigid Motions and Coriolis’s Theorem A point P moves with constant velocity v along a straight line , which in turn spins about one of its points O, on a horizontal plane, with constant angular velocity ωe3. Take a fixed system with origin at O and coordinate plane y3 = 0 coincident with the horizontal plane where spins. Choose a moving triad S = {O; u1, u2, u3} with u3 = e3 and u1 as the unit direction of . Then S precesses with respect to Σ, with characteristic ω = ωe3. Assume that initially u1 = e1 and set v = v. Then (P − O)S = vtu1, (P − O)Σ = vt(cos ωte1 + sinωte2). From these and the formulas (8.5)–(8.7) of relative kinematics one computes vS(P) = v(cos ωte1 + sinωte2) vT (P) = ωvt e3 ∧ (cos ωte1 + sin ωte2) = ωvt(− sinωte1 + cos ωte2), vΣ(P) = vS (P) + vT (P) = v(cos ωte1 + sin ωte2) + ωvt(− sinωte1 + cos ωte2)=(P − O)
+
+Σ, aT (P) = ω ̇ ∧ (P − O) + ω ∧ \[ω ∧ (P − O)\] = ω2vte3 ∧ (e3 ∧ u1) = −ω2vtu1 = − ω2vt(cos ωte1 + sin ωte2), aC (P)=2ω ∧ vS(P)=2ωve3 ∧ u1 = 2vωu2 = 2ωv(− sinωte1 + cos ωte2), aΣ(P)=(−ω2vt cos ωt − 2ωv sin ωt)e1 + (−ω2vtsin ωt + 2ωv cos ωt)e2 = (P − O)
+
+Σ. Making use of the expression of (P − O)Σ, the parametric equations of the trajectory of P with respect to Σ are y1 = vt cos ωt y2 = vtsin ωt =⇒
+
+y2 1 + y2 2 = ρ = vt.
+
+Setting θ = ωt, the polar form of the trajectory is ρ = (v/ω) θ, which is the Archimedean spiral.
+
+10c Fixed and Moving Axodes 25
+
+9c Composing Rigid Motions 9.1c Connecting the Euler Angles and ω A moving point in R3 is represented by its Cartesian coordinates, as functions of time, and the Cartesian components of its velocity are the derivatives of such coordinates. The Cartesian representation (9.5) might suggest that ω might be represented in a similar way. The issue is then whether there exist scalar functions fi(θ, φ, ψ), i = 1, 2, 3, of the Euler angles such that setting
+
+w = f1(θ, φ, ψ)e1 + f2(θ, φ, ψ)e2 + f3(θ, φ, ψ)e3,
+
+one might compute ω = w ̇ , i.e., ωi = ̇fi(θ, φ, ψ) = ∂fi ∂θ ̇ θ + ∂fi ∂φ φ ̇ + ∂fi ∂ψ ψ, i ̇ = 1, 2, 3. From the first component of ω given by (9.5), it follows that
+
+∂f1 ∂ψ = sin θ sin φ, ∂f1 ∂θ = cosφ.
+
+Take the θ-derivative of the first and the ψ-derivative of the second to get
+
+∂2f1 ∂ψ∂θ = cos θ sinφ, ∂2f1 ∂ψ∂θ = 0.
+
+Therefore no such functions fi exist. The vector ω is said to be a nonintegrable combination of the rotation parameters, and the components of ω in (9.5) are called pseudocoordinates. 10c Fixed and Moving Axodes 10.1c Cone with Fixed Vertex and Rolling without Slipping The vertex O of a right circular cone of height h, opening 2α, and radius R is fixed on a vertical axis at distance 0 ≤ d ≤ √R2 + h2 from a horizontal plane π, whereas the base of the cone rolls without slipping on π as in Figure 10.1c, with instantaneous contact point C. Let Ω be the projection of O on π, and denote by φ the angle between a fixed direction on π and C − Ω. Identify the axodes and write down the expression of ω in terms of ̇φ.
+
+Choose a fixed triad S with origin at the vertex of the cone and u3 di- rected as Q − O, and denote by θ the angle between (C − O) and −e3. The
+
+instantaneous velocity of C as transported by the rigid motion of S is zero. Therefore C is on the axis of instantaneous rotation. Since O is fixed, it also is on such an axis. Thus the axodes are cones with vertex at O generated by
+
+26 1 GEOMETRY OF MOTION
+
+!
+
+'
+
+e2
+
+e1
+
+e3
+
+d O
+
+Q C
+
+Ω
+
+Fig. 10.1c.
+
+the lines through O and C. For every value of d, the moving axode GS is the cone with vertex at O and aperture 2α. The fixed axode GΣ is the cone with vertex at O and aperture 2θ. If d = 0, the axode GΣ degenerates into the plane π through Ω = O, and if d = √R2 + h2, it degenerates into the vertical axis through O. The vector ω is directed as O − C, and by (6.1), Q ̇ = ω ∧ (Q − O). The trajectory of Q is the circle of radius h sin (α + θ) on the fixed plane y3 = d − h cos(α + θ), and its angular velocity is ̇φe3. Therefore Q ̇ = ̇φh sin (α + θ)(− sinφe1 + cosφe2) = ωsign{φ ̇}h sinα(− sin φe1 + cosφe2), ω = \|φ ̇\|(cos θ + sin θ cotα).
+
+From these, ω = −ω sign{φ ̇} \[sin θ(cos φe1 + sin φe2) − cos θe3\] = −φ ̇(sin θ + cos θ cotα) \[sin θ(cosφe1 + sin φe2) − cos θe3\] . If d = 0, then θ = 1
+
+2π and ω = −φ ̇ C−Ω \|C−Ω\| . If d = √ R2 + h2, then θ = 0 and
+
+ω = ̇φ cot αe3. 10.2c Cylinder Rolling without Slipping Consider the rigid motion of characteristics v(O) = ve1 and ω = (v/ρ)e2, where v and ρ are given positive constants. If initially O = (0, 0, ρ), one has O(t)=(vt, 0, ρ). From (7.4), or equivalently (10.1), written in Σ, a point P on the axis of motion has coordinates y1(t; λ) = vt, y2(t; λ) = λv ρ , y3(t; λ)=0.
+
+11c Plane Rigid Motions 27
+
+! O= Ω '
+
+e2
+
+e1
+
+e3
+
+Q C Fig. 10.2c.
+
+Therefore μ(ω) is represented in Σ as the line through (vt, 0, 0), in the plane y3 = 0, and parallel to the coordinate axis y2. The fixed axode GΣ is the plane y3 = 0 regarded as the union of lines parallel to e2. The moving triad is taken with origin at O and u2 = e2, u3 = sin ωte1 + cos ωte3, u1 = u2 ∧ u3, ω = v ρ .
+
+Expressing (7.4), or equivalently (10.1), in S gives P(t; λ) = ρ(e2 ∧ e1) + λωe2 = ρ sin ωtu1 + λωu2 − ρ cos ωtu3.
+
+The axis μ(ω) is parallel to u2 and goes through ρ(sin ωt, 0, − cosωt). There- fore the moving axode GS is the cylinder x2
+
+1 + x2 3 = ρ2. For P ∈ μ(ω),
+
+vS (P) = v(cos ωtu1 + sinωtu3) = ve1. Therefore the vectorial invariant I(ω) is zeroand the cylinder x2 1 + x2 3 = ρ2
+
+rolls without sliding on the plane y3 = 0. 11c Plane Rigid Motions 11.1c Parametric Equations of Fixed and Moving Centrodes The triad S = {O; u1, u2, u3} moves with plane rigid motion with respect to Σ = {Ω; e1, e2, e3} with e3 = u3. Denote by θ the angle between e1 and u1 and set ω = ̇ θe3. Then u1 = cos θe1 + sin θe2, u2 = − sin θe1 + cos θe2,
+
+e1 = cos θu1 − sin θu2, e2 = sin θu1 + cos θu2.
+
+28 1 GEOMETRY OF MOTION
+
+Ω
+
+O x1
+
+y1 x3
+
+!
+
+y3
+
+y2
+
+x2
+
+1(!) Fig. 10.3c.
+
+Denote by
+
+O = yo,1e1 + yo,2e2, v(O)= ̇yo,1e1 + ̇yo,2e2, the positions and velocity of O in Σ. Writing (11.1) in Σ yields
+
+C = (yo,1, yo,2) + 1 ̇ θ (−y ̇o,2, y ̇o,1). (11.1c)
+
+These are the time-parametric equations of the fixed centrode Γπ. If the tra- jectory of O is known in terms of θ, i.e., θ →
+
+ηo,1(θ), ηo,2(θ) , then
+
+1 ̇ θ d dt
+
+yo,1(t), yo,2(t) = d dθ
+
+ηo,1(θ), ηo,2(θ) . Substituting these in (11.1c) gives the equations of Γπ in terms of θ:
+
+η1(θ) = ηo,1(θ) − η o,2(θ), η2(θ) = ηo,2(θ) + η
+
+o,1(θ). (11.2c)
+
+For the equation of the moving centrode Γp compute
+
+O ̇ = ̇yo,1(cos θu1 − sin θu2)+ ̇yo,2(sin θu1 + cos θu2). Writing (11.1) in S and taking into account that O ≡ 0 in S, one gets C = 1 ̇ θ ( ̇yo,1 sin θ − y ̇o,2 cos θ)u1 + 1 ̇ θ ( ̇yo,1 cos θ + ̇yo,2 sin θ)u2. (11.3c)
+
+These are the time-parametric equations of the moving centrode. If the trajec- tory of the origin of S is known as a function of the parameter θ, one obtains
+
+from (11.3c) the parametric equations of Γp in terms of θ only:
+
+ξ1(θ) = sin θ η
+
+o,1(θ) − cos θ η o,2(θ),
+
+ξ2(θ) = cos θ η
+
+o,1(θ) + sin θ η
+
+o,2(θ). (11.4c) Thus if the trajectory of O is known in Σ as a function of θ, then fixed and moving centrodes can be regarded as geometric curves independent of motion.
+
+11c Plane Rigid Motions 29
+
+11.2c Centrodes for Hypocycloidal Motions A right circular cylinder of center O and radius ρ rolls without slipping in the cavity of a right circular cylinder of center Ω and radius R \> 2ρ. A normal cross section is as in Figure 11.1c. Denote by P a point fixed on the moving circle, by Po a point fixed on the fixed circle, and by C the contact point between the two circles. Set also φ = P
+
+oΩC and θ = COP -. Find a relation
+
+between ̇φ and ̇
+
+θ and write down the parametric equations of fixed and moving centrodes in terms of t and in terms of θ. Compute the acceleration of P. For a hypocycloidal motion, compute geometrically and analytically fixed and moving centrodes.
+
+P O μ C 1⁄2 Ω
+
+Po '
+
+Fig. 11.1c.
+
+11.3c The Cardano Device A rigid rod of length 2ρ moves with its extremities A and B constrained on the axes of a Cartesian system with origin in Ω, as in Figure 11.2c. Compute fixed and moving centrodes, geometrically and analytically. The trajectories of A and B are the coordinate axes y2 = 0 and y1 = 0. Therefore by Chasles’s theorem, the center C is at the intersections of the normals to the coordinate axes through A and B. The angleACB is a right angle and the triangle ABC can be inscribed in a semicircumference of radius ρ. It follows that the moving centrode is the circle of diameter AB. Moreover, the distance ΩC equals 2ρ for all positions of C. Thus the fixed centrode is the circle centered at Ω and radius 2ρ. Introduce fixed and moving triads Σ and S as in Figure 11.2c. Then
+
+ηo,1 = 2ρ sin θ, ηo,2 ≡ 0.
+
+Therefore from (11.2c), the parametric equations of Γπ in terms of θ are
+
+η1 = 2ρ sin θ, η2 = 2ρ cos θ.
+
+30 1 GEOMETRY OF MOTION From (11.4c) one obtains the parametric equations of the moving centrode Γp in terms of θ,
+
+ξ1 = 2ρ sin θ cos θ, ξ2 = 2ρ cos2 θ,
+
+whose Cartesian form is ξ2 1 + (ξ2 − ρ) 2 = ρ2.
+
+By construction, the circle of radius ρ, fixed with S, rolls without slipping in the interior of the fixed circle centered at Ω and of radius 2ρ. Therefore the Cardano device generates and is generated by a hypocycloidal motion.
+
+P B C
+
+A=O y1 x1
+
+y2 x2
+
+μ
+
+Ω
+
+Fig. 11.2c.
+
+Theorem 11.1c (Cardano \[18, 19\]). Every point of the moving centrode traces a diameter of the fixed centrode. Proof. The velocity of a point P on the moving centrode is by Chasles’s
+
+theorem normal to P − C. Since the triangle ΩPC is inscribed in a semicir- cle, the direction of the velocity of P goes through Ω at all times. Thus
+
+the trajectory of P is a curve whose tangent at each of its points goes through Ω. 11.4c More on the Cardano Device Every hypocycloidal motion can be realized as the motion of a rigid rod with extremities constrained on two intersecting, not necessarily orthogonal, guides. As an example consider a rigid rod of length 2ρ moving with its extremities A and B constrained on two axes forming an angle α ∈ (0, 1
+
+2π\]. Prove, geomet- rically and analytically, that (a) the moving centrode is the circle through Ω,
+
+11c Plane Rigid Motions 31 A, and B, and radius /2 sinα; (b) the fixed centrode is the circle of center Ω and radius / sinα; (c) every point of the moving centrode traces a diameter of the fixed centrode (see also §3.4.1c of the Complements of Chapter 5). For the Cardano device (α = 1
+
+2π) prove that every point of the rod traces an ellipse, possibly degenerate. Prove that the same conclusion holds for α ∈ (0, 1 2π).
+
+2 CONSTRAINTS AND LAGRANGIAN COORDINATES
+
+1 Constrained Trajectories Constraints are limitations imposed on the geometrical or kinematic configuration of a mechanical system. For example, in a rigid motion any two points are required to be at constant mutual distance. This is a rigidity constraint. A system with one of its points constrained on a surface is an example of a constrained mechanical system. Assume that a point P moves, being constrained to a surface S ⊂ R3. Such a surface can be represented, at least locally, as the level set of a regular function f defined in a domain G ⊂ R3, i.e., S = {P \[f(P) = 0\] and ∇f(P) \> 0}, P ∈ G. (1.1) By the implicit function theorem, one of the coordinates, say for example x3,
+
+P(t)
+
+\[f = 0\]
+
+Fig. 1.1.
+
+may be represented explicitly in terms of the remaining two. This provides a local parameterization of S in terms of (x1, x2). Such a parameterization is not unique. Indeed, choosing any pair of parameters q = (q1, q2), the surface S can be represented, at least locally, by S = ⎧ ⎨ ⎩ x1 = x1(q1, q2), x2 = x2(q1, q2), x3 = x3
+
+x1(q), x2(q) , provided det ∂(x1, x2) ∂(q1, q2) = 0.
+
+E. DiBenedetto, Classical Mechanics: Theory and Mathematical Modeling, 33 Cornerstones, DOI 10.1007/978-0-8176-4648-6 2, c Springer Science+Business Media, LLC 2011
+
+34 2 CONSTRAINTS AND LAGRANGIAN COORDINATES If P moves on S, the Cartesian representation of its motion is determined by the function of time t → q(t) = q1(t), q2(t)
+
+, through the composition
+
+P(q) = x1(q), x2(q), x3(q) .
+
+Conversely, the Cartesian representation t → P(t) of the motion of P permits one, by inversion, to determine t → q(t). The velocity of P is given by
+
+P ̇ = dP ∂qh q ̇h = ∇qP · q. ̇
+
+The parameters q = (q1, q2) are the Lagrangian coordinates, whereas ̇q = ( ̇q1, q ̇2) are the Lagrangian velocities of P \[101\]. The system has two degrees of freedom. Assume now that P is constrained on a regular curve γ ⊂ R3.
+
+P(t)
+
+\[f1 = 0\] \[f2 = 0\]
+
+Fig. 1.2.
+
+Such a curve can be represented, at least locally, as the intersection of the level sets of two smooth functions f1 and f2 defined in a domain G ⊂ R3, i.e.,
+
+γ = P \[f1(P) = 0\] ∩ \[f2(P) = 0\] (∇f1, ∇f2) of rank 2
+
+, P ∈ G. (1.2) Then, at least locally, two of the coordinate variables, say for example x2 and x3, can be represented explicitly in terms of x1. This provides a local parametric representation of γ in terms of the parameter x1. At times it might be more convenient to introduce directly a parameter q and parameterize γ as q → P(q). Such a parameterization can be recast, at least locally, in terms of x1, or any other parameter, provided P
+
+(q) 
+
+    > 0, which we assume. The geometric trajectory of P is γ, and the motion is determined by the function of time t → q(t). The velocity is P ̇ = (dP/dq) ̇q. The parameter q is the
+
+2 Constrained Mechanical Systems 35 Lagrangian coordinate of P, whereas ̇q is its Lagrangian velocity. A moving point P constrained on γ has one degree of freedom.
+
+The choice of the Lagrangian coordinates is not unique. In the applica- tions it often occurs that one may introduce them directly, as suggested by
+
+the mechanical problem at hand, with no reference to the Cartesian repre- sentations of the constraints. The constraints in (1.1)–(1.2) are independent
+
+of time and are called fixed or workless. It is conceivable that P might move on a surface, or a curve, itself depending on time. As an example consider a point P moving in a horizontal plane x3 = 0 and constrained by x1 sin ωt − x2 cos ωt = 0, ω ∈ R.
+
+This is a time-dependent restriction on the configurations of P. For a fixed t, the constraint is a straight line. As t changes, the constraint contributes to the determination of the geometric trajectory and the time-law of motion. Taking q = P − O as Lagrangian coordinate, we have P(q;t)=(q cos ωt, q sin ωt).
+
+Therefore the position of P depends on q, and explicitly also on time. By differentiation,
+
+P ̇ = dP dq q ̇ + ∂P ∂t .
+
+The first of these vectors is the velocity of P on the constraint as if the constraint were independent of time. The second is the transport velocity due to the movement of the constraint. Constraints of this kind are moving. 2 Constrained Mechanical Systems Consider n points P = (x,1, x,2, x,3), = 1,...,n, subject to m constraints fj(P1,...,Pn;t)=0, j = 1, . . . , m, (2.1) where fj are m smooth functions of their arguments. They are defined in G× I, where G is an open subset of R3n and I is an interval of R. We assume that
+
+S(t) = m j=1 \[fj (·;t) = 0\] = ∅ for all t ∈ I
+
+and that for all P ∈ S(t), the Jacobian matrix
+
+∂fj (P;t) ∂x,1 ∂fj(P;t) ∂x,2 ∂fj(P;t) ∂x,3
+
+(2.2) has maximum rank for all t ∈ I. For example, if m \< 3n, such a matrix has rank m and the system has 3n − m degrees of freedom. This defines, at least
+
+36 2 CONSTRAINTS AND LAGRANGIAN COORDINATES locally, a (3n − m)-dimensional moving manifold S(t). Such a manifold can be parameterized, for all t ∈ I, in terms of 3n − m Lagrangian coordinates q ∈ R3n−m, i.e., S(t) P = P(q;t) rank of ∂P ∂q
+
+= 3n − m ∀t ∈ I. If the points P move on their constraints, their motion is determined by the 3n − m functions t → q(t). Their velocity is
+
+P ̇ = ∂P ∂qh q ̇h + ∂P ∂t .
+
+The first is the instantaneous velocity of P as moving on S(t), as if this surface were instantaneously fixed. The second is the velocity of transport of the constraint S(t). The constraints in (2.1) are in general moving constraints. If they do not depend on time, they are fixed, or workless. In such a case S and its parameterization, in terms of Lagrangian coordinates, are independent of t. The points P = P(q) are represented only in terms of q and have no explicit dependence on time. Therefore
+
+∂P ∂t = 0 and P ̇ = ∂P ∂qh q ̇h (fixed constraints).
+
+2.1 Actual and Virtual Displacements An elemental displacement of the n points P,
+
+P1,...,Pn;t −→ P1 + dP1,...,Pn + dPn;t + dt ,
+
+is said to be actual or admissible if it is compatible with the constraints in (2.1) along their time evolutions, i.e.,
+
+fj (P1,...,Pn;t)=0, fj (P1 + dP1,...,Pn + dPn;t + dt
+
+= 0, j = 1, . . . , m.
+
+From these we obtain dfj = ∂fj ∂P dP + ∂fj ∂t dt = 0, j = 1, . . . , m. (2.3)
+
+An elemental displacement of the n points P of the form (P1,...,Pn;t) −→ (P1 + δP1,...,Pn + δPn;t)
+
+is said to be virtual if it is compatible with the constraints (2.1) regarded as fixed at time t, i.e.,
+
+fj(P1,...,Pn;t)=0,
+
+fj (P1 + δP1,...,Pn + δPn;t)=0, j = 1, . . . , m.
+
+2 Constrained Mechanical Systems 37
+
+These imply ∂fj ∂P · δP = ∇P fj · δP = 0, j = 1, . . . , m, (2.4) where the symbol δ denotes an elemental virtual differential. If the constraints in (2.1) are fixed, then virtual and actual displacements coincide. 2.2 Holonomic Constraints A constraint, fixed or moving, is holonomic if it imposes restrictions only on the geometrical configuration of the points P, and imposes no restriction on their time variations P ̇
+
+, P ̈, etc. The constraints in (2.1) are holonomic.
+
+Consider two configurations E = (P1,...,Pn;t) and E = (P 1,...,P n;t
+
+) of the n points P. These are compatible with the constraints (2.1) if they both satisfy the equations of the constraints. However, no restriction is placed on the displacements of the system needed to move E into E
+
+. For this reason,
+
+constraints of the type of (2.1), moving or fixed, are called also configura- tional constraints. A constraint that would impose restrictions on how E has
+
+to move into E is not holonomic. For example, a constraint that would im- pose restrictions of the curvature of the trajectories of the points P is not
+
+holonomic. 2.3 Unilateral Constraints A point P = (x1, x2, x3) subject to the limitation x3 ≥ x2 1 + x2 2 is constrained
+
+to move within a paraboloid, possibly up to its boundary. Similarly, the con- straint P ≤ 1 forces P to move within the unit ball about the origin of R3,
+
+possibly up to its boundary. Let f ∈ C1(G) be such that ∇f \> 0 in G. A point P is said to be subject to a unilateral constraint if it is required to satisfy f(P) ≤ 0. If P is in the open set \[f \< 0\], its elemental displacements δP, starting at P, are unrestricted. Suppose now that P ∈ \[f = 0\] and undergoes an elemental displacement δP, starting from this configuration. Since ∇f(P) points outside the set \[f ≤ 0\], the displacement δP will be compatible with the constraint only if the angle between ∇f and δP is right or obtuse. Therefore elemental displacements δP from boundary configurations P ∈ \[f = 0\] are admissible only if ∇f(P) · δP ≤ 0. It follows that elemental displacements of a point P subject to a unilateral constraint are, in general, not reversible. A system of n points P is subject to a unilateral constraint if {P1,...,Pn} ∈ m j=1 fj ≤ 0 , fj ∈ C1(G × I).
+
+It is assumed that such an intersection is not empty and that (2.2) is in force. If a point P is in the interior of its constraint then its elemental displacements δP are unrestricted. If P belongs to one of the surfaces \[fj = 0\], its virtual displacements δP must satisfy ∇fj · δP ≤ 0.
+
+38 2 CONSTRAINTS AND LAGRANGIAN COORDINATES 3 Intrinsic Metrics and First Fundamental Form A surface S ⊂ R3 is the image of a smooth vector-valued function
+
+G (u, v) −→ P(u, v) =
+
+x1(u, v), x2(u, v), x3(u, v) , defined in a connected open set G ⊂ R2, such that the matrix
+
+⎛ ⎜⎜⎜⎝ ∂P ∂u ∂P ∂v ⎞ ⎟⎟⎟⎠ = ⎛ ⎜⎜⎜⎝ ∂x1 ∂u ∂x2 ∂u ∂x3 ∂u ∂x1 ∂v ∂x2 ∂v ∂x3 ∂v ⎞ ⎟⎟⎟⎠
+
+has maximum rank. Set A = ∂P ∂u 2 = ∂P ∂u · ∂P ∂u = 3 i=1 ∂xi ∂u 2 ,
+
+B = ∂P ∂u · ∂P ∂v = 3 i=1 ∂xi ∂u ∂xi ∂v ,
+
+C = ∂P ∂v 2 = ∂P ∂v · ∂P ∂v = 3 i=1 ∂xi ∂v 2 ,
+
+and consider the quadratic form
+
+ξ η A B B C ξ η = Aξ2 + 2Bξη + Cη2 = 1 A (Aξ + Bη) 2 + (AC − B2)η2 , (3.1)
+
+where (ξ,η) ∈ R2 is arbitrary. By the Cauchy inequality, AC − B2 ≥ 0. Therefore the quadratic form in (3.1) is positive definite. It is called the first fundamental form of the surface S. An elemental variation (du, dv) of the parameters (u, v) induces an infinitesimal variation dP on S, whose modulus is
+
+(ds) 2 = dP · dP = ∂P ∂u du + ∂P ∂v dv 2
+
+= A(du) 2 + 2Bdudv + C(dv) 2.
+
+(3.2) This is the intrinsic metric on S. It is intrinsic, since it depends only on the geometry of S, and it is independent of its parameterization (see §3c of the Complements). To a regular curve γ ⊂ G, parameterized by t, there corresponds a curve Γγ ⊂ S by the correspondence γ = t → u(t), v(t) ⇐⇒ Γγ = t → P
+
+u(t), v(t) . (3.3)
+
+4 Geodesics 39 If the elemental variation (du, dv) occurs along γ, (3.2) gives an elemental arc length on the corresponding Γγ. If γ is parameterized by v or respectively by u, the elemental arc length of Γγ is computed from (3.2) as
+
+u
+
+x1 x3 x2 Γ° P(u;v)
+
+° v
+
+Fig. 3.1. ds = A(du)2 + 2Bdudv + C(dv)2 =
+
+A du dv 2 + 2B du dv + C dv
+
+=
+
+A + 2B dv du + C dv du 2 du.
+
+(3.4)
+
+4 Geodesics Consider now those curves in G for which one of the two parameters is fixed: γu = {u → (u, vo), vo = const} ⇐⇒ Γu = {u → P(u, vo)} , γv = {v → (uo, v), uo = const} ⇐⇒ Γv = {v → P(uo, v)} . The vector ∂P/∂u is tangent to Γu and ∂P/∂v is tangent to Γv. These two
+
+vectors are linearly independent, since the matrix (∂P/∂u, ∂P/∂v) has maxi- mum rank. They permit one to compute the elemental area dσ on S and its
+
+normal unit vector ν by the formulas
+
+dσ = ∂P ∂u ∧ ∂P ∂v du dv, ν = ∂P ∂u ∧ ∂P ∂v ∂P ∂u ∧ ∂P ∂v .
+
+A curve Γγ ⊂ S is a geodesic if its normal n is parallel to ν at any of its points, i.e., if n ∧ ν = 0. This occurs if
+
+n · ∂P ∂u = 0 and n · ∂P ∂v = 0.
+
+40 2 CONSTRAINTS AND LAGRANGIAN COORDINATES If Γγ is parameterized as in (3.3), set Δ = Au ̇ 2 + 2Bu ̇v ̇ + Cv ̇ 2 = ̇s2. Then the unit tangent t and the unit normal n to Γγ are t = 1 √ Δ ∂P ∂u u ̇ + ∂P ∂v v ̇ , κn = d dt ! 1 √ Δ ∂P ∂u u ̇ + ∂P ∂v v ̇ " dt ds . Imposing now that n be normal to ∂P/∂u and discarding the factor dt/ds gives 0 = ∂P ∂u d dt ! 1 √ Δ ∂P ∂u u ̇ + ∂P ∂v v ̇ "
+
+= d dt \# 1 √ Δ ∂P ∂u 2 u ̇ + ∂P ∂u ∂P ∂v v ̇ \$ − 1 √ Δ ∂P ∂u u ̇ + ∂P ∂v v ̇ d dt ∂P ∂u
+
+= d dt ! 1 √ Δ (Au ̇ + Bv ̇) " − 1 √ Δ ∂P ∂u ∂2P ∂u2 u ̇ 2 + ∂P ∂v ∂2P ∂u2 u ̇v ̇
+
+− 1 √ Δ ∂P ∂u ∂2P ∂u∂vu ̇v ̇ + ∂P ∂v ∂2P ∂u∂v v ̇ 2
+
+= d dt ∂ ∂u ̇ √ Δ − 1 2 √ Δ ∂A ∂u u ̇ 2 + 2∂B ∂u u ̇v ̇ + ∂C ∂u v ̇ 2
+
+= d dt ∂ ∂u ̇ √ Δ − ∂ ∂u √ Δ.
+
+Proposition 4.1 A curve Γγ ⊂ S parameterized as in (3.3) is a geodesic
+
+if and only if the functions t → u(t), v(t) are solutions of the system of second- order differential equations
+
+d dt ∂ ∂u ̇ √ Δ − ∂ ∂u √ Δ = 0, d dt ∂ ∂v ̇ √ Δ − ∂ ∂v √ Δ = 0. (4.1) These may be rewritten in terms of u or v taken as local parameters. For example, taking u as local parameter, one may express locally v = v(u) as a function of u. Then the second equality of (4.1) takes the form
+
+d du ∂ ∂v √ Δ − ∂ ∂v √ Δ = 0. (4.2)
+
+Remark 4.1 The same equations arise by regarding the geodesics as the curves of least path on S between any two of its points (§1.4c of Chapter 9).
+
+5 Examples of Geodesics 41
+
+5 Examples of Geodesics 5.1 Geodesics in a Plane Let S be the plane of equation aixi = b. Assuming a3 = 0, we may take u = x1 and v = x2 and compute A = a2 1 + a2 3 a2 3 , B = a1a2 a2 3 , C = a2 2 + a2 3 a2 3 .
+
+In view of (4.2), the problem reduces to solving
+
+d du Cv + B √A + 2Bv + Cv2 = 0,
+
+which implies v = 0. Therefore the geodesics in a plane are line segments. 5.2 Geodesics on a Sphere
+
+From the parameterization of the sphere of radius R in terms of polar coor- dinates, we have
+
+A = R2 sin2 v, B = 0, C = R2; Δ = R2
+
+sin2 v + v2 . Therefore, by (4.2), the geodesics v = v(u) on a sphere are solutions of
+
+d du v sin2 v + v2 − sin v cos v sin2 v + v2 = 0. Multiplying by v and performing elementary manipulations yields
+
+d du % v2 sin2 v + v2 −
+
+sin2 v + v2 & = 0.
+
+It follows that for a constant c ∈ (0, 1), u(v) = c dv sin4 v − c2 sin2 v = 1 sin2 v dv 1−c2 c2 − cot2 v
+
+= − arcsin c √1 − c2 cot v + ̄c.
+
+This finally implies (sin ̄c)R sin v cos u − (cos ̄c)R sin v sin u = c √ 1 − c2 R cos v. Therefore the geodesics are the intersection of the sphere with the planes through the origin,
+
+(sin ̄c)x1 − (cos ̄c)x2 = c √1 − c2 x3.
+
+The meridians on a sphere are geodesics, whereas none of the parallels, except the equator, is a geodesic.
+
+42 2 CONSTRAINTS AND LAGRANGIAN COORDINATES 5.3 Geodesics on Surfaces of Revolution If S is a surface of revolution, after a possible rotation and relabeling of the coordinate axes, it can be parameterized as
+
+x1 = u cos v, x2 = u sin v, x3 = f(u). (5.1) Here f is a smooth function of the variable u, and S is interpreted as a
+
+Emmanuele DiBenedetto
+
+Classical Mechanics
+
+Theory and Mathematical Modeling
