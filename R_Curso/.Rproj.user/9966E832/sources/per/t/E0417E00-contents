@@ -260,7 +260,7 @@ While the mode or class of an object can easily be examined through the mode and
 
 Although R is not a true object-oriented language, many functions in R, collectively known as generic functions, will behave diﬀerently depending on the class of their arguments. For a given class, you can ﬁnd out which func- tions will treat the class specially through the methods function. For more information about the object-oriented models in R, see Section 2.5.
 
-### 1.4 Structure of R Objects 
+### 1.4 Structure of R Objects
 
 For simple cases such as vectors, matrices, and data frames, it’s usually straightforward to determine what an object in R contains; examining the class and mode of the object, along with its length or dim attribute, should be suﬃcient to allow you to work eﬀectively with the object. This process can conveniently be carried out for all the objects in a workspace with the ls.str function. However, in some cases, especially with nested lists, it can be diﬃ- cult to understand how information is arranged in the object, and displaying the object in its entirety rarely elucidates the structure in these cases. The fol- lowing examples are artiﬁcial, and have been kept small to reduce space, but they illustrate some strategies for getting an understanding of the structure of data in R.
 
@@ -312,7 +312,7 @@ List of 3
 
 The number of elements displayed for each component is controlled by the vec.len= argument, and can be set to 0 to suppress any values being printed; the depth of levels displayed for each object is controlled by the max.level= argument, which defaults to NA, meaning to display whatever depth of levels is actually encountered in the object.
 
-### 1.5 Conversion of Objects 
+### 1.5 Conversion of Objects
 
 To temporarily change the way an object in R behaves, a variety of conversion routines, each beginning with the string “as.”, are provided. If it makes sense, these functions can be used to create an object equivalent to the one that you’re working with, but which has a diﬀerent mode or class. A simple example involves numbers which are stored as characters. This may occur when data is ﬁrst entered into R, or it may arise as a side eﬀect of some other operation.
 
@@ -364,7 +364,7 @@ The list function creates a list (of length one) containing the argument it was 
 
 One useful conversion that will take place automatically concerns logical variables. When a logical variable is used in a numeric context, each occurrence of TRUE will be treated as 1, while values of FALSE will be treated as 0. Coupled with the vectorization of most functions, this allows many counting operations to be performed easily. For example, to ﬁnd all the values in a vector, x, that are greater than 0, the expression sum(x \> 0) could be used; the number of unequal elements in two matrices a and b could be calculated as sum(a != b).
 
-### 1.6 Missing Values 
+### 1.6 Missing Values
 
 Missing values arise in data for a variety of reasons. The missing values may be part of the original data, or they may arise as part of a computation or conversion that takes place after you’ve read your data into R. In all cases, missing values are treated consistently, and will propagate across any com- putation that involves them, so it’s important to recognize missing values as early as possible when you’re working with data.
 
@@ -372,7 +372,7 @@ The value NA, without quotes, represents a missing value. You can assign a varia
 
 If a missing value occurs as the result of certain computations (for example, division by zero or taking the logarithm of a negative number), it may display as Inf or NaN. While the is.na function will recognize these values as missing, the is.nan function can be used to distinguish this type of missing value from the ordinary NA value.
 
-### 1.7 Working with Missing Values 
+### 1.7 Working with Missing Values
 
 Many of the functions provided with R have arguments that are useful when your data contain missing values. Most of the statistical summary functions (mean, var, sum, min, max, etc.) accept an argument called na.rm=, which can be set to TRUE if you want missing values to be removed before the summary is calculated. For functions that don’t provide such an argument, the negation operator (!) can be used in an expression like x\[!is.na(x)\] to create a vector which contains only the nonmissing values in x.
 

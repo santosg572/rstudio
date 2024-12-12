@@ -3,7 +3,7 @@
     "path": "~/rstudio/R_Curso/data_in_R.qmd",
     "project_path": "data_in_R.qmd",
     "type": "quarto_markdown",
-    "hash": "319487628",
+    "hash": "2009040204",
     "contents": "",
     "dirty": false,
     "created": 1733909128286.0,
@@ -19,14 +19,14 @@
         "rmdVisualCollapsedChunks": "",
         "cursorPosition": "22,0",
         "scrollLine": "0",
-        "rmdVisualModeLocation": "2181:1521.5999755859375"
+        "rmdVisualModeLocation": "2:0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1733921877,
+    "lastKnownWriteTime": 1733997924,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1733921877144,
+    "last_content_update": 1733997924699,
     "read_only": false,
     "read_only_alternatives": []
 }
