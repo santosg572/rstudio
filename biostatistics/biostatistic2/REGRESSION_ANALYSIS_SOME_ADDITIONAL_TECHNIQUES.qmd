@@ -1,0 +1,457 @@
+---
+title: "REGRESSION_ANALYSIS_SOME_ADDITIONAL_TECHNIQUES"
+---
+
+# REGRESSION ANALYSIS: SOME ADDITIONAL TECHNIQUES
+
+## CHAPTER OVERVIEW
+
+This chapter discusses some additional tools and concepts that are useful in regression analysis. The presentation includes expansions of the basic ideas and techniques of regression analysis that were introduced in Chapters 9 and 10.
+
+### TOPICS
+
+11.1 INTRODUCTION
+
+11.2 QUALITATIVE INDEPENDENT VARIABLES
+
+11.3 VARIABLE SELECTION PROCEDURES
+
+11.4 LOGISTIC REGRESSION 11.5 SUMMARY
+
+LEARNING OUTCOMES
+
+After studying this chapter, the student will
+
+1.  understand how to include qualitative variables in a regression analysis.
+2.  understand how to use automated variable selection procedures to develop regression models.
+3.  be able to perform logistic regression for dichotomous and polytomous dependent variables.
+
+### INTRODUCTION
+
+The basic concepts and methodology of regression analysis are covered in Chapters 9 and 10. In Chapter 9 we discuss the situation in which the objective is to obtain an equation that can be used to make predictions and estimates about some dependent variable from knowledge of some other single variable that we call the independent, predictor, or explanatory variable. In Chapter 10 the ideas and techniques learned in Chapter 9 are expanded to cover the situation in which it is believed that the inclusion of information on two or more independent variables will yield a better equation for use in making predictions and estimations. Regression analysis is a complex and pow- erful statistical tool that is widely employed in health sciences research. To do the sub- ject justice requires more space than is available in an introductory statistics textbook. However, for the benefit of those who wish additional coverage of regression analysis, we present in this chapter some additional topics that should prove helpful to the stu- dent and practitioner of statistics.
+
+**Regression Assumptions Revisited** As we learned in Chapters 9 and 10, there are several assumptions underlying the appropriate use of regression procedures. Often there are certain measurements that strongly influence the shape of a distribution or impact the magnitude of the variance of a measured variable. Other times, certain independent variables that are being used to develop a model are highly correlated, lead- ing to the development of a model that may not be unique or correct.
+
+**Non-Normal Data** Many times the data that are used to build a regression model are not normally distributed. One may wish to explore the possibility that some of the observed data points are outliers or that they disproportionately affect the distribution of the data. Such an investigation may be accomplished informally by constructing a scatter plot and looking for observations that do not seem to fit with the others. Alternatively, many computer packages produce formal tests to evaluate potential outlying observations in either the dependent variable or the independent variables. It is always up to the researcher, however, to justify which observations are to be removed from the data set prior to analysis.
+
+Often one may wish to attempt a transformation of the data. Mathematical trans- formations are useful because they do not affect the underlying relationships among variables. Since hypothesis tests for the regression coefficients are based on normal dis- tribution statistics, data transformations can sometimes normalize the data to the extent necessary to perform such tests. Simple transformations, such as taking the square root of measurements or taking the logarithm of measurements, are quite common.
+
+**EXAMPLE 11.1.1**
+
+Researchers were interested in blood concentrations of delta-9-tetrahydrocannabinol ()-9-THC), the active psychotropic component in marijuana, from 25 research subjects. These data are presented in Table 11.1.1, as are these same data after using a $log_{10}$ trans- formation.
+
+**Unequal Error Variances** When the variances of the error terms are not equal, we may obtain a satisfactory equation for the model, but, because the assumption that the error variances are equal is violated, we will not be able to perform appropriate hypothesis tests on the model coefficients. Just as was the case in overcoming the non-normality problem, transformations of the regression variables may reduce the impact of unequal error variances.
+
+**Correlated Independent Variables** Multicollinearity is a common problem that arises when one attempts to build a model using many independent variables. Multicollinearity occurs when there is a high degree of correlation among the independent variables. For example, imagine that we want to find an equation relating height and weight to blood pressure. A common variable that is derived from height and weight is called the body mass index (BMI). If we attempt to find an equation relating height, weight, and BMI to blood pressure, we can expect to run into analytical problems because BMI, by definition, is highly correlated with both height and weight.
+
+The problem arises mathematically when the solutions for the regression coefficients are derived. Since the data are correlated, solutions may not be found that are unique to a given model. The least complex solution to multicollinearity is to calculate correlations among all of the independent variables and to retain only those variables that are not highly correlated. A conservative rule of thumb to remove redundancy in the data set is to elim- inate variables that are related to others with a significant correlation coefficient above 0.7.
+
+**EXAMPLE 11.1.2**
+
+A study of obesity and metabolic syndrome used data collected from 15 students, and included systolic blood pressure (SBP), weight, and BMI. These data are presented in Table 11.1.2.
+
+Correlations for the three variables are shown in Figure 11.1.2. The very large and significant correlation between the variables weight and BMI suggests that including both of these variables in the model is inappropriate because of the high level of redundancy in the information provided by these variables. This makes logical sense since BMI is a function of weight. The researcher is now faced with the task of deciding which of the variables to retain for constructing the regression model.
+
+### 11.2 QUALITATIVE INDEPENDENT VARIABLES
+
+The independent variables considered in the discussion in Chapter 10 were all quantita- tive; that is, they yielded numerical values that were either counts or measurements in the usual sense of the word. For example, some of the independent variables used in our examples and exercises were age, education level, collagen porosity, and collagen ten- sile strength. Frequently, however, it is desirable to use one or more qualitative variables as independent variables in the regression model. Qualitative variables, it will be recalled, are those variables whose “values” are categories and that convey the concept of attrib- ute rather than amount or quantity. The variable marital status, for example, is a quali- tative variable whose categories are “single,” “married,” “widowed,” and “divorced.” Other examples of qualitative variables include sex (male or female), diagnosis, race, occupation, and immunity status to some disease. In certain situations an investigator may suspect that including one or more variables such as these in the regression equa- tion would contribute significantly to the reduction of the error sum of squares and thereby provide more precise estimates of the parameters of interest.
+
+Suppose, for example, that we are studying the relationship between the dependent variable systolic blood pressure and the independent variables weight and age. We might also want to include the qualitative variable sex as one of the independent variables. Or suppose we wish to gain insight into the nature of the relationship between lung capac- ity and other relevant variables. Candidates for inclusion in the model might consist of such quantitative variables as height, weight, and age, as well as qualitative vari- ables such as sex, area of residence (urban, suburban, rural), and smoking status (cur- rent smoker, ex-smoker, never smoked).
+
+**Dummy Variables** In order to incorporate a qualitative independent variable in the multiple regression model, it must be quantified in some manner. This may be accomplished through the use of what are known as dummy variables.
+
+**DEFINITION**
+
+*A dummy variable is a variable that assumes only a finite number of values (such as 0 or 1) for the purpose of identifying the different cate- gories of a qualitative variable.*
+
+The term “**dummy**” is used to indicate the fact that the numerical values (such as 0 and 1) assumed by the variable have no quantitative meaning but are used merely to identify different categories of the qualitative variable under consideration. Qualitative variables are sometimes called indicator variables, and when there are only two cate- gories, they are sometimes called dichotomous variables.
+
+The following are some examples of qualitative variables and the dummy variables used to quantify them:
+
+Note in these examples that when the qualitative variable has k categories, k - 1 dummy variables must be defined for all the categories to be properly coded. This rule is applicable for any multiple regression containing an intercept constant. The variable sex, with two categories, can be quantified by the use of only one dummy variable, while three dummy variables are required to quantify the variable smoking status, which has four categories.
+
+The following examples illustrate some of the uses of qualitative variables in mul- tiple regression. In the first example we assume that there is no interaction between the independent variables. Since the assumption of no interaction is not realistic in many instances, we illustrate, in the second example, the analysis that is appropriate when inter- action between variables is accounted for.
+
+**EXAMPLE 11.2.1**
+
+In a study of factors thought to be associated with birth weight, a simple random sample of 100 birth records was selected from the North Carolina 2001 Birth Registry (A-1). Table 11.2.1 shows, for three variables, the data extracted from each record. There are two independent variables: length of gestation (weeks), which is quantitative, and smok- ing status of mother (smoke), a qualitative variable. The dependent variable is birth weight (grams).
+
+**Solution:**
+
+For the analysis, we quantify smoking status by means of a dummy vari- able that is coded 1 if the mother is a smoker and 0 if she is a nonsmoker. The data in Table 11.2.1 are plotted as a scatter diagram in Figure 11.2.1. The scatter diagram suggests that, in general, longer periods of gestation are associated with larger birth weights.
+
+To obtain additional insight into the nature of these data, we may enter them into a computer and employ an appropriate program to perform fur- ther analyses. For example, we enter the observations $y_1 = 3147, x_{11} = 40, x_{21} = 0$, for the first case; y2 = 2977, x 12 = 41, x 22 = 0 for the second case; and so on. Figure 11.2.2 shows the computer output obtained with the use of the MINITAB multiple regression program.
+
+We see in the printout that the multiple regression equation is
+
+yN j = bN 0 + bN 1x 1j + bN 2 x 2j yN j = -1724 + 130x 1j - 294bN 2x 2j
+
+$$
+\hat{y}_j = \hat{\beta}_0 + \hat{\beta}_1 x_{ 1j} + \hat{\beta}_2 x_{2j} \\
+ \hat{y}_j = -1724 + 130 x_{1j} - 294 \hat{\beta}_2 x_{2j}
+$$
+
+(11.2.1)
+
+To observe the effect on this equation when we wish to consider only the births to smoking mothers, we let $x_{2j} = 1$. The equation then becomes
+
+$$
+\hat{y}_j = -1724 + 130 x_{1j} - 294(1) \\
+ = -2018 + 130 x_{1j}
+$$
+
+(11.2.2)
+
+which has a $y$ -intercept of -2018 and a slope of 130. Note that the $y$-intercept for the new equation is equal to $(\hat{\beta}_0 + \hat{\beta}_1) = [-1724 + (-294)] = -2018$.
+
+Now let us consider only births to nonsmoking mothers. When we let $x_2 = 0$, our regression equation reduces to
+
+$$
+\hat{y}_j = -1724 + 130 x_{1j} - 294(0) \\
+= -1724 + 130 x_{1j}
+$$
+
+(11.2.3)
+
+The slope of this equation is the same as the slope of the equation for smoking mothers, but the y-intercepts are different. The $y$-intercept for the equation associated with nonsmoking mothers is larger than the one for the smoking mothers. These results show that for this sample, babies born to mothers who do not smoke weighed, on the average, more than babies born to mothers who do smoke, when length of gestation is taken into account. The amount of the difference, on the average, is 294 grams. Stated another way, we can say that for this sample, babies born to mothers who smoke weighed, on the average, 294 grams less than the babies born to mothers who do not smoke, when length of gestation is taken into account. Figure 11.2.3 shows the scatter diagram of the original data along with a plot of the two regression lines (Equations 11.2.2 and 11.2.3).
+
+**EXAMPLE 11.2.2**
+
+At this point a question arises regarding what inferences we can make about the sam- pled population on the basis of the sample results obtained in Example 11.2.1. First of all, we wish to know if the sample difference of 294 grams is significant. In other words, does smoking have an effect on birth weight? We may answer this question through the following hypothesis testing procedure.
+
+**Solution:**
+
+1.  **Data**. The data are as given in Example 11.2.1.
+
+2.  **Assumptions**. We presume that the assumptions underlying multiple regression analysis are met.
+
+3.  **Hypotheses**. $H_0 : \beta_2 = 0; H_A : \beta_2 \neq  0$. Suppose we let $\alpha = .05$.
+
+4.  **Test statistic**. The test statistic is $t = (\hat{\beta}_2 - 0)/s_{\hat{\beta}_2}$
+
+5.  **Distribution of test statistic.** When the assumptions are met and $H_0$ is true the test statistic is distributed as Student’s t with 97 degrees of freedom.
+
+6.  **Decision rule.** We reject $H_0$ if the computed t is either greater than or equal to 1.9848 or less than or equal to -1.9848 (obtained by inter- polation).
+
+7.  **Calculation of test statistic.** The calculated value of the test statistic appears in Figure 11.2.2 as the t ratio for the coefficient associated with the variable appearing in Column 3 of Table 11.2.1. This coefficient, of course, is $\hat{\beta}_2$. We see that the computed t is -2.17.
+
+8.  **Statistical decision.** Since -2.17 \< -1.9848, we reject $H_0$.
+
+9.  **Conclusion.** We conclude that, in the sampled population, whether the mothers smoke is associated with a reduction in the birth weights of their babies.
+
+10. **p value.** For this test we have p = .033 from Figure 11.2.2.
+
+**A Confidence Interval for** $\beta_2$ Given that we are able to conclude that in the sampled population the smoking status of the mothers does have an effect on the birth weights of their babies, we may now inquire as to the magnitude of the effect. Our best point estimate of the average difference in birth weights, when length of gestation is taken into account, is 294 grams in favor of babies born to mothers who do not smoke. We may obtain an interval estimate of the mean amount of the difference by using infor- mation from the computer printout by means of the following expression:
+
+$$
+\hat{\beta}_2 \pm ts_{\hat{\beta}_2}
+$$
+
+For a 95 percent confidence interval, we have
+
+$$
+-294.4 \pm 1.9848 (135.8) \\
+-563.9, -24.9
+$$
+
+Thus, we are 95 percent confident that the difference is somewhere between about 564 grams and 25 grams.
+
+**Advantages of Dummy Variables** The reader may have correctly surmised that an alternative analysis of the data of Example 11.2.1 would consist of fitting two separate regression equations: one to the subsample of mothers who smoke and another to the subsample of those who do not. Such an approach, however, lacks some of the advantages of the dummy variable technique and is a less desirable procedure when the latter procedure is valid. If we can justify the assumption that the two separate regres- sion lines have the same slope, we can get a better estimate of this common slope through the use of dummy variables, which entails pooling the data from the two subsamples. In Example 11.2.1 the estimate using a dummy variable is based on a total sample size of 100 observations, whereas separate estimates would be based on a sample of 85 smok- ers and only 15 nonsmokers. The dummy variables approach also yields more precise inferences regarding other parameters since more degrees of freedom are available for the calculation of the error mean square.
+
+**Use of Dummy Variables: Interaction Present** Now let us consider the situation in which interaction between the variables is assumed to be present. Sup- pose, for example, that we have two independent variables: one quantitative variable X1 and one qualitative variable with three response levels yielding the two dummy variables X2 and X3. The model, then, would be
+
+$$
+y_j = \beta_0 + \beta_1 X_1j + \beta_2 X_{2j} + \beta_3 X_{3j} + \beta_4 X_{1j} X_{2j} + \beta_5 X_{1j} X_{3j} + \varepsilon_j
+$$
+
+(11.2.4)
+
+in which $\beta_4 X_{1j}X_{2j}$ and $\beta_5X_{1j} X_{3j}$ are called *interaction terms* and represent the interaction between the quantitative and the qualitative independent variables. Note that there is no need to include in the model the term containing $X_{2j} X_{3j}$ ; it will always be zero because when $X_2 = 1, X_3 = 0$, and when $X_3 = 1, X_2 = 0$. The model of Equation 11.2.4 allows for a different slope and Y-intercept for each level of the qualitative variable.
+
+Suppose we use dummy variable coding to quantify the qualitative variable as follows:
+
+$$
+X_2 = \left\{ \begin{array}{cl}1 & \text{ for level 1} \\0 & \text{ otherwise }\end{array} \right.
+$$
+
+$$
+X_3 = \left\{ \begin{array}{cl}1 & \text{ for level 2} \\0 & \text{ otherwise }\end{array} \right.
+$$
+
+The three sample regression equations for the three levels of the qualitative variable, then, are as follows:
+
+Level 1 $(X_2 = 1, X_3 = 0)$
+
+$$
+\hat{y}_j = \hat{\beta}_0 + \hat{\beta}_1x_{1j} + \hat{\beta}_2(1) + \hat{\beta}_3(0) + \hat{\beta}_4x_{1j}( 1) + \hat{\beta}_5x_{1j} (0) \\
+= \hat{\beta}_0 + \hat{\beta}_1x_{1j} + \hat{\beta}_2 + \hat{\beta}_4 x_{1j} \\
+ = (\hat{\beta}_0 + \hat{\beta}_2) + (\hat{\beta}_1 + \hat{\beta}_4)x_{1j}
+$$
+
+(11.2.5)
+
+Level 2 (\$X_2=0, X_3=1\$)
+
+$$
+\hat{y}_j = \hat{\beta}_0 + \hat{\beta}_1x_{1j} + \hat{\beta}_2 (0) + \hat{\beta}_3(1) + \hat{\beta}_4x_{1j} (0) + \hat{\beta}_5x_{1j} \\
+ = \hat{\beta}_0 + \hat{\beta}_1x_{1j} + \hat{\beta}_3 + \hat{\beta}_5 x_{1j} \\
+= (\hat{\beta}_0 + \hat{\beta}_3) + (\hat{\beta}_1 + \hat{\beta}_5)x_{1j} 
+$$
+
+(11.2.6)
+
+Level 3 (\$X_2 = 0, X_3 = 0\$)
+
+$$
+\hat{y}_j = \hat{\beta}_0 + \hat{\beta}_1x_{1j} + \hat{\beta}_2(0) + \hat{\beta}_3(0) + \hat{\beta}_4 x_{1j}(0) + \hat{\beta}_5 x_{1j} (0) \\
+= \hat{\beta}_0 + \hat{\beta}_1x_{1j}
+$$
+
+(11.2.7)
+
+Let us illustrate these results by means of an example.
+
+**EXAMPLE 11.2.3**
+
+A team of mental health researchers wishes to compare three methods (A, B, and C) of treating severe depression. They would also like to study the relationship between age and treatment effectiveness as well as the interaction (if any) between age and treatment. Each member of a simple random sample of 36 patients, comparable with respect to diagnosis and severity of depression, was randomly assigned to receive treatment A, B, or C. The results are shown in Table 11.2.2. The dependent variable Y is treatment effec- tiveness, the quantitative independent variable X1 is patient’s age at nearest birthday, and the independent variable type of treatment is a qualitative variable that occurs at three levels. The following dummy variable coding is used to quantify the qualitative variable:
+
+$$
+X_2 = \left\{ \begin{array}{cl}1 & \text{ for treatment A} \\0 & \text{ otherwise }\end{array} \right.
+$$
+
+$$
+X_3 = \left\{ \begin{array}{cl}1 & \text{ for treatment B} \\0 & \text{ otherwise }\end{array} \right.
+$$
+
+The scatter diagram for these data is shown in Figure 11.2.4. Table 11.2.3 shows the data as they were entered into a computer for analysis. Figure 11.2.5 contains the printout of the analysis using the MINITAB multiple regression program.
+
+**Solution:**
+
+Now let us examine the printout to see what it provides in the way of insight into the nature of the relationships among the variables. The least-squares equation is
+
+yNj = 6.21 + 1.03x1j + 41.3x 2j + 22.7x 3j - .703x1j x 2j - .510x1j x 3j
+
+The three regression equations for the three treatments are as follows:
+
+Treatment A (Equation 11.2.5)
+
+yNj = 16.21 + 41.32 + 11.03 - .7032x 1j
+
+Treatment B (Equation 11.2.6)
+
+yN j = 16.21 + 22.72 + 11.03 - .5102x1j = 28.91 + .520x1j
+
+Treatment C (Equation 11.2.7) yN j = 6.21 + 1.03x1j
+
+Figure 11.2.6 contains the scatter diagram of the original data along with the regression equations for the three treatments. Visual inspection of Figure 11.2.6 suggests that treatments A and B do not differ greatly with respect to their slopes, but their y-intercepts are considerably different. The graph suggests that treatment A is better than treatment B for younger patients, but the difference is less dramatic with older patients. Treatment C appears to be decidedly less desirable than both treatments A and B for younger patients but is about as effective as treatment B for older patients. These subjective impressions are compatible with the contention that there is interaction between treatments and age.
+
+**Inference Procedures**
+
+The relationships we see in Figure 11.2.6, however, are sample results. What can we conclude about the population from which the sample was drawn?
+
+For an answer let us look at the t ratios on the computer printout in Figure 11.2.5. Each of these is the test statistic
+
+$$
+t=\frac{\hat{\beta}_i-0}{s_{\hat{\beta}_i}}
+$$
+
+for testing $H_0 : \beta_i = 0$. We see by Equation 11.2.5 that the y-intercept of the regression line for treatment A is equal to $\hat{\beta}_0 + \hat{\beta}_2$. Since the t ratio of 8.12 for testing $H_0 : \beta_2 =0$ is greater than the critical t of 2.0423 (for $\alpha = .05$), we can reject $H_0$ that $\beta_2 = 0$ and conclude that the y-intercept of the population regression line for treatment A is different from the y-intercept of the population regression line for treatment C, which has a y-intercept of b 0. Similarly, since the t ratio of 4.46 for testing H0 : b 3 = 0 is also greater than the critical t of 2.0423, we can conclude (at the .05 level of significance) that the y-intercept of the population regression line for treatment B is also different from the y- intercept of the population regression line for treatment C. (See the y-intercept of Equa- tion 11.2.6.)
+
+Now let us consider the slopes. We see by Equation 11.2.5 that the slope of the regression line for treatment A is equal to $\beta_1$ (the slope of the line for treatment C) + $\hat{\beta}_4$. Since the t ratio of -6.45 for testing H0 : b 4 = 0 is less than the critical t of -2.0423, we can conclude (for a = .05) that the slopes of the population regression lines for treat- ments A and C are different. Similarly, since the computed t ratio for testing H0 : b 5 = 0 is also less than -2.0423, we conclude (for a = .05) that the population regression lines for treatments B and C have different slopes (see the slope of Equation 11.2.6). Thus we conclude that there is interaction between age and type of treatment. This is reflected by a lack of parallelism among the regression lines in Figure 11.2.6.
+
+Another question of interest is this: Is the slope of the population regression line for treatment A different from the slope of the population regression line for treatment B? To answer this question requires computational techniques beyond the scope of this text. The interested reader is referred to books devoted specifically to regression analysis.
+
+In Section 10.4 the reader was warned that there are problems involved in making multiple inferences from the same sample data. Again, books on regression analysis are available that may be consulted for procedures to be followed when multiple inferences, such as those discussed in this section, are desired.
+
+We have discussed only two situations in which the use of dummy variables is appropriate. More complex models involving the use of one or more qualitative inde- pendent variables in the presence of two or more quantitative variables may be appro- priate in certain circumstances. More complex models are discussed in the many books devoted to the subject of multiple regression analysis.
+
+### VARIABLE SELECTION PROCEDURES
+
+Health sciences researchers contemplating the use of multiple regression analysis to solve problems usually find that they have a large number of variables from which to select the independent variables to be employed as predictors of the dependent variable. Such investigators will want to include in their model as many variables as possible in order to maximize the model’s predictive ability. The investigator must realize, however, that adding another independent variable to a set of independent variables always increases the coefficient of determination $R^2$. Therefore, independent variables should not be added to the model indiscriminately, but only for good reason. In most situations, for example, some potential predictor variables are more expensive than others in terms of data- collection costs. The cost-conscious investigator, therefore, will not want to include an expensive variable in a model unless there is evidence that it makes a worthwhile contribution to the predictive ability of the model.
+
+The investigator who wishes to use multiple regression analysis most effectively must be able to employ some strategy for making intelligent selections from among those potential predictor variables that are available. Many such strategies are in cur- rent use, and each has its proponents. The strategies vary in terms of complexity and the tedium involved in their employment. Unfortunately, the strategies do not always lead to the same solution when applied to the same problem.
+
+**Stepwise Regression** Perhaps the most widely used strategy for selecting inde- pendent variables for a multiple regression model is the stepwise procedure. The proce- dure consists of a series of steps. At each step of the procedure each variable then in the model is evaluated to see if, according to specified criteria, it should remain in the model.
+
+Suppose, for example, that we wish to perform stepwise regression for a model containing k predictor variables. The criterion measure is computed for each variable. Of all the variables that do not satisfy the criterion for inclusion in the model, the one that least satisfies the criterion is removed from the model. If a variable is removed in this step, the regression equation for the smaller model is calculated and the criterion meas- ure is computed for each variable now in the model. If any of these variables fail to sat- isfy the criterion for inclusion in the model, the one that least satisfies the criterion is removed. If a variable is removed at this step, the variable that was removed in the first step is reentered into the model, and the evaluation procedure is continued. This process continues until no more variables can be entered or removed.
+
+The nature of the stepwise procedure is such that, although a variable may be deleted from the model in one step, it is evaluated for possible reentry into the model in subsequent steps.
+
+MINITAB’s STEPWISE procedure, for example, uses the associated F statistic as the evaluative criterion for deciding whether a variable should be deleted or added to the model. Unless otherwise specified, the cutoff value is F = 4. The printout of the STEPWISE results contains t statistics (the square root of F ) rather than F statistics. At each step MINITAB calculates an F statistic for each variable then in the model. If the F statistic for any of these variables is less than the specified cutoff value (4 if some other value is not specified), the variable with the smallest F is removed from the model. The regression equation is refitted for the reduced model, the results are printed, and the procedure goes to the next step. If no variable can be removed, the procedure tries to add a variable. An F statistic is calculated for each variable not then in the model. Of these variables, the one with the largest associated F statistic is added, provided its F statistic is larger than the specified cutoff value (4 if some other value is not speci- fied). The regression equation is refitted for the new model, the results are printed, and the procedure goes on to the next step. The procedure stops when no variable can be added or deleted.
+
+The following example illustrates the use of the stepwise procedure for selecting variables for a multiple regression model.
+
+**EXAMPLE 11.3.1**
+
+A nursing director would like to use nurses’ personal characteristics to develop a regres- sion model for predicting the job performance ( JOBPER). The following variables are available from which to choose the independent variables to include in the model:
+
+$$
+X_1 = \text{ assertiveness 1ASRV2 } \\
+X_2 = \text{ enthusiasm 1ENTH2 } \\
+X_3 = \text{ ambition 1AMB2 } \\
+X_4 = \text{ communication skills 1COMM2 } \\
+X_5 = \text{ problem-solving skills 1PROB2 } \\
+X_6 = \text{ initiative 1INIT2 }
+$$
+
+We wish to use the stepwise procedure for selecting independent variables from those available in the table to construct a multiple regression model for predicting job performance.
+
+**Solution:**
+
+Table 11.3.1 shows the measurements taken on the dependent variable, JOBPER, and each of the six independent variables for a sample of 30 nurses.
+
+We use MINITAB to obtain a useful model by the stepwise proce- dure. Observations on the dependent variable job performance (JOBPER) and the six candidate independent variables are stored in MINITAB Columns 1 through 7, respectively. Figure 11.3.1 shows the appropriate MINITAB procedure and the printout of the results.
+
+To obtain the results in Figure 11.3.1, the values of F to enter and F to remove both were set automatically at 4. In step 1 there are no variables to be considered for deletion from the model. The variable AMB (Column 4) has the largest associated F statistic, which is F = 19.7422 = 94.8676. Since 94.8676 is greater than 4, AMB is added to the model. In step 2 the variable INIT (Column 7) qualifies for addition to the model since its associated F of 1-2.222 = 4.84 is greater than 4 and it is the variable with the largest associated F statistic. It is added to the model. After step 2 no other variable could be added or deleted, and the procedure stopped. We see, then, that the model chosen by the stepwise procedure is a two- independent-variable model with AMB and INIT as the independent vari- ables. The estimated regression equation is
+
+yN = 31.96 + .787x 3 - .45x 6
+
+To change the criterion for allowing a variable to enter the model from 4 to some other value K, click on Options, then type the desired value of K in the Enter box. The new criterion F statistic, then, is K rather than 4. To change the criterion for deleting a variable from the model from 4 to some other value K, click on Options, then type the desired value of K in the Remove box. We must choose K to enter to be greater than or equal to K to remove.
+
+Though the stepwise selection procedure is a common technique employed by researchers, other methods are available. Following is a brief discussion of two such tools. The final model obtained by each of these procedures is the same model that was found by using the stepwise procedure in Example 11.3.1.
+
+**Forward Selection** This strategy is closely related to the stepwise regression procedure. This method builds a model using correlations. Variables are retained that meet the criteria for inclusion, as in stepwise selection. The first variable entered into the model is the one with the highest correlation with the dependent variable. If this vari- able meets the inclusion criterion, it is retained. The next variable to be considered for inclusion is the one with the highest partial correlation with the dependent variable. If it meets the inclusion criteria, it is retained. This procedure continues until all of the inde- pendent variables have been considered. The final model contains all of the independent variables that meet the inclusion criteria.
+
+**Backward Elimination** This model-building procedure begins with all of the variables in the model. This strategy also builds a model using correlations and a prede- termined inclusion criterion based on the F statistic. The first variable considered for removal from the model is the one with the smallest partial correlation coefficient. If this variable does not meet the criterion for inclusion, it is eliminated from the model. The next variable to be considered for elimination is the one with the next lowest partial cor- relation. It will be eliminated if it fails to meet the criterion for inclusion. This proce- dure continues until all variables have been considered for elimination. The final model contains all of the independent variables that meet the inclusion criteria.
+
+### 11.4 LOGISTIC REGRESSION
+
+Up to now our discussion of regression analysis has been limited to those situations in which the dependent variable is a continuous variable such as weight, blood pres- sure, or plasma levels of some hormone. Much research in the health sciences field is motivated by a desire to describe, understand, and make use of the relationship between independent variables and a dependent (or outcome) variable that is discrete. Particularly plentiful are circumstances in which the outcome variable is dichotomous. A dichotomous variable, we recall, is a variable that can assume only one of two mutually exclusive values. These values are usually coded Y = 1 for a success and Y = 0 for a nonsuccess, or failure. Dichotomous variables include those whose two possible values are such categories as died–did not die; cured–not cured; disease occurred–disease did not occur; and smoker–nonsmoker. The health sciences profes- sional who either engages in research or needs to understand the results of research conducted by others will find it advantageous to have, at least, a basic understanding of logistic regression, the type of regression analysis that is usually employed when the dependent variable is dichotomous. The purpose of the present discussion is to provide the reader with this level of understanding. We shall limit our presentation to the case in which there is only one independent variable that may be either continu- ous or dichotomous.
+
+**The Logistic Regression Model** Recall that in Chapter 9 we referred to regression analysis involving only two variables as simple linear regression analysis. The simple linear regression model was expressed by the equation
+
+$$
+y = \beta_0 + \beta_1 x + \varepsilon
+$$
+
+(11.4.1)
+
+in which y is an arbitrary observed value of the continuous dependent variable. When the observed value of Y is $\mu_{y|x}$ , the mean of a subpopulation of Y values for a given value of X, the quantity P, the difference between the observed Y and the regression line (see Figure 9.2.1) is zero, and we may write Equation 11.4.1 as
+
+$$
+\mu_{y|x} = \beta_0 + \beta_1x
+$$
+
+(11.4.2)
+
+which may also be written as
+
+$$
+E_{(y|x)} = \beta_0 + \beta_1x
+$$
+
+Generally the right-hand side of Equations 11.4.1 through 11.4.3 may assume any value between minus infinity and plus infinity.
+
+Even though only two variables are involved, the simple linear regression model is not appropriate when Y is a dichotomous variable because the expected value (or mean) of Y is the probability that Y = 1 and, therefore, is limited to the range 0 through 1, inclusive. Equations 11.4.1 through 11.4.3, then, are incompatible with the reality of the situation.
+
+If we let p = P(Y = 1), then the ratio p/(1 - p) can take on values between 0 and plus infinity. Furthermore, the natural logarithm (ln) of p/(1- p) can take on values between minus infinity and plus infinity just as can the right-hand side of Equations 11.4.1 through 11.4.3. Therefore, we may write
+
+$$
+\ln [\frac{p}{1-p}]  = \beta_ 0 + \beta_1x
+$$
+
+(11.4.4)
+
+Equation 11.4.4 is called the logistic regression model because the transformation of $\mu_{y|x}$ (that is, p) to ln\[p/(1 - p)\] is called the **logit transformation**. Equation 11.4.4 may also be written as
+
+$$
+p = \frac{\exp (\beta_0 + \beta_1x}{1 + \exp (\beta_0 + \beta_1x)}
+$$
+
+(11.4.5)
+
+in which $\exp$ is the inverse of the natural logarithm.
+
+The logistic regression model is widely used in health sciences research. For exam- ple, the model is frequently used by epidemiologists as a model for the probability (inter- preted as the risk) that an individual will acquire a disease during some specified time period during which he or she is exposed to a condition (called a risk factor) known to be or suspected of being associated with the disease.
+
+**Logistic Regression: Dichotomous Independent Variable** The simplest situation in which logistic regression is applicable is one in which both the dependent and the independent variables are dichotomous. The values of the dependent (or outcome) variable usually indicate whether or not a subject acquired a disease or whether or not the subject died. The values of the independent variable indicate the sta- tus of the subject relative to the presence or absence of some risk factor. In the discus- sion that follows we assume that the dichotomies of the two variables are coded 0 and 1. When this is the case the variables may be cross-classified in a table, such as Table 11.4.1, that contains two rows and two columns. The cells of the table contain the fre- quencies of occurrence of all possible pairs of values of the two variables: (1, 1), (1, 0), (0, 1), and (0, 0).
+
+An objective of the analysis of data that meet these criteria is a statistic known as the odds ratio. To understand the concept of the odds ratio, we must understand the term odds, which is frequently used by those who place bets on the outcomes of sporting events or participate in other types of gambling activities. Using probability terminology, we may define odds as follows.
+
+**DEFINITION**
+
+**The odds for success are the ratio of the probability of success to the probability of failure.**
+
+The odds ratio is a measure of how much greater (or less) the odds are for sub- jects possessing the risk factor to experience a particular outcome. This conclusion assumes that the outcome is a rare event. For example, when the outcome is the con- tracting of a disease, the interpretation of the odds ratio assumes that the disease is rare.
+
+Suppose, for example, that the outcome variable is the acquisition or nonacquisition of skin cancer and the independent variable (or risk factor) is high levels of exposure to the sun. Analysis of such data collected on a sample of subjects might yield an odds ratio of 2, indicating that the odds of skin cancer are two times higher among subjects with high levels of exposure to the sun than among subjects without high levels of exposure.
+
+Computer software packages that perform logistic regression frequently provide as part of their output estimates of $\beta_0$ and $\beta_1$ and the numerical value of the odds ratio. As it turns out the odds ratio is equal to $\exp(\beta_1)$.
+
+**EXAMPLE 11.4.1**
+
+LaMont et al. (A-9) tested for obstructive coronary artery disease (OCAD) among 113 men and 35 women who complained of chest pain or possible equivalent to their primary care physician. Table 11.4.2 shows the cross-classification of OCAD with gender. We wish to use logistic regression analysis to determine how much greater the odds are of find- ing OCAD among men than among women.
+
+**Solution:**
+
+We may use the SAS® software package to analyze these data. The inde- pendent variable is gender and the dependent variable is status with respect to having obstructive coronary artery disease (OCAD). Use of the SAS® command PROC LOGIST yields, as part of the resulting output, the statis- tics shown in Figure 11.4.1.
+
+We see that the estimate of a is -1.4773 and the estimate of b 1 is 1.7649. The estimated odds ratio, then, is OR = exp11.76492 = 5.84. Thus we esti- mate that the odds of finding a case of obstructive coronary artery disease to be almost six times higher among men than women.
+
+**Logistic Regression: Continuous Independent Variable** Now let us consider the situation in which we have a dichotomous dependent variable and a con- tinuous independent variable. We shall assume that a computer is available to perform the calculations. Our discussion, consequently, will focus on an evaluation of the ade- quacy of the model as a representation of the data at hand, interpretation of key elements of the computer printout, and the use of the results to answer relevant questions about the relationship between the two variables.
+
+**EXAMPLE 11.4.2**
+
+According to Gallagher et al. (A-10), cardiac rehabilitation programs offer “informa- tion, support, and monitoring for return to activities, symptom management, and risk factor modification.” The researchers conducted a study to identify among women fac- tors that are associated with participation in such programs. The data in Table 11.4.3 are the ages of 185 women discharged from a hospital in Australia who met eligibility criteria involving discharge for myocardial infarction, artery bypass surgery, angio- plasty, or stent. We wish to use these data to obtain information regarding the relation- ship between age (years) and participation in a cardiac rehabilitation program (ATT = 1, if participated, and ATT = 0, if not). We wish also to know if we may use the results of our analysis to predict the likelihood of participation by a woman if we know her age.
+
+**Solution:**
+
+The independent variable is the continuous variable age (AGE), and the dependent or response variable is status with respect to attendance in a car- diac rehabilitation program. The dependent variable is a dichotomous vari- able that can assume one of two values: 0 = did not attend, and 1 = did attend. We use the SAS® software package to analyze the data. The SAS® command is PROC LOGISTIC, but if we wish to predict attendance in the cardiac program, we need to use the “descending” option with PROC LOGISTIC. (When you wish to predict the outcome labeled “1” of the dependent variable, use the “descending option” in SAS®. Consult SAS® documentation for further details.) A partial printout of the analysis is shown in Figure 11.4.2.
+
+The slope of our regression is -.0379, and the intercept is 1.8744. The regression equation, then, is
+
+yN i = 1.8744 - .0379x i
+
+where yNi = ln3pN i\>11 - pN i24 and pN i is the predicted probability of attending cardiac rehabilitation for a woman aged x i.
+
+**Test of** $H_0$ **that** $\beta_1 = 0$
+
+We reach a conclusion about the adequacy of the logistic model by testing the null hypothesis that the slope of the regression line is zero. The test statistic is z = bN 1\>sbN 1 where z is the standard normal statistic, $\hat{\beta_1}$ is the sample slope (-.0379), and $s_{\hat{\beta}_1}$ is its standard error (.0146) as shown in Figure 11.4.2. From these numbers we compute z = -.0379/.0146 = -2.5959, which has an associated two-sided p value of .0094. We conclude, therefore, that the logistic model is adequate. The square of z is chi-square with 1 degree of freedom, a statistic that is shown in Figure 11.4.2.
+
+**Using the Logistic Regression to Estimate p**
+
+We may use Equation 11.4.5 and the results of our analysis to estimate p, the probabil- ity that a woman of a given age (within the range of ages represented by the data) will attend a cardiac rehabilitation program. Suppose, for example, that we wish to estimate the probability that a woman who is 50 years of age will participate in a rehabilitation program. Substituting 50 and the results shown in Figure 11.4.2 into Equation 11.4.5 gives
+
+$$
+\hat{p} = \frac{\exp[1.8744 - (.0379)(50)]}{1 + \exp[1.8744 - (.0379)(50)]} = .49485
+$$
+
+SAS® calculates the estimated probabilities for the given values of X. We can see the estimated probabilities of attending cardiac rehabilitation programs for the age range of the subjects enrolled in the study in Figure 11.4.3. Since the slope was negative, we see a decreasing probability of attending a cardiac rehabilitation program for older women.
+
+Multiple Logistic Regression Practitioners often are interested in the rela- tionships of several independent variables to a response variable. These independent vari- ables may be either continuous or discrete or a combination of the two.
+
+Multiple logistic models are constructed by expanding Equations 11.4.1 to 11.4.4. If we begin with Equation 11.4.4, multiple logistic regression can be represented as
+
+lnc p d = b 0 + b 1x1j + b 2x 2j + Á + b k x kj 1 - p
+
+(11.4.6)
+
+Using the logit transformation, we now have
+
+p = exp1b 0 + b 1x 1j + b 2x 2j + Á + b k x kj2 1 + exp1b 0 + b 1x 1j + b 2x 2j + Á + b k x kj2 (11.4.7)
+
+EXAMPLE 11.4.3
+
+Consider the data presented in Review Exercise 24. In this study by Fils-Aime et al. (A-21), data were gathered and classified with regard to alcohol use. Subjects were classi- fied as having either early (% 25 years) or late (\$ 25 years) onset of excessive alcohol use.
+
+Levels of cerebrospinal fluid (CSF) tryptophan (TRYPT) and 5-hydroxyindoleacetic acid (5-HIAA) concentrations were also obtained.
+
+Solution:
+
+The independent variables are the concentrations of TRYPT and 5-HIAA, and the dependent variable is the dichotomous response for onset of exces- sive alcohol use. We use SPSS software to analyze the data. The output is presented in Figure 11.4.3. The equation can be written as
+
+yN i = 2.076 - .013x 1j + 0x 2j
+
+Note that the coefficient for TRYPT is 0, and therefore it is not playing a role in the model.
+
+Test of H0 that B 1 " 0
+
+Tests for significance of the regression coefficients can be obtained directly from Figure 11.4.3. Note that both the constant (intercept) and the 5-HIAA variables are significant in the model (both have p values, noted as “Sig.” in the table, % .05); however, TRYPT is not significant and therefore need not be in the model, suggesting that it is not useful for identifying those study participants with early or late alcoholism onset.
+
+As above, probabilities can be easily obtained by using equation 11.4.7 and sub- stituting the values obtained from the analysis.
+
+Polytomous Logistic Regression Thus far we have limited our discussion to situations in which there is a dichotomous response variable (e.g., successful or unsuc- cessful). Often we have a situation in which multiple categories make up the response. We may, for example, have subjects that are classified as positive, negative, and unde- termined for a given disease (a standard polytomous response). There may also be times when we have a response variable that is ordered. We may, for example, classify our subjects by BMI as underweight, ideal weight, overweight, or obese (an ordinal polyto- mous response). The modeling process is slightly more complex and requires the use of a computer program. For those interested in exploring these valuable methods further, we recommend the book by Hosmer and Lemeshow (1).
+
+Further Reading We have discussed only the basic concepts and applications of logistic regression. The technique has much wider application. Stepwise regression analysis may be used with logistic regression. There are also techniques available for constructing confidence intervals for odds ratios. The reader who wishes to learn more about logistic regression may consult the books by Hosmer and Lemeshow (1) and Kleinbaum (2).
+
+(base) lucrecia\@lucrecia:\~/rstudio/biostatistics\$

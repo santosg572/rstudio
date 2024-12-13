@@ -2,9 +2,9 @@ project:
   type: book
 
 book:
-  title: "biostatistics"
-  author: "Norah Jones"
-  date: "12/12/2024"
+  title: "Libro_Docker"
+  author: "Jane Doe"
+  date: "8/11/2023"
   chapters:
     - index.qmd
     - intro.qmd

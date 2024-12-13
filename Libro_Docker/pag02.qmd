@@ -1,0 +1,169 @@
+---
+title: "pag02"
+---
+
+https://www.stereolabs.com/docs/docker/creating-your-image/
+
+# Creating a Docker Image for your Application
+
+This is the recommended workflow for creating your own Docker image for your application:
+
+1.  Write a Dockerfile for your application.
+
+2.  Build the image with `docker build` command.
+
+3.  Host your Docker image on a registry.
+
+**Aloja tu imagen de Docker en un registro.**
+
+1.  Pull and run the image on the target machine.
+
+**Extraiga y ejecute la imagen en la máquina de destino.**
+
+## Write the Dockerfile
+
+Docker builds images automatically by reading the instructions from a Dockerfile. It is a text file that contains all commands needed to build a given image.
+
+In the following example, we will build and run the [Hello ZED](https://www.stereolabs.com/docs/tutorials/hello-zed/) tutorial application in a container.
+
+First let's prepare the host with the code:
+
+```         
+$ git clone https://github.com/stereolabs/zed-examples.git
+$ cd zed-examples/tutorials/tutorial\ 1\ -\ hello\ ZED/
+```
+
+Open a text editor and create a new `Dockerfile` with the following content:
+
+```         
+# Specify the parent image from which we build
+FROM stereolabs/zed:3.7-gl-devel-cuda11.4-ubuntu20.04
+
+# Set the working directory
+WORKDIR /app
+
+# Copy files from your host to your current working directory
+COPY cpp hello_zed_src
+
+# Build the application with cmake
+RUN mkdir /app/hello_zed_src/build && cd /app/hello_zed_src/build && \
+    cmake -DCMAKE_LIBRARY_PATH=/usr/local/cuda/lib64/stubs \
+      -DCMAKE_CXX_FLAGS="-Wl,--allow-shlib-undefined" .. && \
+    make
+
+# Run the application
+CMD ["/app/hello_zed_src/build/ZED_Tutorial_1"]
+```
+
+We provide some extra arguments to CMake to ensure that CMake and GCC can find all the required CUDA libraries. We also tell the compiler to allow linking even if there are undefined symbols from libraries such as `nvcuvid` that are not yet available. These will be available at runtime by using the NVIDIA container toolkit.
+
+For more information on writing dockerfiles, check [Dockerfile](https://docs.docker.com/engine/reference/builder/) reference documentation.
+
+## Build your Docker Image
+
+Now that you have created a Dockerfile, it's time to build your image using the `docker build` command.
+
+```         
+$ docker build -t hellozed:v1 .
+```
+
+**Tips:** On NVIDIA Jetson, we recommend building your [Jetson Docker Container on x86 host](https://www.stereolabs.com/docs/docker/building-arm-container-on-x86/), and running it on the target Jetson to avoid long compilation time on boards such as Jetson Nano.
+
+### Test your Image
+
+Let's start the container based on the new image we created using the `docker run` command.
+
+```         
+$ docker run -it --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all --privileged hellozed:v1
+```
+
+On Jetson or older Docker versions, use these arguments:
+
+```         
+$ docker run -it --runtime nvidia --privileged hellozed:v1
+```
+
+You should now see the output of the terminal.
+
+```         
+$ docker run -it --gpus all --privileged hellozed:v1
+    Hello! This is my serial number: 23468248
+```
+
+## Optimize your Image Size
+
+Docker images can get very large and become a problem when pulling over the network or pushing on devices with limited storage (such as Jetson Nano). Here is a few pieces of advice to keep your image size small:
+
+-   Minimize the number of `RUN` commands. Each command adds a layer to the image, so consolidating the number of `RUN` can reduce the number of layers in the final image. Note that layers are designed to be reusable, and will not be pushed or pulled if they didn't change.
+
+-   Use `--no-install-recommends` when installing packages with `apt-get install` to disable the installation of optional packages and save disk space.
+
+-   Remove tarballs or other archive files that were copied during the installation. Each layer is added on top of the others, so files that were not removed in a given `RUN` step will be present in the final image even if they are removed in a later `RUN` step.
+
+-   Similarly, clean package lists that are downloaded with `apt-get update` by removing `/var/lib/apt/lists/*` in the same `RUN` step.
+
+-   Create separate images for development and production. Production images should not include all of the libraries and dependencies pulled in by the build.
+
+-   Use multi-stage builds (see Docker [docs](https://docs.docker.com/develop/develop-images/multistage-build/)) and push only your `prod` image.
+
+```         
+RUN apt-get update -y && \
+    apt-get autoremove -y && \
+    apt-get install --no-install-recommends lsb-release && \
+    tar -xvf archive.tar.gz &&\
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf archive.tar.gz
+```
+
+## Host your Docker Image
+
+[\#](https://www.stereolabs.com/docs/docker/creating-your-image/#host-your-docker-image)
+
+Now that you have created your image, you need to share it on a registry so it can be downloaded and run on any destination machine. A registry is a stateless, server-side application that stores and lets you distribute Docker images.
+
+### Use Docker Hub Registry
+
+[\#](https://www.stereolabs.com/docs/docker/creating-your-image/#use-docker-hub-registry)
+
+By default, Docker provides an official free-to-use registry, [DockerHub](https://hub.docker.com/), where you can push and pull your images. For example at Stereolabs, the ZED SDK Docker images are built automatically by a public [Gitlab CI job](https://gitlab.com/bot-stereolabs/docker-zed/blob/master/.gitlab-ci.yml) and pushed to [Stereolabs DockerHub](https://hub.docker.com/r/stereolabs/zed/) repository.
+
+There are situations where you will not want your image to be publicly available. In this case, you need to create your own private Docker Registry. You can get [private repos](https://hub.docker.com/pricing) from Docker, or from many other third-party providers.
+
+### Use Local Registry Server
+
+[\#](https://www.stereolabs.com/docs/docker/creating-your-image/#use-local-registry-server)
+
+For local development, if your host and target machines are on the same network, you can set up a local registry server and push your images there.
+
+For more information on deploying your own registry server, please refer to Docker [docs](https://docs.docker.com/registry/deploying/).
+
+### 
+
+### Save and Load Images as Files
+
+[\#](https://www.stereolabs.com/docs/docker/creating-your-image/#save-and-load-images-as-files)
+
+Lastly it is also possible to export and load your Docker image as a file.
+
+To export a Docker image simply use :
+
+```         
+# Saving can take some time depending on the image size
+$ docker save hellozed:v1 -o hellozed_v1.tar
+```
+
+On the destination machine, simply load the Docker image using :
+
+```         
+$ docker load -i hellozed_v1.tar
+```
+
+## Next Steps
+
+[\#](https://www.stereolabs.com/docs/docker/creating-your-image/#next-steps)
+
+At this point, you have successfully created a Docker image for the "Hello ZED" application and learned how to host and share it.
+
+Let's learn now how to [Run and Build Jetson Docker Containers on x86](https://www.stereolabs.com/docs/docker/building-arm-container-on-x86/) to speed up development and deployment on embedded boards such as Jetson Nano, without needing cross-compilation.
+
+If you are not planning to use a Jetson board, you can learn [how to use OpenCV with ZED in a Docker container](https://www.stereolabs.com/docs/docker/using-opencv) or you can learn [how to use the robotics framework ROS in a Docker container](https://www.stereolabs.com/docs/docker/using-ros).

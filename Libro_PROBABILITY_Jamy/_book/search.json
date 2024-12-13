@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Libro_PROBABILITY_Jamy",
+    "section": "",
+    "text": "Preface\nJIM PITMAN PROBABILITY\nPreface to the Instructor This is a text for a one-quarter or one-semester course in probability, aimed at students who have done a year of calculus. The book is organized so a student can learn the fundamental ideas of probability from the first three chapters without reliance on calculus. Later chapters develop these ideas further using calculus tools. The book contains more than the usual number of examples worked out in detail. It is not possible to go through all these examples in class. Rather, I suggest that you deal quickly with the main points of theory, then spend class time on problems from the exercises, or your own favorite problems. The most valuable thing for students to learn from a course like this is how to pick up a probability problem in a new setting and relate it to the standard body of theory. The more they see this happen in class, and the more they do it themselves in exercises, the better. The style of the text is deliberately informal. My experience is that students learn more from intuitive explanations, diagrams, and examples than they do from theorems and proofs. So the emphasis is on problem solving rather than theory. Order of Topics. The basic rules of probability all appear in Chapter 1. Intuition for probabilities is developed using Venn and tree diagrams. Only finite additivity of probability is treated in this chapter. Discussion of countable additivity is postponed to Section 3.4. Emphasis in Chapter 1 is on the concept of a probability distribution and elementary applications of the addition and multiplication rules. Combinatorics appear via study of the binomial and hypergeometric distributions in Chapter 2. The\nconcepts of mean and standard deviation appear in a preliminary form in this chapter, motivated by the normal approximation, without the notation of random variables. These concepts are then developed for discrete random variables in Chapter 3. The main object of the first three chapters is to get to the circle of ideas around the normal approximation for sums of independent random variables. This is achieved by Section 3.3. Sections 3.4 and 3.5 deal with the standard distributions on the nonnegative integers. Conditional distributions and expectations, covariance and correlation for discrete distributions are postponed to Chapter 6, nearby treatment of the same concepts for continuous distributions. The discrete theory could be done right after Chapter 3, but it seems best to get as quickly as possible to continuous things. Chapters 4 and 5 treat continuous distributions assuming a calculus background. The main emphasis here is on how to do probability calculations rather than rigorous development of the theory. In particular, differential calculations are used freely from Section 4.1 on, with only occasional discussion of the limits involved."
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n1 + 1\n\n[1] 2\n\n\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "2  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  }
+]

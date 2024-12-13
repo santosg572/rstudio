@@ -1,0 +1,37 @@
+---
+title: "Configurar FreeSurfer"
+---
+
+Para configura FreeSurfer y pueda utilizarlo haga lo siguiente:
+
+1.  Crear el Script "free.sh" con el contenido:
+
+#!/bin/bash
+
+export FREESURFER_HOME=/home/inb/soporte/lanirem_software/freesurfer_7.4.1
+
+source \$FREESURFER_HOME/SetUpFreeSurfer.sh
+
+2.  Darle los permisos necesarios para que se ejecute:
+
+    chmod u+x free.sh
+
+3.  Ejecutar el siguiente comando
+
+    source ./free.sh
+
+4.  AQUÍ TERMINA, ya puede ejecutar comandos de freesurfer
+
+    \hfill
+
+    \hfill
+
+    \hfill
+
+    \hfill
+
+    **Dudas y comentarios con:**
+
+    L. González-Santos
+
+    lgs\@unam.mx

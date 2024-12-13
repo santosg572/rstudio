@@ -1,0 +1,255 @@
+---
+title: "contenido"
+---
+
+1\. Introducción 10
+
+1.1. Datos longitudinales . . . . . . . . . . . . . . . . . . . . . . . 11
+
+1.2. Efectos fijos y efectos aleatorios . . . . . . . . . . . . . . . . . 12
+
+1.3. Tareas para el analista . . . . . . . . . . . . . . . . . . . . . . 13
+
+1.4. Ejemplos de motivación . . . . . . . . . . . . . . . . . . . . . 19
+
+1.4.1. Electroplateado . . . . . . . . . . . . . . . . . . . . . . 19
+
+1.4.2. Hueso ramus . . . . . . . . . . . . . . . . . . . . . . . 22
+
+1.4.3. Secado de madera . . . . . . . . . . . . . . . . . . . . 25
+
+1.4.4. Toros . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+
+1.4.5. Conteo de pasos en humanos . . . . . . . . . . . . . . 26
+
+1.4.6. Duración de pilas alcalinas . . . . . . . . . . . . . . . . 26
+
+1.4.7. 100 metros planos Olímpicos de Londres 2012 . . . . . 27
+
+2\. ¿Qué es un modelo mixto? 29
+
+2.1. Análisis estadístico: estadísticos de resumen . . . . . . . . . . 31
+
+2.2. Modelo de dos etapas . . . . . . . . . . . . . . . . . . . . . . . 32
+
+2.2.1. Etapa 1 (formulación general) . . . . . . . . . . . . . . 32
+
+2.2.2. Etapa 2 . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+
+2.2.3. Ejemplo: Abetos . . . . . . . . . . . . . . . . . . . . . 33
+
+2.3. Forma matricial del MLM . . . . . . . . . . . . . . . . . . . . 35
+
+2.4. Ejemplo: Abetos (Continuación) . . . . . . . . . . . . . . . . 36
+
+2.5. Modelo de Laird-Ware . . . . . . . . . . . . . . . . . . . . . . 37
+
+2.5.1. Modelo de interceptos aleatorios . . . . . . . . . . . . 38
+
+2.5.2. Formulaciones especiales del MLM . . . . . . . . . . . 39
+
+2.5.3. Modelo de interceptos y tendencias aleatorias . . . . . 47
+
+2.6. Modelo de regresión con errores autocorrelacionados . . . . . 48
+
+3\. Inferencias en el Modelo Lineal Mixto 51
+
+3.1. MLM: Modelos jerárquicos versus marginales . . . . . . . . . 51
+
+3.2. Estimación . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+
+3.2.1. Modelo clásico . . . . . . . . . . . . . . . . . . . . . . 52
+
+3.2.2. Estimación basada en la verosimilitud perfilada . . . . 56
+
+3.2.3. Estimación por máxima verosimilitud (ML) . . . . . . 57
+
+3.2.4. Máxima verosimilitud restringida (REML) . . . . . . 58
+
+3.3. Métodos para ajustar MLM a los datos . . . . . . . . . . . . . 63
+
+3.3.1. Algoritmo EM . . . . . . . . . . . . . . . . . . . . . . 63
+
+3.3.2. Algoritmo de Newton-Raphson . . . . . . . . . . . . . 65
+
+3.3.3. Estimación por mínimos cuadrados generalizados . . . 66
+
+3.3.4. ¿Y si la estructura de Ri es más compleja que σ2I? . . 68
+
+3.4. Criterios de información . . . . . . . . . . . . . . . . . . . . . 69
+
+3.4.1. El criterio de información de Akaike (AIC) . . . . . . . 69
+
+3.4.2. El criterio de información corregido de Akaike (AICC) 70
+
+3.4.3. El criterio de información bayesiano de Schwarz (BIC) 70
+
+3.5. Ejemplos . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 70
+
+3.6. Aproximación bayesiana . . . . . . . . . . . . . . . . . . . . . 84
+
+3.6.1. Método Bayes empírico . . . . . . . . . . . . . . . . . 84
+
+3.6.2. Estimadores shrinkage . . . . . . . . . . . . . . . . . . 86
+
+3.6.3. Chequeo de normalidad de los efectos aleatorios . . . . 86
+
+3.6.4. Consideraciones de inferencia . . . . . . . . . . . . . . 87
+
+3.7. Pruebas de hipótesis . . . . . . . . . . . . . . . . . . . . . . . 100
+
+3.7.1. V conocida . . . . . . . . . . . . . . . . . . . . . . . . 101
+
+3.7.2. V desconocida . . . . . . . . . . . . . . . . . . . . . . 101
+
+3.7.3. V arCov(Yi) desconocida . . . . . . . . . . . . . . . . 104
+
+3.8. Inferencia para la media . . . . . . . . . . . . . . . . . . . . . 104
+
+3.8.1. Otra forma de obtener estos resultados . . . . . . . . . 106
+
+3.9. Pruebas de hipótesis e intervalos de confianza . . . . . . . . . 106
+
+3.9.1. Método 1: Test aproximado de Wald . . . . . . . . . . 106
+
+3.9.2. Método 2: Test aproximados a la distribución F . . . . 107
+
+3.10. Inferencia para las componentes de varianza . . . . . . . . . . 111
+
+3.10.1. Test de Wald aproximados . . . . . . . . . . . . . . . . 112
+
+3.10.2. Tests de razón de verosimilitud (LRT) . . . . . . . . . 112
+
+3.11. Pruebas marginales para la necesidad de efectos aleatorios . . 113
+
+3.12. Modelo autorregresivo de primer orden . . . . . . . . . . . . . 114
+
+3.13. Pruebas de hipótesis sobre las varianzas de los efectos aleatorios116
+
+3.13.1. Prueba de la razón de la verosimilitud restringida . . . 117
+
+3.14. Recomendación para la construcción del modelo lineal mixto . 119
+
+3.15. Medidas de bondad de ajuste . . . . . . . . . . . . . . . . . . 120
+
+3.15.1. Análisis de residuales . . . . . . . . . . . . . . . . . . . 120
+
+3.15.2. Estructuras de covarianza en el MLM . . . . . . . . . 122
+
+3.16. Predicción . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 128
+
+3.16.1. Mejor predictor lineal insesgado . . . . . . . . . . . . . 128
+
+4\. Ejemplos 132
+
+4.1. Electroplateado . . . . . . . . . . . . . . . . . . . . . . . . . . 132
+
+4.2. Toros . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140
+
+4.3. Hueso ramus . . . . . . . . . . . . . . . . . . . . . . . . . . . 146
+
+4.4. Puntajes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 159
+
+5\. Diagnósticos en el modelo mixto 162
+
+5.1. Diagnósticos vía eliminación de observaciones . . . . . . . . . 162
+
+5.1.1. Influencia en los estimadores de los efectos fijos . . . . 164
+
+5.1.2. Influencia en los efectos aleatorios . . . . . . . . . . . . 166
+
+5.1.3. Influencia sobre la función de verosimilitud . . . . . . 167
+
+5.2. Verificación de la normalidad de los efectos aleatorios . . . . . 168
+
+6\. Modelo lineal generalizado mixto 170
+
+6.1. Estimación . . . . . . . . . . . . . . . . . . . . . . . . . . . . 170
+
+6.1.1. Algoritmo para la estimación . . . . . . . . . . . . . . 172
+
+6.2. Otras formas de estimación usando métodos Monte Carlo . . 174
+
+6.2.1. Algoritmo EM Monte Carlo (MCEM) . . . . . . . . . 174
+
+6.2.2. Algoritmo Monte Carlo Newton-Raphson (MCNR) . . 177
+
+6.2.3. Máxima verosimilitud simulada (SML) . . . . . . . . . 179
+
+6.3. Ejemplos . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 179
+
+6.3.1. Genética porcina (respuesta dicótoma) . . . . . . . . . 179
+
+6.3.2. Modelo lineal mixto tipo Poisson . . . . . . . . . . . . 187
+
+7\. Modelo no lineal mixto 190
+
+7.1. El modelo no lineal tradicional . . . . . . . . . . . . . . . . . 190
+
+7.2. Modelos mixtos no lineales . . . . . . . . . . . . . . . . . . . . 191
+
+7.2.1. Modelos no lineales que son linealizables . . . . . . . . 191
+
+7.2.2. Parámetros condicionalmente linealizables . . . . . . . 193
+
+7.3. Extensión al caso de efectos aleatorios . . . . . . . . . . . . . 194
+
+7.4. Estimación de β y b . . . . . . . . . . . . . . . . . . . . . . . 196
+
+7.4.1. Vía máxima verosimilitud . . . . . . . . . . . . . . . . 198
+
+7.4.2. Máxima verosimilitud restringida . . . . . . . . . . . . 199
+
+7.5. Algoritmo de dos pasos . . . . . . . . . . . . . . . . . . . . . . 200
+
+7.6. Ejemplo . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 202
+
+8\. Ejercicios Propuestos 207
+
+8.1. Tratamiento con Enalapril . . . . . . . . . . . . . . . . . . . . 207
+
+8.2. Resultados de tratamientos en clínicas . . . . . . . . . . . . . 208
+
+8.3. Duración de pilas alcalinas . . . . . . . . . . . . . . . . . . . . 209
+
+A. Algunas bases de datos 210
+
+A.1. Electroplateado . . . . . . . . . . . . . . . . . . . . . . . . . . 210
+
+A.2. Hueso ramus . . . . . . . . . . . . . . . . . . . . . . . . . . . 211
+
+A.3. Toros . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 211
+
+A.4. Secado de madera . . . . . . . . . . . . . . . . . . . . . . . . . 212
+
+A.5. Conteo de pasos en humanos . . . . . . . . . . . . . . . . . . 214
+
+B. Resultados de álgebra Lineal 217
+
+C. Repaso de modelos lineales generalizados 229
+
+C.1. Familia exponencial . . . . . . . . . . . . . . . . . . . . . . . . 229
+
+C.2. Modelos lineal general y lineal generalizado . . . . . . . . . . 231
+
+3.3. Funciones de vínculo Logit . . . . . . . . . . . . . . . . . . . . 233
+
+3.4. Funciones de vínculo Log . . . . . . . . . . . . . . . . . . . . 234
+
+3.5. Ajuste del modelo lineal generalizado . . . . . . . . . . . . . . 234
+
+4\. Software para modelos mixtos 237
+
+4.1. Software R . . . . . . . . . . . . . . . . . . . . . . . . . . . . 237
+
+4.2. Función lme() . . . . . . . . . . . . . . . . . . . . . . . . . . 237
+
+4.3. Función glmmML . . . . . . . . . . . . . . . . . . . . . . . . . . 238
+
+4.4. Función glmm() . . . . . . . . . . . . . . . . . . . . . . . . . . 238
+
+4.5. Función lmer . . . . . . . . . . . . . . . . . . . . . . . . . . . 239
+
+4.6. Otros paquetes para modelos lineales mixtos . . . . . . . . . . 241
+
+5\. Referencias 242

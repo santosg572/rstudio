@@ -1,0 +1,92 @@
+---
+title: "Try our tutorials"
+---
+
+<https://surfer.nmr.mgh.harvard.edu/fswiki/Tutorials>
+
+# FreeSurfer Tutorials
+
+The
+FreeSurfer tutorials provided below are designed to give users an
+introduction to using FreeSurfer, as well as get you acquainted with the
+concepts needed to perform its various **modes of analysis** and processing
+of MRI data. The tutorials are designed to be followed along in a
+terminal window, where commands can be copy/pasted into the terminal
+window instead of typed.
+
+In order to run any of the FreeSurfer tutorials, you must have a valid [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall) installation on your machine, and a local copy of the [tutorial data](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/Data). Be sure to set the **TUTORIAL_DATA** environment variable properly as specified on the [tutorial data](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/Data) page.
+
+## WARNING:
+ The hyperlinks in the tables below used to download slides will NOT 
+WORK in Google Chrome. Please use a different browser to access these 
+slides.
+
+### version 7.0+
+
+Basics:
+
+-   [Introduction to FreeSurfer Output](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview)
+
+### version 6.0+
+
+Basics:
+
+-   [Introduction to FreeSurfer Output](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeviewV6.0) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/fsrecon.sep2022.pptx), [video](https://www.youtube.com/watch?v=8Ict0Erh7_c))
+
+-   [Practice Working with Data](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/PracticeV6.0)
+
+-   [Troubleshooting FreeSurfer Output](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/TroubleshootingDataV6.0) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/freesurfer.troubleshooting.sep2022.ppt), [video](https://www.youtube.com/watch?v=gf0BC0xs0tM))
+
+-   [Group Analysis](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/GroupAnalysisV6.0) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/GLM.pptx), [video](https://www.youtube.com/watch?v=EJewud8obuo))
+
+-   [Multiple Comparisons via command-line (Permutation)](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MultipleComparisonsV6.0Perm) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/GLM.pptx))
+
+-   [Qdec Group Analysis via GUI](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/QdecGroupAnalysisV6.0)
+
+-   [ROI Analysis](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROIV6.0) ( [slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/fs.roi.EB_wiki.pptx), [video](https://www.youtube.com/watch?v=n5QkCwZZPko))
+
+-   [Multimodal Analysis](https://surfer.nmr.mgh.harvard.edu/fswiki/MultiModalTutorialV6.0) ([slides- Part 1](http://surfer.nmr.mgh.harvard.edu/pub/docs/fs.multimodal1_2018.pptx), [slides- Part 2](http://surfer.nmr.mgh.harvard.edu/pub/docs/fs.multimodal-integration.Part2.pptx), [video](https://www.youtube.com/watch?v=gRl6bYF06hg))
+
+Specialized topics:
+
+-   [Longitudinal Processing, Edits and Post-Processing](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/LongitudinalTutorial) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/fs.longitudinal.pptx), [video](https://www.youtube.com/watch?v=vxJODPBLd3M))
+
+-   [Diffusion Analysis](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/DiffusionV6.0) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/dmri,fs.ppt), [video](https://www.youtube.com/watch?v=BKjBdeWYllk))
+
+-   [TRACULA](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/Tracula) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/tracula,fs.ppt), [video](https://www.youtube.com/watch?v=LpdYbe4pJK0))
+
+-   [FS-Fast - fMRI Analysis](https://surfer.nmr.mgh.harvard.edu/fswiki/FsFastTutorialV6.0) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/fsfast.ppt))
+
+Other:
+
+-   [Multiple Comparisons via command-line](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MultipleComparisonsV6.0) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/multiplecomparisons.ppt), [video](https://www.youtube.com/watch?v=EJewud8obuo))
+
+------------------------------------------------------------------------
+
+### version 5.1/5.3
+
+Data for the 5.1/5.3 tutorials can be found on the bottom of the [tutorial data](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/Data#FreeSurferTutorialDatasets5.1.2BAC8-5.3) page.
+
+Basics:
+
+-   [Introduction to FreeSurfer Output](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeviewV6.0) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/fsrecon.ppt), [video](https://www.youtube.com/watch?v=8Ict0Erh7_c))
+
+-   [Troubleshooting FreeSurfer Output](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/TroubleshootingData) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/freesurfer.failure_modes.ppt), [video](https://www.youtube.com/watch?v=gf0BC0xs0tM))
+
+-   [Group Analysis/ Multiple Comparisons via command-line](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/GroupAnalysis) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/freesurfer.groupanalysis.ERL.ppt), [video](https://www.youtube.com/watch?v=EJewud8obuo))
+
+-   [Qdec Group Analysis via GUI](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/QdecGroupAnalysis_freeview)
+
+-   [ROI Analysis](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/AnatomicalROI) ( [slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/fs.roi.ppt), [video](https://www.youtube.com/watch?v=n5QkCwZZPko))
+
+-   [Multimodal Analysis](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MultiModal_freeview) ([slides- Part 1](http://surfer.nmr.mgh.harvard.edu/pub/docs/fs.multimodal-integration.Part1.ppt), [slides- Part 2](http://surfer.nmr.mgh.harvard.edu/pub/docs/fs.multimodal-integration.Part2.ppt), [video](https://www.youtube.com/watch?v=gRl6bYF06hg))
+
+Specialized topics:
+
+-   [Longitudinal Processing, Edits and Post-Processing](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/LongitudinalTutorialV5) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/freesurfer.longitudinal.ppt), [video](https://www.youtube.com/watch?v=vxJODPBLd3M))
+
+-   [Diffusion Analysis](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/Diffusion) [Diffusion and DTI Integration](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/Diffusion_DtiIntegration) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/dmri,fs.ppt), [video](https://www.youtube.com/watch?v=BKjBdeWYllk))
+
+-   [TRACULA](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/Tracula) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/tracula,fs.ppt), [video](https://www.youtube.com/watch?v=LpdYbe4pJK0))
+
+-   [FS-Fast - fMRI Analysis](https://surfer.nmr.mgh.harvard.edu/fswiki/FsFastTutorial) ([slides](http://surfer.nmr.mgh.harvard.edu/pub/docs/fsfast.april2011.ppt))

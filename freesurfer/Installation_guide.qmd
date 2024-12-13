@@ -1,0 +1,69 @@
+---
+title: "Installation guide"
+---
+
+<https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall>
+
+# FreeSurfer Download and Install
+
+### Latest Version 7 Release is 7.4.1 (June 2023)
+
+Public links to the Freesurfer v7 release downloads and installation instructions are on the release 7 downloads page [7.X_releases](https://surfer.nmr.mgh.harvard.edu/fswiki/rel7downloads). Please note that Linux RPM/DEB and MacOS installer packages are available. We also provide a [step-by-step installation demo video](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall?action=AttachFile&do=view&target=installFS_demo.mp4 "attachment:installFS_demo.mp4") for MacOS.
+
+If you have not yet upgraded to Freesurfer version 7, you can read about and compare versions 7 and 6 in the [ReleaseNotes](https://surfer.nmr.mgh.harvard.edu/fswiki/ReleaseNotes).
+
+Martinos users should visit [InternalFreeSurferDistributions](https://surfer.nmr.mgh.harvard.edu/fswiki/InternalFreeSurferDistributions) for instructions on how to use pre-installed FreeSurfer distributions.
+
+Instructions are available [here](https://drive.google.com/file/d/1uNwv29fCeuMHrmTyXw94ZSuroNsPOxu-/view?usp=sharing) about how to setup the 7.4.1 release in a virtual machine (VM) guest OS (Ubuntu 22) hosted by the open source application [Virtual Box](https://www.virtualbox.org/)
+from Oracle systems. The Virtual Box application runs on most any
+Windows, Mac and Linux machine equipped with an Intel processor. As of
+this writing, Virtual box does not work on arn64 based machines such as
+the silicon macs with M1, M2, M3 processors. For a Windows only VM
+setup, see the instructions [here](https://surfer.nmr.mgh.harvard.edu/fswiki/FS7_wsl_ubuntu)
+about how to install and run Freesurfer on the Windows Subsystem for
+Linux. Please note WSL2 requires an additional install of a 3rd party
+X-server on the Windows host in order to view images in applications
+such as Freeview (not necessary when running Virtual Box).\
+
+### Previous Version 6 Release (Jan 2017)
+
+Freesurfer v6 release downloads and installation instructions are [here](https://surfer.nmr.mgh.harvard.edu/fswiki/rel6downloads).
+
+***Important Note:**
+When processing a group of subjects for your study, it is essential to
+process all your subjects with the same version of FreeSurfer, on the
+same OS platform and vendor, and for safety, even the same version of
+the OS. While we continue to work to ensure that results match across
+platforms, there are none-the-less system-level libraries that are OS
+dependent. An exception to this rule is that you may view and edit
+files across any platform or version, and run some post-processing
+tools (outside the recon-all stream) if you check with us first (for
+instance you may run the longitudinal processing with newer versions).*
+
+### Other Versions
+
+**Development Version:** Daily builds of the FreeSurfer development branch can be downloaded from [here](https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/dev).
+
+**Older Releases:** Previous releases of FreeSurfer can be downloaded from [here](https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer).
+
+**Freeview:** For instructions on how to update Freeview, FreeSurfer's visualization app, visit the following page: [Updating Freeview](https://surfer.nmr.mgh.harvard.edu/fswiki/UpdateFreeview).
+
+## License
+
+A license
+key must be obtained to make the FreeSurfer tools operational. Obtaining
+a license is free and comes in the form of a license.txt file. Once you
+obtain the license.txt key file, copy it to your FreeSurfer
+installation directory. This is also the location defined by the **FREESURFER_HOME** environment variable.
+
+[Follow this link to obtain a license key.](https://surfer.nmr.mgh.harvard.edu/registration.html)
+
+## Additional Resources
+
+[Try our tutorials](https://surfer.nmr.mgh.harvard.edu/fswiki/Tutorials)
+
+[Sign up for a FreeSurfer course](https://surfer.nmr.mgh.harvard.edu/fswiki/CourseDescription)
+
+[Join the FreeSurfer mailing list, ask a question, or view the archives](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferSupport)
+
+A free and open platform that can be used to run FreeSurfer. For more information, [click here](https://surfer.nmr.mgh.harvard.edu/fswiki/OpenNeuro).

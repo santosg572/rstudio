@@ -1,0 +1,128 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "linux_book",
+    "section": "",
+    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n1 + 1\n\n[1] 2\n\n\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "3  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "c01.html",
+    "href": "c01.html",
+    "title": "2  c01",
+    "section": "",
+    "text": "3 10 ways to use the Linux find command\nDiscover what you’re looking for, find misplaced data, and troubleshoot everyday problems with this handy Linux command.\nThe find command is one of the most useful Linux commands, especially when you’re faced with the hundreds and thousands of files and folders on a modern computer. As its name implies, find helps you find things, and not just by filename.\nWhether you’re on your own computer or trying to support someone on an unfamiliar system, here are 10 ways find can help you locate important data.\n[ Keep your most commonly used commands handy with the Linux commands cheat sheet. ]"
+  },
+  {
+    "objectID": "c01.html#find-a-single-file-by-name",
+    "href": "c01.html#find-a-single-file-by-name",
+    "title": "2  c01",
+    "section": "2.2 1. Find a single file by name",
+    "text": "2.2 1. Find a single file by name\nWhen you know the name of a file but can’t remember where you saved it, use find to search your home directory. Use 2&gt;/dev/null to silence permission errors (or use sudo to gain all permissions).\n$ find / -name \"Foo.txt\" 2&gt;/dev/null\n/home/seth/Documents/Foo.txt"
+  },
+  {
+    "objectID": "c01.html#find-a-single-file-by-approximate-name",
+    "href": "c01.html#find-a-single-file-by-approximate-name",
+    "title": "2  c01",
+    "section": "2.3 2. Find a single file by approximate name",
+    "text": "2.3 2. Find a single file by approximate name\nIf you can’t remember the exact name of the file, or you’re not sure whether you capitalized any characters, you can do a partial and case-insensitive search like this:\n$ find / -iname \"*foo*txt\" 2&gt;/dev/null\n/home/seth/Documents/Foo.txt\n/home/seth/Documents/foo.txt\n/home/seth/Documents/foobar.txt"
+  },
+  {
+    "objectID": "c01.html#find-everything",
+    "href": "c01.html#find-everything",
+    "title": "2  c01",
+    "section": "2.4 3. Find everything",
+    "text": "2.4 3. Find everything\nThe ls -R command lists the contents of a directory recursively, meaning that it doesn’t just list the target you provide for it, but also descends into every subdirectory within that target (and every subdirectory in each subdirectory, and so on.) The find command has that function too, by way of the -ls option:\n$ find ~/Documents -ls\n3554235 0 drwxr-xr-x [...] 05:36 /home/seth/Documents/\n3554224 0 -rw-rw-r-- [...] 05:36 /home/seth/Documents/Foo\n3766411 0 -rw-rw-r-- [...] 05:36 /home/seth/Documents/Foo/foo.txt\n3766416 0 -rw-rw-r-- [...] 05:36 /home/seth/Documents/Foo/foobar.txt\nNotice that I don’t use 2&gt;/dev/null in this instance because I’m only listing the contents of a file path within my home directory, so I don’t anticipate permission errors."
+  },
+  {
+    "objectID": "c01.html#find-by-content",
+    "href": "c01.html#find-by-content",
+    "title": "2  c01",
+    "section": "2.5 4. Find by content",
+    "text": "2.5 4. Find by content\nA find command doesn’t have to perform just one task. In fact, one of the options in find enables you to execute a different command on whatever results find returns. This can be especially useful when you need to search for a file by content rather than by name, or you need to search by both.\n$ find ~/Documents/ -name \"*txt\" -exec grep -Hi penguin {} \\;\n/home/seth/Documents/Foo.txt:I like penguins.\n/home/seth/Documents/foo.txt:Penguins are fun."
+  },
+  {
+    "objectID": "c01.html#find-files-by-type",
+    "href": "c01.html#find-files-by-type",
+    "title": "2  c01",
+    "section": "2.6 5. Find files by type",
+    "text": "2.6 5. Find files by type\nYou can display files, directories, symlinks, named pipes, sockets, and more using the -type option.\n$ find ~ -type f\n/home/seth/.bash_logout\n/home/seth/.bash_profile\n/home/seth/.bashrc\n/home/seth/.emacs\n/home/seth/.local/share/keyrings/login.keyring\n/home/seth/.local/share/keyrings/user.keystore\n/home/seth/.local/share/gnome-shell/gnome-overrides-migrated\n[...]\nAs long as you’re using the GNU version of find, you can include multiple file types in your search results:\n$ find ~ -type f,l -name \"notebook*\"\n/home/seth/notebook.org\n/home/seth/Documents/notebook-alias.org"
+  },
+  {
+    "objectID": "c01.html#list-just-directories",
+    "href": "c01.html#list-just-directories",
+    "title": "2  c01",
+    "section": "2.7 6. List just directories",
+    "text": "2.7 6. List just directories\nA shortcoming of the ls command is that you can’t filter its results by file type, so it can be noisy if you only want a listing of directories in a path. The find command combined with the -type d option is a better choice:\n$ find ~/Public -type d\nfind ~/Public/ -type d\n/home/seth/Public/\n/home/seth/Public/example.com\n/home/seth/Public/example.com/www\n/home/seth/Public/example.com/www/img\n/home/seth/Public/example.com/www/font\n/home/seth/Public/example.com/www/style"
+  },
+  {
+    "objectID": "c01.html#limit-listing-results",
+    "href": "c01.html#limit-listing-results",
+    "title": "2  c01",
+    "section": "2.8 7. Limit listing results",
+    "text": "2.8 7. Limit listing results\nWith hundreds of files in a default user directory and thousands more outside of that, sometimes you get more results from find than you want. You can limit the depth of searches with the -maxdepth option, followed by the number of directories you want find to descend into after the starting point:\n$ find ~/Public/ -maxdepth 1 -type d\n/home/seth/Public/\n/home/seth/Public/example.com"
+  },
+  {
+    "objectID": "c01.html#find-empty-files",
+    "href": "c01.html#find-empty-files",
+    "title": "2  c01",
+    "section": "2.9 8. Find empty files",
+    "text": "2.9 8. Find empty files\nSometimes it’s helpful to discover empty files as a way to declutter:\n$ find ~ -type f -empty\nrandom.idea.txt\nSkip to the bottom of list"
+  },
+  {
+    "objectID": "c01.html#great-linux-resources",
+    "href": "c01.html#great-linux-resources",
+    "title": "2  c01",
+    "section": "2.10 Great Linux resources",
+    "text": "2.10 Great Linux resources\n\nAdvanced Linux commands cheat sheet\nDownload RHEL 9 at no charge through the Red Hat Developer program\nA guide to installing applications on Linux\nLinux system administration skills assessment\nHow well do you know Linux? Take a quiz and get a badge\n\nTechnically, you can use find to remove empty files, but programmatic removal of files is dangerous. For instance, if you forget to include -type f in a search for empty files, you get directories in your results. By adding a delete flag, you would remove potentially important directory structures.\nIt’s vital to compose your find command and then verify the results before deleting. Furthermore, a misplaced delete flag in find can delete results before qualifying them (in other words, you can delete directories in a command intended to delete only files by placing the delete flag before the type flag).\nI prefer to use xargs or Parallel and a trash command on the rare occasion that I remove files with find."
+  },
+  {
+    "objectID": "c01.html#find-files-by-age",
+    "href": "c01.html#find-files-by-age",
+    "title": "2  c01",
+    "section": "2.11 9. Find files by age",
+    "text": "2.11 9. Find files by age\nThe -mtime option allows you to limit a search to files older than, but also files newer than, some value times 24.\n$ find /var/log -iname \"*~\" -o -iname \"*log*\" -mtime +30\nThe + before the -mtime number doesn’t mean to add that number to the time. It’s a conditional statement that matches (in this example) a value greater than 24 times 30. In other words, the sample code finds log files that haven’t been modified in a month or more.\nTo find log files modified within the past week, you can use the - conditional:\n$ find /var/log -iname \"*~\" -o -iname \"*log*\" -mtime -7\n/var/log/tallylog\n/var/log/cups/error_log\n/var/log/cups/access_log\n/var/log/cups/page_log\n/var/log/anaconda/anaconda.log\n/var/log/anaconda/syslog\n/var/log/anaconda/X.log\n[...]\nYou already know about the -ls flag, so you can combine that with these commands for clarity:\n$ find /var/log -iname \"*~\" -o -iname \"*log*\" -mtime -7 -ls\n-rw-------  1 root root            0 Jun  9 18:20 /var/log/tallylog\n-rw-------  1 root lp      332 Aug 11 15:05 /var/log/cups/error_log\n-rw-------  1 root lp      332 Aug 11 15:05 /var/log/cups/access_log\n-rw-------  1 root lp      332 Aug 11 15:05 /var/log/cups/page_log\n-rw-------  1 root root  53733 Jun  9 18:24 /var/log/anaconda/anaconda.log\n-rw-------  1 root root 835513 Jun  9 18:24 /var/log/anaconda/syslog\n-rw-------  1 root root  21131 Jun  9 18:24 /var/log/anaconda/X.log\n[...]"
+  },
+  {
+    "objectID": "c01.html#search-a-path",
+    "href": "c01.html#search-a-path",
+    "title": "2  c01",
+    "section": "2.12 10. Search a path",
+    "text": "2.12 10. Search a path\nSometimes you know the directory structure leading up to a file you need; you just don’t know where the directory structure is located within the system. To search within a path string, you can use the -ipath option, which treats dots and slashes not as regex characters but as dots and slashes.\n$ find / -type d -name 'img' -ipath \"*public_html/example.com*\" 2&gt;/dev/null\n/home/tux/Public/public_html/example.com/font"
+  },
+  {
+    "objectID": "c01.html#found-it",
+    "href": "c01.html#found-it",
+    "title": "2  c01",
+    "section": "2.13 Found it",
+    "text": "2.13 Found it\nThe find command is an essential tool for a sysadmin. It’s useful when investigating or getting to know a new system, finding misplaced data, and troubleshooting everyday problems. But it’s also just a convenience tool.\n[ Download the Linux find cheat sheet to keep all these shortcuts in one place. ]\nYou don’t need a “good” reason to use find. Using find makes it easier to search for something instead of traversing your system. It’s an understated but infinitely useful tool that embodies the sublime pleasure of everyday Linux. Start using it today, and find out what makes it great."
+  },
+  {
+    "objectID": "c01.html#ways-to-use-the-linux-find-command",
+    "href": "c01.html#ways-to-use-the-linux-find-command",
+    "title": "2  c01",
+    "section": "2.1 10 ways to use the Linux find command",
+    "text": "2.1 10 ways to use the Linux find command\nDiscover what you’re looking for, find misplaced data, and troubleshoot everyday problems with this handy Linux command.\nThe find command is one of the most useful Linux commands, especially when you’re faced with the hundreds and thousands of files and folders on a modern computer. As its name implies, find helps you find things, and not just by filename.\nWhether you’re on your own computer or trying to support someone on an unfamiliar system, here are 10 ways find can help you locate important data.\n[ Keep your most commonly used commands handy with the Linux commands cheat sheet. ]"
+  }
+]

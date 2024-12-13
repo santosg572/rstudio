@@ -1,0 +1,277 @@
+---
+title: "pag01"
+---
+
+https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/
+
+# A Beginner's Guide to Understanding and Building Docker Images
+
+In this introduction, we'll not only take you through the basics of Docker images, but also show you where to find ready-made, off-the-shelf images that will give you a head start in building your own containerized applications, tools, and services.
+
+As a new Docker user, you'll also need to understand how to build your own custom images. So, we'll briefly cover how to create Docker images for deploying your code and assembling container-based services. But first, let's cover the basics and look at the composition of a Docker image in detail.
+
+**Table of Contents:**
+
+-   [What is a Docker Image?](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#what-is)
+
+-   [Anatomy of a Docker Image](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#anatomy)
+
+-   [Docker Layers](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#docker-layers)
+
+-   [Container Layer](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#container-layer)
+
+-   [Parent Image](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#parent-image)
+
+-   [Base Image](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#base-image)
+
+-   [Docker Manifest](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#docker-manifest)
+
+-   [Container Registries](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#container-registries)
+
+-   [Container Repositories](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#container-repositories)
+
+-   [How to Create a Docker Image](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#how-to-create)
+
+-   [Interactive Method](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#interactive-method)
+
+-   [Dockerfile Method](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#dockerfile-method)
+
+-   [Example Dockerfile](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#example-dockerfile)
+
+-   [The Docker Build Context](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#docker-build-context)
+
+-   [Learn more about Docker](https://jfrog.com/devops-tools/article/understanding-and-building-docker-images/#learn-more)
+
+## What is a Docker Image?
+
+A Docker image is a read-only template containing a set of instructions for creating a container that can run on the Docker platform. It provides a convenient way to package up applications and preconfigured server environments, which you can use for your own private use or share publicly with other Docker users. Docker images are also the starting point for anyone using Docker for the first time.
+
+**Una imagen de Docker es una plantilla de solo lectura que contiene un conjunto de instrucciones para crear un contenedor que se puede ejecutar en la plataforma Docker. Proporciona una manera conveniente de empaquetar aplicaciones y entornos de servidor preconfigurados, que puede usar para su uso privado o compartir públicamente con otros usuarios de Docker. Las imágenes de Docker también son el punto de partida para cualquiera que use Docker por primera vez.**
+
+## Anatomy of a Docker Image
+
+A Docker image is made up of a collection of files that bundle together all the essentials -- such as **installations**, **application code**, and **dependencies** -- required to configure a fully operational container environment. You can create a Docker image by using one of two methods:
+
+**Una imagen de Docker se compone de una colección de archivos que agrupan todos los elementos esenciales, como instalaciones, código de aplicación y dependencias, necesarios para configurar un entorno de contenedor totalmente operativo. Puede crear una imagen de Docker utilizando uno de estos dos métodos:**
+
+-   **Interactive**: By running a container from an existing Docker image, manually changing that container environment through a series of live steps, and saving the resulting state as a new image.
+
+-   **Dockerfile**: By constructing a plain-text file, known as a **Dockerfile**, which provides the specifications for creating a Docker
+
+We'll cover these two methods in more detail later in this guide. For now, though, let's focus on the most important Docker image concepts.
+
+## Docker Layers
+
+Each of the files that make up a Docker image is known as a **layer**. These layers form a series of intermediate images, built one on top of the other in stages, where each layer is dependent on the layer immediately below it. The **hierarchy** of your layers is key to efficient lifecycle management of your Docker images. Thus, you should organize layers that change most often as high up the stack as possible. This is because, when you make changes to a layer in your image, Docker not only rebuilds that particular layer, but all layers built from it. Therefore, a change to a layer at the top of a stack involves the least amount of computational work to rebuild the entire image.
+
+### Container Layer
+
+Each time Docker launches a container from an image, it adds a thin writable layer, known as the container layer, which stores all changes to the container throughout its runtime. As this layer is the only difference between a live operational container and the source Docker image itself, any number of like-for-like containers can potentially share access to the same underlying image while maintaining their own individual state.
+
+### Parent Image
+
+In most cases, the first layer of a Docker image is known as the "parent image". It's the foundation upon which all other layers are built and provides the basic building blocks for your container environments. You can find a wide variety of ready-made images for use as your parent image on the public container registry, [Docker Hub](https://jfrog.com/devops-tools/article/docker-hub-and-docker-registries-a-beginners-guide/).
+
+You can also find them on a small number of third-party services, such as the **Google Container Registry**. Alternatively, you can use one of your own existing images as the basis for creating new ones.
+
+A typical parent image may be a stripped-down Linux distribution or come with a preinstalled service, such as a **database management system (DBMS)** or a **content management system (CMS)**.
+
+### Base Image
+
+In simple terms, a base image is an **empty first layer**, which allows you to build your Docker images from scratch. Base images give you full control over the contents of images, but are generally intended for more advanced Docker users.
+
+### Docker Manifest
+
+Together with a set of individual layer files, a Docker image also includes an additional file known as a manifest. This is essentially a description of the image in **JSON** format and comprises information such as image tags, a digital signature, and details on how to configure the container for different types of host platforms.
+
+**Junto con un conjunto de archivos de capas individuales, una imagen de Docker también incluye un archivo adicional conocido como manifiesto. Básicamente, se trata de una descripción de la imagen en formato JSON y comprende información como etiquetas de imagen, una firma digital y detalles sobre cómo configurar el contenedor para diferentes tipos de plataformas de host.**
+
+### Container Registries
+
+Container registries are catalogs of storage locations, known as **repositories**, where you can push and pull container images. The three main registry types are:
+
+-   **Docker Hub**: Docker's own, official image resource where you can access more than 100,000 container images shared by software vendors, open-source projects, and Docker's community of users. You can also use the service to host and manage your own private images.
+
+-   **Third-party registry services**: Fully managed offerings that serve as a central point of access to your own container images, providing a way to store, manage, and secure them without the operational headache of running your own on-premises registry. Examples of third-party registry offerings that support Docker images include Red Hat Quay, Amazon ECR, Azure Container Registry, Google Container Registry, and the [JFrog Container Registry](https://jfrog.com/container-registry/).
+
+-   **Self-hosted registries**: A registry model favored by organizations that prefer to host container images on their own on-premises infrastructure -- typically due to security, compliance concerns or lower latency requirements. To run your own self-hosted registry, you'll need to deploy a registry server. Alternatively, you can set up your own private, remote, and virtual [Docker registry](https://jfrog.com/integration/docker-registry/).
+
+### Container Repositories
+
+Container repositories are the specific physical locations where your Docker images are actually stored, whereby each repository comprises a collection of related images with the same name. Each of the images within a repository is referenced individually by a different tag and represents a different version of fundamentally the same container deployment. For example, on Docker Hub, [mysql](https://hub.docker.com/_/mysql) is the name of the repository that contains different versions of the Docker image for the popular, open-source DBMS, MySQL.
+
+## How to Create a Docker Image
+
+In this final section, we'll cover the two different methods of creating Docker images in a little more detail, so you can start putting your knowledge into practice.
+
+### Interactive Method
+
+The following is a set of simplified steps to creating an image interactively:
+
+-   
+
+-   Install Docker and launch the Docker engine
+
+-   
+
+-   Open a terminal session
+
+-   
+
+-   Use the following **Docker run** command to start an interactive shell session with a container launched from the image specified by **image_name:tag_name**:
+
+-   
+
+\$ docker run -it image_name:tag_name bash
+
+If you omit the tag name, then Docker automatically pulls the most recent image version, which is identified by the latest tag. If Docker cannot find the image locally then it will pull what it needs to build the container from the appropriate repository on Docker Hub.
+
+In our example, we'll launch a container environment based on the latest version of Ubuntu:
+
+\$ docker run -it ubuntu bash
+
+-   
+
+-   Now configure your container environment by, for example, installing all the frameworks, dependencies, libraries, updates, and application code you need. The following simple example adds an NGINX server:
+
+-   
+
+\# apt-get update && apt-get install -y nginx
+
+Next, you'll need to know the name or ID of your running container instance.
+
+-   
+
+-   Open another Bash shell and type the following docker ps command to list active container processes:
+
+-   
+
+\$ docker ps
+
+The sample output below shows our running container with the ID **e61e8081866d** and the name **keen_gauss**:
+
+CONTAINER ID    IMAGE    COMMAND    CREATED          STATUS        PORTS    NAMES\
+
+e61e8081866d       ubuntu      "bash"         2 minutes ago     Up 2 minutes         keen_gauss
+
+This name is randomly generated by the Docker daemon. But you can also identify your container with something more meaningful by assigning your own name using the -- **name operator** in the **Docker run** command.
+
+-   
+
+-   Save your image using the **Docker commit** command, specifying either the ID or name of the container from you which want to create it:
+
+-   
+
+\$ docker commit keen_gauss ubuntu_testbed
+
+In the example above, we supplied the name of our container and called the resulting image **ubuntu_testbed**.
+
+-   
+
+-   Now, use the **Docker images** command to see the image you've just created:
+
+-   
+
+\$ docker images
+
+You should see your new image listed in the results.
+
+REPOSITORY     TAG        IMAGE ID          CREATED            SIZE\
+
+ubuntu                 latest      775349758637    5 minutes ago      64.2MB
+
+-   
+
+-   Finally, return to your interactive container shell and type **exit** to shut it down.
+
+-   
+
+\# exit
+
+### Dockerfile Method
+
+The Dockerfile approach is the method of choice for real-world, enterprise-grade container deployments. It's a more systematic, flexible, and efficient way to build Docker images and the key to compact, reliable, and secure container environments.
+
+In short, the Dockerfile method is a three-step process whereby you create the Dockerfile and add the commands you need to assemble the image.
+
+**En resumen, el método Dockerfile es un proceso de tres pasos mediante el cual crea el Dockerfile y agrega los comandos que necesita para ensamblar la imagen.**
+
+The following table shows you those Dockerfile statements you're most likely to use:
+
+|  |  |  |  |  |
+|----|----|----|----|----|
+|  |  |  |  |  |
+|  | **Command** |  | **Purpose** |  |
+|  |  |  |  |  |
+|  | FROM |  | To specify the parent image. |  |
+|  |  |  |  |  |
+|  | WORKDIR |  | To set the working directory for any commands that follow in the Dockerfile. |  |
+|  |  |  |  |  |
+|  | RUN |  | To install any applications and packages required for your container. |  |
+|  |  |  |  |  |
+|  | COPY |  | To copy over files or directories from a specific location. |  |
+|  |  |  |  |  |
+|  | ADD |  | As COPY, but also able to handle remote URLs and unpack compressed files. |  |
+|  |  |  |  |  |
+|  | ENTRYPOINT |  | Command that will always be executed when the container starts. If not specified, the default is /bin/sh -c |  |
+|  |  |  |  |  |
+|  | CMD |  | Arguments passed to the entrypoint. If ENTRYPOINT is not set (defaults to /bin/sh -c), the CMD will be the commands the container executes. |  |
+|  |  |  |  |  |
+|  | EXPOSE |  | To define which port through which to access your container application. |  |
+|  |  |  |  |  |
+|  | LABEL |  | To add metadata to the image. |  |
+|  |  |  |  |  |
+
+ 
+
+#### Example Dockerfile
+
++---+-------------------------------------------+---+
+|   |                                           |   |
++---+-------------------------------------------+---+
+|   | \# Use the official Ubuntu 18.04 as base\ |   |
+|   |                                           |   |
+|   | FROM ubuntu:18.04\                        |   |
+|   |                                           |   |
+|   | # Install nginx and curl                  |   |
+|   |                                           |   |
+|   | RUN apt-get update &&\                    |   |
+|   |                                           |   |
+|   | apt-get upgrade -y &&\                    |   |
+|   |                                           |   |
+|   | apt-get install -y nginx curl &&\         |   |
+|   |                                           |   |
+|   | rm -rf /var/lib/apt/lists/\*              |   |
++---+-------------------------------------------+---+
+|   |                                           |   |
++---+-------------------------------------------+---+
+
+An example of a Dockerfile for building an image based on official Ubuntu 18.04 with installing Nginx
+
+Next, we'll set up a [.dockerignore](https://docs.docker.com/engine/reference/builder/#dockerignore-file) file to list any files that would otherwise be created during the Docker build process, which you want to exclude from the final build.
+
+**A continuación, configuraremos un archivo .dockerignore para enumerar los archivos que de otro modo se crearían durante el proceso de compilación de Docker, que desea excluir de la compilación final.**
+
+**.dockerignore** files play an important role in creating more compact, faster-running containers -- by providing a way to prevent sensitive or unnecessary files and directories from making their way into your image builds. Your **.dockerignore** file should be located in the root directory, known as the build **context**, from which you intend to build your image. This will be either your current working directory or the path you specify in the **Docker build** command that we'll discuss below.
+
+![](https://jfrog--c.documentforce.com/servlet/servlet.ImageServer?id=01569000008kq9X&oid=00D20000000M3v0&lastMod=1631619840000){alt=""}
+
+#### The Docker Build Context
+
+Now use the Docker build command to create your Docker image. Use the **-t flag** to set an image name and tag:
+
+\$ docker build -t my-nginx:0.1 .
+
+In the example above, we built the image from within the same directory as the Dockerfile and the context, as the . argument simply tells the Docker daemon to build the image from the files and folders in the current working directory.
+
+Finally, as we saw in the interactive method, you can use the **Docker images** command to see the image you've just created.
+
+\$ docker images
+
+REPOSITORY     TAG IMAGE ID        CREATED SIZE
+
+my-nginx       0.1 f95ae2e1344b    10 seconds ago 138MB
+
+ubuntu         18.04 ccc6e87d482b  12 days ago 64.2MB
+
+Again, you should see your new image listed in the results.

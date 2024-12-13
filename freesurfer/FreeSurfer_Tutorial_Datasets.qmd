@@ -1,0 +1,51 @@
+---
+title: "FreeSurfer Tutorial Datasets"
+---
+
+<https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/Data>
+
+## FreeSurfer Tutorial Datasets
+
+### Installation
+
+The
+following commands will install the complete tutorial dataset (\~8GB) on
+your machine. Afterwards, you should have a folder called tutorial_data in your working directory.
+
+```         
+curl https://surfer.nmr.mgh.harvard.edu/pub/data/tutorial_data.tar.gz -o tutorial_data.tar.gz
+tar -xzvf tutorial_data.tar.gz
+rm tutorial_data.tar.gz
+```
+
+### Configuration
+
+In order to run the tutorials, users must define an environment variable called **TUTORIAL_DATA**, which must be set to the tutorial_data
+root directory containing the extracted data (i.e. the directories
+'buckner_data', 'long-tutorial', 'fsfast-functional', etc.). The
+tutorials make frequent use of the **TUTORIAL_DATA** environment variable and it need to be set properly for any of the tutorials to work. For example:
+
+```         
+export TUTORIAL_DATA=/path/to/your/tutorial/dir
+ls $TUTORIAL_DATA
+
+buckner_data                    fsfast-functional
+diffusion_recons                fsfast-tutorial.subjects
+diffusion_tutorial              long-tutorial
+```
+
+If you see something similar to the above output, you are now ready to start the [Freesurfer tutorials](https://surfer.nmr.mgh.harvard.edu/fswiki/Tutorials).
+
+------------------------------------------------------------------------
+
+## FreeSurfer Tutorial Datasets 5.1/5.3
+
+Below are links to the previous versions of the tutorial dataset that correspond to freesurfer version 5.1 and 5.3:
+
+-   [buckner_data-tutorial_subjs-5.3.tar.gz](ftp://surfer.nmr.mgh.harvard.edu/pub/data/buckner_data-tutorial_subjs-5.3.tar.gz)
+
+-   [long-tutorial-5.3.tar.gz](ftp://surfer.nmr.mgh.harvard.edu/pub/data/long-tutoriaL-5.3.tar.gz)
+
+-   [fsfast-tutorial.subjects-5.3.tar.gz](ftp://surfer.nmr.mgh.harvard.edu/pub/data/fsfast-tutorial.subjects-5.3.tar.gz) & [fsfast-functional-5.3.tar.gz](ftp://surfer.nmr.mgh.harvard.edu/pub/data/fsfast-functional.tar.gz)
+
+-   [diffusion_recons-5.3.tar.gz](ftp://surfer.nmr.mgh.harvard.edu/pub/data/diffusion_recons-5.3.tar.gz) & [diffusion_tutorial-5.3.tar.gz](ftp://surfer.nmr.mgh.harvard.edu/pub/data/diffusion_tutorial-5.3.tar.gz)

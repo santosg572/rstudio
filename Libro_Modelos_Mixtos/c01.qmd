@@ -1,0 +1,1239 @@
+---
+title: "C01"
+---
+
+Prefacio
+
+Este libro presenta una introducción a los modelos mixtos y puede usarse
+
+en semestres avanzados a nivel de pregrado en estadística o como parte de
+
+los cursos de posgrado que se relacionen con estadística. El campo de los
+
+modelos mixtos ha tenido un gran desarrollo a nivel mundial en los últimos
+
+años, en especial desde la creación e introducción de rutinas computacionales
+
+intensivas, tal y como se evidencia en la abundante literatura sobre el
+
+tema. En nuestro medio ya se percibe el uso de estos modelos no solo en
+
+algunos trabajos de investigación sino en el quehacer de empresas y centros
+
+de investigación del medio externo.
+
+Muchas ideas han estado circulando desde hace mucho tiempo, pero la imposibilidad
+
+de llevarlas a la práctica hacían que se miraran con cierta desilusión,
+
+ya que eran muy atractivas pero inaplicables por los retos computacionales
+
+que representaban. Esto afortunadamente ha cambiado. En nuestro medio,
+
+ya se encuentran trabajos publicados relacionados con el tema y poco a poco
+
+los modelos lineales mixtos se han posicionado como una poderosa herramienta
+
+de análisis estadístico. Sin embargo, es lamentable que la mayoría de
+
+libros básicos en estadística no hagan una presentación de los elementos básicos
+
+de esta aproximación basada en modelos para la solución de problemas
+
+estadísticos.
+
+El principal objetivo de este trabajo es familiarizar al lector con conceptos
+
+básicos del modelo lineal mixto y mixto generalizado, así como presentar
+
+algunos elementos relacionados con modelos mixtos no lineales. Con esto se
+
+pretende que el lector pueda implementar modelos de este tipo a situaciones
+
+prácticas propias de su quehacer cotidiano o como apoyo en la solución de
+
+problemas de investigación en diversas áreas del conocimiento. En este trabajo
+
+se va a presentar y desarrollar una aproximación teórico-práctica, esto
+
+es, el lector puede aplicar de forma casi inmediata los métodos a problemas
+
+reales. Sin embargo, se presentan algunos desarrollos teóricos de resultados
+
+estándar de la teoría de modelos mixtos lineales y no lineales. El software
+
+que se utilizará en la mayoría de los ejemplos es el R1, que es de permiso libre
+
+para educación. También se usará software con licencia como por ejemplo el
+
+SAS c
+
+2\. Se requiere familiaridad con estos programas al menos a un nivel
+
+operativo básico.
+
+Se asume que el lector también está familiarizado con métodos estadísticos,
+
+especialmente aquellos relacionados con modelos lineales y modelos lineales
+
+generalizados. Conocimiento de álgebra lineal e inferencia a un nivel de un
+
+texto básico de estadística matemática puede ser de gran ayuda.
+
+Cap´ıtulo 1
+
+Introducción
+
+El modelo lineal ha sido una de las herramientas estadísticas más importantes
+
+para el usuario a nivel aplicado. Su interpretabilidad y la disponibilidad de
+
+resultados computacionales, junto con los resultados teóricos, han hecho de
+
+este modelo una técnica muy popular. Para obtener estimaciones con este
+
+modelo, uno de los requerimientos fundamentales es el de la independencia
+
+de las observaciones muestrales.
+
+Datos en forma de "cluster" (agrupados y relacionados) aparecen con mucha
+
+frecuencia en diversas áreas y el estadístico aplicado debe disponer de métodos
+
+para analizarlos de manera adecuada. En investigaciones es corriente
+
+tomar varias mediciones (de la misma variable o de una respuesta específica)
+
+sobre el mismo sujeto. Puede ser que el interés sea estudiar la evolución de
+
+un fenómeno en el tiempo, lo que se conoce como datos longitudinales, o que
+
+en el sujeto se realicen varias mediciones.
+
+Esto puede deberse básicamente a dos causas distintas. Por ejemplo, en un
+
+experimento, una capa de pintura es aplicada a un pedazo de lámina y el
+
+grosor de la pintura puede medirse en varios puntos tomados al azar, esto
+
+se conoce como submuestreo, o en un caso típico de investigación social la
+
+unidad experimental está formada por un grupo de subunidades, por ejemplo
+
+una familia con los diferentes hijos; la boca de una persona con sus diferentes
+
+dientes, etc. Cada sujeto o unidad experimental va a generar varios registros
+
+en la base de datos, uno por cada subindividuo. Esto puede generalizarse
+
+más, por ejemplo, una familia, sujetos dentro de la familia, dientes dentro
+
+de cada sujeto de la familia.
+
+Este problema lleva al surgimiento de una clase de modelos conocidos como
+
+modelos lineales mixtos, que cobija los modelos lineales tradicionales, pero
+
+permite la inclusión de estas subunidades dentro del análisis. El estudio e
+
+implementación de estos modelos es el tema principal de este trabajo y en
+
+algunas ocasiones se expondrá el material a un nivel elemental y en otras a un
+
+nivel más complejo. Se usará principalmente el programa estadístico R y las
+
+librerías que dispone para ajustar estos modelos, ya que es un programa de
+
+uso gratuito y ampliamente reconocido. Existen muchos paquetes estadísticos
+
+que trabajan estos modelos, por ejemplo SAS, SPSS, STATA entre otros. El
+
+SAS también se usará para ilustrar algunas de las técnicas estudiadas.
+
+Por datos "agrupados" (clustered data) se entiende una colección de observaciones
+
+que tienen una asociación estocástica, temporal, espacial u otra que
+
+sugiere que deben ser tratados como un grupo.
+
+Las dos situaciones básicas que producen estructuras de datos agrupados
+
+son:
+
+1\. Procesos aleatorios jerárquicos
+
+a\) Submuestreo (unidades dentro del grupo no son correlacionadas)
+
+b\) Splitting (unidades dentro del grupo no son correlacionadas)
+
+c\) Selección aleatorias de tratamientos o bloques
+
+2\. Medidas repetidas o datos longitudinales(las unidades dentro del grupo
+
+son correlacionadas)
+
+a\) en el tiempo
+
+b\) en el espacio
+
+c\) en el tiempo y en el espacio.
+
+1.1. Datos longitudinales
+
+En los datos longitudinales la respuesta es observada varias veces en diferentes
+
+tiempos para cada sujeto o unidad involucrada en el estudio. Los sujetos
+
+no se observan necesariamente en los mismos tiempos ni se observan necesariamente
+
+el mismo número de veces (datos desbalanceados). Las covariables
+
+pueden ser diferentes para cada sujeto en los distintos tiempos. Se puede
+
+pensar de este tipos de datos que:
+
+cada individuo tiene una tendencia propia o "trayectoria". No son necesariamente
+
+líneas rectas.
+
+Si se promedian todas las observaciones se obtiene un perfil promedio
+
+poblacional.
+
+El modelo lineal mixto es flexible ya que permite obtener un perfil individual
+
+en adición al perfil promedio como se verá más adelante en algunos capítulos
+
+del presente trabajo. Para este tipo de datos se habla de "modelos específicos
+
+de sujetos" o "modelos de población promedios" y dependiendo de los
+
+objetivos de investigación uno puede estar interesado en uno o en el otro.
+
+1.2. Efectos fijos y efectos aleatorios
+
+En diseño experimental ha sido clara la diferencia entre "efectos fijos" y
+
+"efectos aleatorios". En muchas situaciones es relativamente simple decidir si
+
+un efecto es fijo o no. En algunas situaciones no es claro y los investigadores
+
+se deciden por uno o por otro con muy pocas o ninguna explicación. Por
+
+ejemplo, suponiendo un estudio epidemiológico la variable Fumar puede ser
+
+considerada efecto fijo, pero algunos investigadores argumentan que esta es
+
+una variable continua dicotomizada. Una respuesta "Sí fuma" puede reflejar
+
+un gran número de situaciones.
+
+Decidir entre si un factor es fijo o aleatorio puede llegar a ser difícil y controversial
+
+(Littell et al., 2006). Robinson (2008, pp. 99) comenta "Los modeladores
+
+pueden estar en desacuerdo si los efectos deben ser fijos o aleatorios,
+
+y el mismo efecto puede cambiar dependiendo de las circunstancias. Ciertamente,
+
+los estadísticos no están de acuerdo en una estrategia. Algunos
+
+dicen que depende completamente de la inferencia, y algunos que depende
+
+completamente del diseño."
+
+Efectos aleatorios Efectos aleatorios son aquellos que supuestamente son
+
+tomados al azar de una población de posibles niveles. Para ilustrar esto,
+
+considere el caso de un experimento para comparar los tiempos para
+
+obtener el secado de una pintura sobre una superficie de madera. La
+
+pintura puede provenir de varios productores, por ejemplo productor A
+
+o productor B. Si se tiene información sobre la temperatura ambiente,
+
+sobre el porcentaje de humedad, estas variables entrarían al modelo
+
+como efectos aleatorios y las marcas serían efectos fijos. Pero si el interés
+
+es modelar el tiempo de secado dada la temperatura, el productor
+
+y la humedad relativa serían los efectos aleatorios y la temperatura el
+
+efecto fijo.
+
+Otra manera de ver un efecto aleatorio es sencillamente si no estamos
+
+interesados en obtener una estimación de su localización como objetivo
+
+principal. Una forma diferente de pensarlos es que un efecto es aleatorio
+
+si uno lo desea marginalizar, por cualquier razón.
+
+Efectos fijos Estos efectos se asumen que son determinados a propósito, y
+
+que no representan a otros sino a ellos mismos.
+
+Es importante entender que los papeles de los efectos fijos y los efectos aleatorios
+
+son diferentes: los efectos fijos explican variabilidad y los efectos aleatorios
+
+organizan variabilidad (Robinson, 2008).
+
+Una lista para decidir si usar efectos fijos o aleatorios:
+
+1\. ¿Cuál es el número de niveles?
+
+Pequeño Fijo
+
+Grande o infinito Posiblemente aleatorio
+
+2\. ¿Son los niveles repetibles?
+
+Sí Fijo
+
+No Aleatorio
+
+3\. ¿Hay, conceptualmente, un número infinito de niveles?
+
+No Posiblemente fijo
+
+Sí Posiblemente aleatorio
+
+4\. ¿Se necesitan realizar inferencias para niveles no incluidos en el muestreo?
+
+No Posiblemente fijo
+
+Sí Posiblemente aleatorio
+
+1.3. Tareas para el analista
+
+Watts (1981) presenta una lista de tareas que debe realizar un analista de
+
+datos que esté tratando de ajustar un modelo de regresión que pueden considerarse
+
+como obligatorias para la buena práctica estadística.
+
+Muchas de estas tareas deben realizarse también cuando se ajustan modelos
+
+mixtos (lineales o no lineales).
+
+1\. Entender el problema y la situación experimental u observacional.
+
+a\) Lea reportes y estudie la situación. Luego escriba una descripción
+
+del problema, enfatizando porqué el problema es importante.
+
+b\) Discuta esta descripción con el cliente para asegurarse que ud. ha
+
+entendido apropiadamente la situación.
+
+c\) Distinga cuidadosamente las variables involucradas como respuestas
+
+y predictoras.
+
+d\) Anote cualquier característica especial de los datos o de la situación
+
+que pueda ser útil en la selección de las transformaciones de
+
+cualquier variable o en aclarar la naturaleza de las relaciones.
+
+e\) Visite el lugar de experimentación o examine cómo fueron recolectados
+
+los datos de forma cuidadosa para aclarar cualquier punto y
+
+entender mejor la situación. Haga preguntas (preferiblemente informativas
+
+y no cerradas a menos que sea necesario formularlas).
+
+f ) Determine cuáles son los puntos importantes. El principal objetivo
+
+es
+
+1\) ¿estimar parámetros?
+
+2\) ¿probar si un subconjunto de parámetros es cero?
+
+3\) ¿desarrollar una relación descriptiva?
+
+4\) ¿predecir observaciones futuras?
+
+5\) ¿tomar decisiones?
+
+2\. Decida si el análisis de regresión es apropiado.
+
+a\) Identifique la respuesta legítima y las variables predictoras.
+
+b\) Decida si el análisis de regresión es apropiado o si hay otra técnica
+
+multivariable que lo sea.
+
+c\) Si hay más de una variable dependiente decida si la regresión
+
+multirespuesta es apropiada.
+
+3\. Lleve a cabo un análisis preliminar.
+
+a\) Recuerde los supuestos involucrados en la regresión de mínimos
+
+cuadrados y relaciónelos con la situación práctica con miras a
+
+determinar si ellos son apropiados para realizar el análisis preliminar.
+
+b\) Determine si hay errores en las variables.
+
+c\) Si hay réplicas use gráficos normales o boxplots para verificar
+
+visualmente la normalidad de los errores y para ver si la varianza
+
+es constante.
+
+d\) Si hay réplicas, calcule ¯y, s2 y s para cada conjunto de réplicas y
+
+grafíquelas para ver si la varianza es constante.
+
+e\) Si no hay réplicas, un ajuste simple preliminar puede hacerse y
+
+calcular los residuales y chequear si la varianza es constante graficándolos
+
+contra ˆy o contra x.
+
+4\. Transforme para estabilizar varianza o para simplificar el modelo.
+
+a\) Examinando la naturaleza de la respuesta y "recordando" el comportamiento
+
+de la varianza en algunas situaciones comunes, sugieren
+
+una transformación lógica para estabilizar la varianza.
+
+b\) ¿Existe alguna restricción en Y , y por lo tanto ésta sugiere una
+
+transformación apropiada para estabilizar la varianza?
+
+c\) Si hay réplicas, calcule ¯y, s2 y s para cada conjunto de réplicas
+
+y grafíquelas o construya un boxplot para ver si la varianza es
+
+constante y cuál transformación pueda ayudar a estabilizarla.
+
+d\) Examine los boxplots para simetría y para valores separados y graficando
+
+en diferentes escalas, seleccione una transformación apropiada
+
+para estabilizar la varianza para cada conjunto y luego una
+
+transformación que sea buena.
+
+e\) Grafique s2 vs. ¯ Y y s vs. ¯ Y en varias escalas para obtener relaciones
+
+simples. Luego utilice la teoría de transformaciones para
+
+estabilizar varianza para seleccionar una buena transformación o
+
+retome algunas combinaciones.
+
+f ) Si es posible, proporcione una justificación para la selección de una
+
+transformación en términos del comportamiento de la respuesta,
+
+o dé razones físicas, biológicas u otra para su selección.
+
+g\) Si no hay un comportamiento consistente de s2 o s vs. ¯Y , o si
+
+la transformación para la estabilización de la varianza causa más
+
+complejidad en el modelo resultante que los beneficios obtenidos
+
+por la estabilización de la varianza, el analista puede decidirse a
+
+usar mínimos cuadrados ponderados. Si es así, los pesos o la forma
+
+funcional de los pesos deben determinarse.
+
+5\. Seleccione una forma apropiada del modelo.
+
+a\) Determine cuáles variables predictoras son posiblemente las más
+
+influyentes y, si es posible, qué forma tendrán. Por ejemplo, ¿será
+
+Y aproximadamente lineal en x? ¿Deberá Y incrementarse cuando
+
+x disminuye (consideraciones teóricas)? ¿Será posible que existan
+
+interacciones?
+
+b\) ¿Existen características inusuales en Y , por ejemplo, Y debe ser
+
+siempre positivo? Si es así, trate de incluir esta información en el
+
+modelo.
+
+c\) ¿Pueden algunas variables causar un comportamiento inusual?
+
+por ejemplo, si x1 y x2 se vuelven grandes, entonces y se sale de
+
+control. ¿Hay sensibilidad a las interacciones?
+
+d\) ¿Habrá alguna predictora que tiene limitaciones o un comportamiento
+
+especial que sugiera una transformación que proporcione
+
+un modelo simple, efectivo y sensible?
+
+e\) Ingrese los datos y grafique Y vs. cada una de las x, o use marquillas
+
+o múltiples gráficos para obtener ideas de cómo se comporta
+
+y qué términos deben incluirse en el modelo. También use gráficos
+
+de contorno bivariables de Y vs. x.
+
+f ) Grafique Y o las transformaciones de Y vs. las x's transformadas
+
+para obtener relaciones simples (sin considerar si la varianza es
+
+estable) y relacione estos modelos simples con las variables originales.
+
+g\) Calcule las correlaciones de las Y y las x's y las Y transformadas y
+
+las x's transformadas para que posiblemente permita seleccionar
+
+las variables importantes y detectar tendencias para colinealidad.
+
+h\) Utilice técnicas computarizadas tales como regresión stepwise,
+
+splines o técnicas de automodelación.
+
+i ) Use la información anterior para especificar un modelo tentativo.
+
+6\. Estime los parámetros.
+
+a\) En una regresión no lineal determine valores razonables para iniciar
+
+los parámetros mediante gráficos de los datos (en diferentes
+
+escalas), o mediante transformaciones a una forma lineal y corriendo
+
+una regresión lineal y luego derivar valores de los parámetros,
+
+o calculando y relacionando los parámetros a valores asintóticos,
+
+pendientes iniciales, valores de picos, etc.
+
+b\) Seleccione parametrizaciones ventajosas para ayudar al modelo a
+
+converger.
+
+c\) Calcule las derivadas con respecto a los parámetros y codifique
+
+tanto el modelo como las derivadas para el procesamiento en el
+
+computador.
+
+d\) Digite los datos y use algún software de calidad para estimar los
+
+parámetros en un modelo lineal o nolineal.
+
+7\. Refine el modelo.
+
+a\) Examine los residuales del modelo ajustado graficándolos contra
+
+diferentes variables tales como orden, ¯ Y , x's, lo que permite detectar
+
+problemas del modelo, outliers, varianza no constante, o
+
+correlaciones de los residuales.
+
+b\) Haga gráficos normales o medio-normales (half-normal) o boxplots
+
+para detectar outliers o si el supuesto de normalidad de los errores
+
+es inapropiado.
+
+c\) Si hay outliers, o bien elimine las observaciones luego de haber
+
+justificado satisfactoriamente tal acción y re-estime el modelo,
+
+o posiblemente cambie la forma de realizar inferencias, digamos
+
+una regresión robusta, o incorpore nuevas variables para tener en
+
+cuenta este comportamiento.
+
+d\) Calcule las correlaciones de los residuales con otras variables que
+
+sean posibles predictores, y con ellos mismos determine si hay
+
+autocorrelación en los residuales.
+
+e\) Examine la tabla con los parámetros estimados para determinar si
+
+una relación informativa (sustancial) ha sido demostrada. Pruebe
+
+el ajuste del modelo. Si hay necesidad, transforme al menos unas
+
+de las variables del modelo a fin de acercarse al cumplimiento de
+
+los supuestos del modelo.
+
+f ) Examine las correlaciones de los parámetros o los estadísticos t
+
+para decidir si algunas variables pueden eliminarse. Analice los
+
+estadísticos de multicolinealidad antes de eliminar cualquier variable,
+
+y calcule los tamaños muestrales efectivos.
+
+g\) Resuma la salida del computador y sus hallazgos y decida si acepta
+
+o no el modelo ajustado.
+
+h\) Compare los errores medios cuadrados, las razones F, las correlaciones
+
+y las varianzas de los parámetros, y los residuales para
+
+este modelo y los modelos ajustados previamente que le ayuden
+
+a decidir si aceptar o no el modelo.
+
+i ) Si el modelo ha de ser cambiado, sugiera cómo debe cambiarse y
+
+porqué. Regrese al tercer paso (si es necesario) o al cuarto paso.
+
+j ) Si hay fuerte colinealidad y si se puede conseguir información adicional,
+
+especialmente de algún diseño experimental, sugiera cómo
+
+deben obtenerse los datos para reducir la colinealidad y por lo
+
+tanto ser capaces de remover algunas variables o retenerlas y proporcionar
+
+mejores estimaciones de los parámetros.
+
+8\. Evalúe el modelo.
+
+a\) Use la salida del computador para determinar regiones de confianza
+
+conjuntas y marginales de los parámetros o resúmenes de
+
+información que sea equivalente y útil.
+
+b\) Establezca el modelo y presente información sobre la precisión tal
+
+como errores estándar o regiones de confianza.
+
+c\) Calcule los tamaños muestrales efectivos para las variables para
+
+indicar la extensión de la colinealidad. Calcule las eficiencias del
+
+diseño y explíquelas.
+
+d\) Calcule los límites de confianza para la función respuesta en puntos
+
+seleccionados y proporcione expresiones para los límites con
+
+cálculos simples para otros puntos.
+
+e\) Calcule límites de confianza para observaciones futuras en puntos
+
+seleccionados. Proporcione expresiones para los límites con cálculos
+
+simples para otros puntos.
+
+f ) Calcule eficiencias de predictibilidad para el modelo y diseño y
+
+para puntos especificados.
+
+g\) Interprete el modelo y hallazgos en términos de la situación experimental.
+
+Si algo no tiene sentido o es sorpresivo, examine este
+
+aspecto cuidadosamente hasta que pueda decidir que el modelo es
+
+correcto y su intuición (o la del investigador) está equivocada, o
+
+el modelo es incorrecto y necesita modificarse, o si hay que examinarlo
+
+más pero una conclusión solo puede lograrse consiguiendo
+
+más datos, en cuyo caso describa qué clase de experimento sería
+
+más informativo.
+
+9\. Escriba un reporte.
+
+a\) Arme y organice la salida del computador, los gráficos y la información
+
+de resumen.
+
+b\) Desarrolle un boceto del reporte.
+
+c\) Prepare versiones preliminares del reporte, describiendo las partes
+
+importantes del análisis, los hallazgos (incluyendo el modelo
+
+ajustado), y cualquier punto especialmente importante tal como
+
+cualquier variable variable explicatoria inesperada, cualquier limitación
+
+del diseño experimental o del modelo y sugerencias para
+
+futuros experimentos.
+
+d\) Modifique y revise los borradores hasta lograr un reporte satisfactorio,
+
+preferiblemente juzgado por un colega o el investigador.
+
+Incluya partes importantes de la salida del computador, gráficos y
+
+análisis. Las derivaciones se presentan como apéndices. También
+
+incluya un resumen de hechos claro. Marque los gráficos y figuras
+
+adecuadamente y use buenas referencias de las secciones en el
+
+reporte. Si es necesario incluya una lista de referencias.
+
+1.4. Ejemplos de motivación
+
+En esta sección se presentan algunos ejemplos típicos que servirán no solo
+
+para contextualizar los modelos lineales mixtos y resaltar su potencial en la
+
+práctica, sino también para ilustrar las diversas técnicas que se presentarán
+
+en este libro. Algunos de estos conjuntos de datos fueron recopilados durante
+
+el desarrollo de investigaciones en distintas disciplinas en Colombia.
+
+1.4.1. Electroplateado
+
+Este es un ejemplo de datos no longitudinales y medidas repetidas. El electroplateado
+
+es un método para galvanizar placas de acero y se usa en una
+
+amplia variedad de productos de acero. Un ingeniero está estudiando tres
+
+procesos de electroplateado (tratamientos I, II y III) y para esto toma 18
+
+placas uniformes en tamaño y grosor y las somete a cada uno de los procesos.
+
+En este ejemplo, la respuesta de interés para el investigador es el grosor
+
+(en m.m.) medido en tres regiones de la placa seleccionadas al azar. De esta
+
+manera hay tres mediciones para cada una de las 18 placas. Los datos aparecen
+
+en el apéndice. A continuación se presenta un análisis exploratorio de
+
+estos datos de electroplateado con el fin de describir algunas características
+
+relevantes asociadas al proceso.
+
+Placa Promedio Mediana Desv. estándar
+
+1 0.500 0.490 0.0173
+
+2 0.513 0.510 0.0152
+
+3 0.507 0.510 0.0152
+
+4 0.520 0.520 0.010
+
+5 0.520 0.520 0.020
+
+6 0.517 0.520 0.0055
+
+7 0.527 0.530 0.0152
+
+8 0.547 0.540 0.0114
+
+9 0.533 0.530 0.0152
+
+10 0.527 0.530 0.0055
+
+11 0.537 0.540 0.0055
+
+12 0.523 0.520 0.0152
+
+13 0.567 0.570 0.0055
+
+14 0.567 0.570 0.0152
+
+15 0.573 0.570 0.0055
+
+16 0.567 0.560 0.0114
+
+17 0.567 0.570 0.0152
+
+18 0.557 0.560 0.0152
+
+Tabla 1.1. Estadísticos básicos para cada una de las placas (basados en 3 mediciones)
+
+5 10 15
+
+0.50 0.52 0.54 0.56 0.58
+
+Placa
+
+Grosor
+
+Trat. I
+
+Trat. II
+
+Trat. III
+
+Figura 1.1. Mediciones de las placas sometidas al electroplateado. Las líneas
+
+verticales continuas separan las placas por tratamiento.
+
+Figura 1.2. Valores medios en cada placa. Las líneas verticales separan las
+
+placas por tratamiento y las líneas horizontales muestran el promedio para
+
+cada tratamiento.
+
+Grosor
+
+Densidad
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+0.450.500.550.60
+
+1 2
+
+0.450.500.550.60
+
+3 4
+
+0.450.500.550.60
+
+5
+
+6 7 8 9
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+10
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+11 12 13 14 15
+
+16
+
+0.450.500.550.60
+
+17
+
+0
+
+5
+
+10
+
+15
+
+20
+
+25
+
+18
+
+Figura 1.3. Densidades estimadas de las mediciones de las placas sometidas
+
+al electroplateado. Se tienen muy pocas observaciones por sujeto y este gráfico
+
+realmente es muy poco fiable. La aparente normalidad de las densidades
+
+se debe principalmente a la selección del ancho de banda.
+
+1.4.2. Hueso ramus
+
+A una cohorte de niños se les registró la altura (en m.m.) del hueso ramus
+
+(ubicado en la mandíbula). Estas mediciones se realizaron a los 8, 8 y medio,
+
+9 y 9 y medio años. El objetivo era establecer una curva de crecimiento
+
+normal para ser usada por ortodoncistas. Los datos aparecen en el apéndice.
+
+Se presenta un análisis exploratorio de los datos del hueso ramus en el cual
+
+se puede considerar que cada sujeto tiene su propio modelo de regresión.
+
+Yit = βi0 + βi1Edadit + ǫit, t = 1, 2, 3, 4; i = 1, . . . , 20
+
+Para los 20 sujetos se construyen 20 regresiones y de este forma se obtiene
+
+20 interceptos, 20 pendientes y 20 estimadores del error. Un problema que se
+
+observa, es que las respuestas dentro de cada sujeto no son independientes
+
+y ya que ellas se toman en el tiempo, solo dependen del tiempo previo.
+
+Esto lleva a trabajar cada individuo con regresiones con autocorrelación. Si
+
+se construyen los modelos individuales sin considerar la autocorrelación se
+
+obtiene:
+
+Individuo ˆ β0 ˆ β1
+
+1 38.50 1.18
+
+2 36.25 1.28
+
+3 34.05 1.52
+
+4 33.50 1.42
+
+5 38.95 1.10
+
+6 46.70 0.74
+
+7 33.65 2.24
+
+8 34.95 1.80
+
+9 15.70 4.08
+
+10 29.05 2.04
+
+11 47.50 0.46
+
+12 8.15 4.96
+
+13 36.60 1.92
+
+14 39.95 1.04
+
+15 37.80 1.48
+
+16 36.70 1.76
+
+17 34.90 1.52
+
+18 43.20 1.30
+
+19 34.95 1.44
+
+20 13.90 4.04
+
+Tabla 1.2. Datos hueso ramus. Interceptos y pendientes estimadas para cada sujeto asumiendo
+
+independencia intra-sujeto.
+
+Considerando la autocorrelación, se obtiene:
+
+Individuo ˆβ0 ˆβ1 ˆσ2 ˆρ
+
+1 39.26 1.09 0.02 −0.64
+
+2 36.71 1.23 0.01 −0.63
+
+3 33.59 1.57 0.01 −0.63
+
+4 33.40 1.43 0.09 −0.26
+
+5 39.12 1.08 0.03 −0.33
+
+6 47.18 0.69 0.02 −0.57
+
+7 33.56 2.26 0.29 −0.26
+
+8 35.45 1.73 0.58 −0.32
+
+9 16.65 3.98 0.06 −0.57
+
+10 30.21 1.91 0.15 −0.52
+
+11 47.53 0.46 0.00 −0.33
+
+12 6.01 5.19 0.50 −0.52
+
+13 36.63 1.91 0.04 −0.26
+
+14 40.13 1.02 0.01 −0.47
+
+15 37.75 1.49 0.00 −0.33
+
+16 36.60 1.77 0.02 −0.33
+
+17 34.93 1.51 0.04 −0.26
+
+18 43.35 1.29 0.14 −0.27
+
+19 35.07 1.43 0.11 −0.27
+
+20 10.45 4.44 0.22 −0.70
+
+Tabla 1.3. Datos hueso ramus. Interceptos, pendientes, varianza y coeficiente de correlación
+
+estimados para cada sujeto asumiendo dependencia intra-sujeto.
+
+Si se calculan las medianas de los interceptos y de las pendientes (para eliminar
+
+el efecto de los posibles outliers) estas son 36.02072 y 1.500743, respectivamente,
+
+estos serían los estimadores del modelo poblacional. La diferencia
+
+entre los parámetros estimados de un niño y estos valores dan los efectos
+
+individuales.
+
+Individuo efecto intercepto efecto pendiente
+
+1 3.24 −0.41
+
+2 0.69 −0.27
+
+3 −2.43 0.07
+
+4 −2.62 −0.07
+
+5 3.10 −0.42
+
+6 11.15 −0.81
+
+7 −2.46 0.76
+
+8 −0.57 0.23
+
+9 −19.37 2.47
+
+10 −5.81 0.41
+
+11 11.51 −1.04
+
+12 −30.01 3.69
+
+13 0.61 0.41
+
+14 4.11 −0.48
+
+15 1.73 −0.01
+
+16 0.57 0.27
+
+17 −1.09 0.01
+
+18 7.33 −0.21
+
+19 −0.95 −0.07
+
+20 −25.57 2.94
+
+Tabla 1.4. Datos hueso ramus. Efectos individuales estimados.
+
+Figura 1.4. Crecimiento del hueso ramus en 20 niños. A cada niño se le
+
+ajustó un modelo de regresión que considera la correlación entre las mediciones.
+
+X
+
+X
+
+X
+
+10 20 30 40
+
+b0
+
+X
+
+X
+
+X
+
+1 2 3 4 5
+
+b1
+
+X
+
+X
+
+0.0 0.1 0.2 0.3 0.4 0.5 0.6
+
+s2
+
+−0.7 −0.6 −0.5 −0.4 −0.3
+
+r
+
+Figura 1.5. Boxplots de los parámetros estimados para cada niño. Se observan
+
+posibles valores extremos.
+
+Figura 1.6. Datos hueso ramus. Distribución conjunta de los parámetros
+
+estimados para cada niño.
+
+1.4.3. Secado de madera
+
+Los siguientes datos corresponden a un experimento relacionado con el secado
+
+al aire de unos tablones de ciprés (Botero, 1993). El experimento consistió
+
+en poner piezas de madera en apiladas en un patio y protegidos de la lluvia
+
+para que fueran perdiendo humedad hasta alcanzar un secado natural. Los
+
+datos se encuentran en el apéndice. La madera para este experimento se
+
+dimensionó como se muestra en el siguiente cuadro.
+
+No de tablones Ancho (mm) Espesor (mm) Largo (m)
+
+20 180 50 2.54
+
+20 180 40 2.54
+
+20 180 30 2.54
+
+20 180 25 2.54
+
+20 180 20 2.54
+
+Tabla 1.5. Dimensiones de los tablones en el experimento de secado de
+
+madera.
+
+Los espesores seleccionados obedecen a las diferentes especificaciones de uso
+
+en la que se emplea la madera de Ciprés. Cada tablón se pesó el primer
+
+día del experimento, luego en los días 7, 14, 21, 28, 35, 42, 49, 56, 62, 70
+
+y 92 de iniciado el experimento. Así, estos datos corresponden al tipo de
+
+datos longitudinales. Observe que cada tablón posee mediciones sucesivas
+
+con intervalos de medición variables.
+
+1.4.4. Toros
+
+Se seleccionaron 6 toros al azar de varios criaderos y a cada animal se le
+
+registró el porcentaje de inseminaciones artificiales exitosas por eyaculación.
+
+Los datos aparecen a continuación.
+
+Toro Porcentaje/100
+
+1 0.46 0.31 0.37 0.62 0.30
+
+2 0.70 0.59
+
+3 0.52 0.44 0.57 0.40 0.67 0.64 0.70
+
+4 0.47 0.21 0.70 0.46 0.14
+
+5 0.42 0.64 0.50 0.69 0.77 0.81 0.87
+
+6 0.35 0.68 0.59 0.38 0.57 0.76 0.57 0.29 0.60
+
+Tabla 1.6. Porcentaje de inseminaciones artificiales exitosas.
+
+1.4.5. Conteo de pasos en humanos
+
+A un grupo de estudiantes de la Universidad Nacional de Colombia-Sede
+
+Medellín, se les solicitó caminar una distancia de 50 metros tres veces. En
+
+cada recorrido se les registró el número de pasos y la longitud promedio
+
+del paso (la marcha del caminado es a paso normal). Adicionalmente, a cada
+
+persona se le registraron los valores de algunas variables. Los datos obtenidos
+
+se encuentran en el apéndice.
+
+1.4.6. Duración de pilas alcalinas
+
+Se seleccionaron 6 tipos de pilas alcalinas: RAYOVAC
+
+c , DURACELL
+
+c ,
+
+VARTA
+
+c , EVEREADY ALKALINE
+
+c , PANASONIC POWER ALKALINE
+
+c
+
+y ENERGIZER MAX
+
+c . De cada una se tomaron 2 pilas y se conectaron a
+
+un sistema con resistencias paralelas que permitió descargar cada una de
+
+las 12 pilas. Cada hora y durante 11 horas se registró la disminución en el
+
+voltaje (milivoltios). Los datos están en las siguientes tablas:
+
+Figura 1.7. Gráfico de perfiles o espagueti de los datos del experimento de
+
+la duración de pilas alcalinas. Alrededor de las 5 horas y media se observa
+
+una caída brusca de las curvas asociadas a las distintas baterías.
+
+1.4.7. 100 metros planos Olímpicos de Londres 2012
+
+A continuación se presentan datos de una prueba final de 100 metros planos
+
+de 5 hombres y 6 mujeres registrados en los Juegos Olímpicos de Londres
+
+Figura 1.8. Gráfico de la distancia versus el tiempo en la prueba de 100
+
+metros planos, Olímpicos de Londres 2012. Se observa una clara tendencia
+
+lineal.
+
+Ejercicio. Se deja como ejercicio al lector describir los conjuntos de datos de
+
+esta sección a los cuales no se les realizó el respectivo análisis exploratorio.
+
+Ahora se procederá a discutir y exponer algunos elementos teóricos fundamentales
+
+relacionados con el objetivo de este trabajo que consiste en presentar
+
+una introducción al modelamiento mixto.

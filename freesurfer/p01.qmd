@@ -1,0 +1,117 @@
+---
+title: "p01"
+---
+
+# FreeSurfer
+
+<https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferWiki>
+
+FreeSurfer is a software package for the analysis and visualization of structural
+and functional neuroimaging data from cross-sectional or longitudinal
+studies. It is developed by the [Laboratory for Computational Neuroimaging](https://www.martinos.org/lab/lcn) at the [Athinoula A. Martinos Center for Biomedical Imaging.](http://martinos.org/) FreeSurfer is the structural MRI analysis software of choice for the [Human Connectome Project.](https://github.com/Washington-University/Pipelines/wiki/v3.4.0-Release-Notes,-Installation,-and-Usage)
+
+-   [**License:**](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferSoftwareLicense) The open source license agreement that allows you to use FreeSurfer
+
+-   [**Release notes and downloads:**](https://surfer.nmr.mgh.harvard.edu/fswiki/ReleaseNotes) New features and changes in each version of FreeSurfer - **current stable release is v7.4.1**
+
+-   [**Installation guide:**](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall) How to download and install FreeSurfer on your computer
+
+-   **Documentation:** [Getting started](https://surfer.nmr.mgh.harvard.edu/fswiki/QuickInstall); [step-by-step tutorials](https://surfer.nmr.mgh.harvard.edu/fswiki/Tutorials); [FAQ](https://surfer.nmr.mgh.harvard.edu/fswiki/UserContributions/FAQ); [glossary](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/Glossary); [Table of commands in processing stream](https://surfer.nmr.mgh.harvard.edu/fswiki/ReconAllTable)
+
+-   [**Citing FreeSurfer:**](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferMethodsCitation) Short description and citations for core FreeSurfer methods
+
+-   [**Publications:**](https://www.zotero.org/freesurfer) A Zotero library of articles on the methods in FreeSurfer and the studies that use FreeSurfer
+
+-   [**User support:**](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferSupport) How to get help with problems that you encounter when using FreeSurfer
+
+-   [**Hands-on training:**](https://surfer.nmr.mgh.harvard.edu/fswiki/CourseDescription) Information on the FreeSurfer courses that we organize in Boston and around the world
+
+-   [**Stats:**](https://surfer.nmr.mgh.harvard.edu/fswiki/FsStats) Stats on FreeSurfer usage, citations, and development
+
+-   [**User contributions:**](https://surfer.nmr.mgh.harvard.edu/fswiki/UserContributions) Scripts and techniques from users of FreeSurfer
+
+-   [**Other software:**](https://surfer.nmr.mgh.harvard.edu/fswiki/ThirdPartySoftware) Third-party software packages that are interoperable or related to FreeSurfer
+
+-   [**Acknowledgements:**](https://surfer.nmr.mgh.harvard.edu/fswiki/FreesurferAcknowledgements) The funding agencies and collaborators that have contributed to the research behind FreeSurfer
+
+-   **Social media**: Find us on [Facebook](http://facebook.com/FreeSurferMRI) [![Find FreeSurferMRI on Facebook](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferWiki?action=AttachFile&do=get&target=facebook_32.png "Find FreeSurferMRI on Facebook"){alt="Find FreeSurferMRI on Facebook"}](http://facebook.com/FreeSurferMRI) as *FreeSurferMRI*, follow us on [Twitter](http://www.twitter.com/FreeSurferMRI) [![Follow FreeSurferMRI on Twitter](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferWiki?action=AttachFile&do=get&target=twitter_32.png "Follow FreeSurferMRI on Twitter"){alt="Follow FreeSurferMRI on Twitter"}](http://www.twitter.com/FreeSurferMRI) or join our [LinkedIn](https://www.linkedin.com/groups/FreeSurfer-8173404) group [![!LinkedIn FreeSurfer Group](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferWiki?action=AttachFile&do=get&target=linkedin_32.png "!LinkedIn FreeSurfer Group"){alt="!LinkedIn FreeSurfer Group"}](https://www.linkedin.com/groups/FreeSurfer-8173404).
+
+-   [**Diversity and Inclusion**](https://surfer.nmr.mgh.harvard.edu/fswiki/DiversityAndInclusion)
+
+# Our tools
+
+### Structural MRI
+
+FreeSurfer provides a full processing stream for structural MRI data, including:
+
+-   Skull stripping, B1 bias field correction, and gray-white matter segmentation
+
+-   Reconstruction of cortical surface models (gray-white boundary surface and pial surface)
+
+-   Labeling of regions on the cortical surface, as well as subcortical brain structures
+
+-   Nonlinear registration of the cortical surface of an individual with a stereotaxic atlas
+
+-   Statistical analysis of group morphometry differences
+
+For more information, see:
+
+-   [**Overview:**](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferAnalysisPipelineOverview) General description of the functionality in FreeSurfer
+
+-   **Recommended acquisition protocols:**
+
+    -   [Suggested morphometry protocols for optimal FreeSurfer reconstruction](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferWiki?action=AttachFile&do=get&target=FreeSurfer_Suggested_Morphometry_Protocols.pdf "attachment:FreeSurfer_Suggested_Morphometry_Protocols.pdf")
+
+    -   [Alternative morphometry protocols, from ADNI](http://adni.loni.usc.edu/methods/documents/mri-protocols/)
+
+-   **Longitudinal studies:**
+
+    -   [The longitudinal FreeSurfer stream](https://surfer.nmr.mgh.harvard.edu/fswiki/LongitudinalProcessing)
+
+    -   [Longitudinal linear mixed effects statistics](https://surfer.nmr.mgh.harvard.edu/fswiki/LongitudinalStatistics)
+
+-   **Troubleshooting:**
+
+    -   Manual editing [for the basic stream](https://surfer.nmr.mgh.harvard.edu/fswiki/Edits) and [for the longitudinal stream](https://surfer.nmr.mgh.harvard.edu/fswiki/LongitudinalEdits)
+
+    -   [Output files:](https://surfer.nmr.mgh.harvard.edu/fswiki/ReconAllTableStableV6.0) A table of files created and used during a standard FreeSurfer analysis
+
+-   **Advanced:**
+
+    -   [Work flows:](https://surfer.nmr.mgh.harvard.edu/fswiki/WorkFlows) How to use the FreeSurfer stream to accomplish specific tasks
+
+    -   [Tools and commands:](https://surfer.nmr.mgh.harvard.edu/fswiki/ToolsAndCommands) GUI and command-line tool documentation
+
+    -   [File formats:](https://surfer.nmr.mgh.harvard.edu/fswiki/FileFormats) Description of native FreeSurfer file formats, as well as external file formats recognized by FreeSurfer
+
+    -   [Coordinate systems:](https://surfer.nmr.mgh.harvard.edu/fswiki/CoordinateSystems) Details on the voxel and RAS coordinate systems used in FreeSurfer
+
+### Functional MRI
+
+-   [**FreeSurfer Functional Analysis Stream (FS-FAST):**](https://surfer.nmr.mgh.harvard.edu/fswiki/FsFast) FS-FAST is a set of tools for performing functional MRI data analyses on the cortical surface.
+
+### Diffusion MRI
+
+\* [**TRActs Constrained by UnderLying Anatomy (TRACULA):**](https://surfer.nmr.mgh.harvard.edu/fswiki/Tracula)
+TRACULA is a tool for automated global probabilistic tractography with
+anatomical priors. It reconstructs a set of major white-matter pathways
+by incorporating prior information on the structural segmentation labels
+that each pathway goes through or next to, as a function of position
+along the length of the pathway. It includes a specialized stream for
+processing longitudinal diffusion MRI data.
+
+\* [**AnatomiCuts**](https://surfer.nmr.mgh.harvard.edu/fswiki/AnatomiCuts) : An unsupervised hierarchical streamline clustering algorithm based on anatomical similarity. [AnatomiCuts](https://surfer.nmr.mgh.harvard.edu/fswiki/AnatomiCuts) is currently in the developing branch (<https://github.com/freesurfer/freesurfer/tree/dev/anatomicuts>).
+
+\* [**DiffusionTool**](https://surfer.nmr.mgh.harvard.edu/fswiki/DiffusionTool) : This tool can help generating the configuration file of TRACULA and setting up the parameters to run [AnatomiCuts](https://surfer.nmr.mgh.harvard.edu/fswiki/AnatomiCuts). The [DiffusionTool](https://surfer.nmr.mgh.harvard.edu/fswiki/DiffusionTool) is currently in the developing branch (<https://github.com/freesurfer/freesurfer/tree/dev/diffusion_tool>).
+
+### PETsurfer PET Kinetic Modeling and Partial Volume Correction (PVC)
+
+-   [**PETSurfer:**](https://surfer.nmr.mgh.harvard.edu/fswiki/PetSurfer) PETSurfer is a tool for performing ROI-based, surface-based, and whole-brain analysis of PET data integrated with [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurfer) anatomical analysis.
+
+### Multimodal
+
+-   [**Registration tools:**](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommandsRegistration) FreeSurfer offers a range of tools for both within-subject and across-subject registration.
+
+### Quick Links for LCN Members
+
+-   LCN Members can navigate to the [LcnInternal](https://surfer.nmr.mgh.harvard.edu/fswiki/LcnInternal) wiki page with quicklinks to regularly requested resources or wiki pages

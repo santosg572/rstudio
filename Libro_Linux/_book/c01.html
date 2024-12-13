@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>linux_book - 2&nbsp; c01</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./summary.html" rel="next">
+<link href="./intro.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./c01.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">c01</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">linux_book</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./c01.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">c01</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#ways-to-use-the-linux-find-command" id="toc-ways-to-use-the-linux-find-command" class="nav-link active" data-scroll-target="#ways-to-use-the-linux-find-command"><span class="header-section-number">2.1</span> 10 ways to use the Linux find command</a></li>
+  <li><a href="#find-a-single-file-by-name" id="toc-find-a-single-file-by-name" class="nav-link" data-scroll-target="#find-a-single-file-by-name"><span class="header-section-number">2.2</span> <strong>1. Find a single file by name</strong></a></li>
+  <li><a href="#find-a-single-file-by-approximate-name" id="toc-find-a-single-file-by-approximate-name" class="nav-link" data-scroll-target="#find-a-single-file-by-approximate-name"><span class="header-section-number">2.3</span> <strong>2. Find a single file by approximate name</strong></a></li>
+  <li><a href="#find-everything" id="toc-find-everything" class="nav-link" data-scroll-target="#find-everything"><span class="header-section-number">2.4</span> <strong>3. Find everything</strong></a></li>
+  <li><a href="#find-by-content" id="toc-find-by-content" class="nav-link" data-scroll-target="#find-by-content"><span class="header-section-number">2.5</span> <strong>4. Find by content</strong></a></li>
+  <li><a href="#find-files-by-type" id="toc-find-files-by-type" class="nav-link" data-scroll-target="#find-files-by-type"><span class="header-section-number">2.6</span> <strong>5. Find files by type</strong></a></li>
+  <li><a href="#list-just-directories" id="toc-list-just-directories" class="nav-link" data-scroll-target="#list-just-directories"><span class="header-section-number">2.7</span> <strong>6. List just directories</strong></a></li>
+  <li><a href="#limit-listing-results" id="toc-limit-listing-results" class="nav-link" data-scroll-target="#limit-listing-results"><span class="header-section-number">2.8</span> <strong>7. Limit listing results</strong></a></li>
+  <li><a href="#find-empty-files" id="toc-find-empty-files" class="nav-link" data-scroll-target="#find-empty-files"><span class="header-section-number">2.9</span> <strong>8. Find empty files</strong></a></li>
+  <li><a href="#great-linux-resources" id="toc-great-linux-resources" class="nav-link" data-scroll-target="#great-linux-resources"><span class="header-section-number">2.10</span> Great Linux resources</a></li>
+  <li><a href="#find-files-by-age" id="toc-find-files-by-age" class="nav-link" data-scroll-target="#find-files-by-age"><span class="header-section-number">2.11</span> <strong>9. Find files by age</strong></a></li>
+  <li><a href="#search-a-path" id="toc-search-a-path" class="nav-link" data-scroll-target="#search-a-path"><span class="header-section-number">2.12</span> <strong>10. Search a path</strong></a></li>
+  <li><a href="#found-it" id="toc-found-it" class="nav-link" data-scroll-target="#found-it"><span class="header-section-number">2.13</span> <strong>Found it</strong></a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">c01</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>https://www.redhat.com/sysadmin/linux-find-command</p>
+<section id="ways-to-use-the-linux-find-command" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="ways-to-use-the-linux-find-command"><span class="header-section-number">2.1</span> 10 ways to use the Linux find command</h2>
+<p>Discover what you’re looking for, find misplaced data, and troubleshoot everyday problems with this handy Linux command.</p>
+<p>The <code>find</code> command is one of the most useful Linux commands, especially when you’re faced with the hundreds and thousands of files and folders on a modern computer. As its name implies, <code>find</code> helps you find things, and not just by filename.</p>
+<p>Whether you’re on your own computer or trying to support someone on an unfamiliar system, here are 10 ways <code>find</code> can help you locate important data.</p>
+<p><strong><em>[ Keep your most commonly used commands handy with the <a href="https://developers.redhat.com/cheat-sheets/linux-commands-cheat-sheet?intcmp=701f20000012ngPAAQ">Linux commands cheat sheet</a>. ]</em></strong></p>
+</section>
+<section id="find-a-single-file-by-name" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="find-a-single-file-by-name"><span class="header-section-number">2.2</span> <strong>1. Find a single file by name</strong></h2>
+<p>When you know the name of a file but can’t remember where you saved it, use <code>find</code> to search your home directory. Use <code>2&gt;/dev/null</code> to silence permission errors (or use <code>sudo</code> to gain all permissions).</p>
+<pre><code>$ find / -name "Foo.txt" 2&gt;/dev/null
+/home/seth/Documents/Foo.txt</code></pre>
+</section>
+<section id="find-a-single-file-by-approximate-name" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="find-a-single-file-by-approximate-name"><span class="header-section-number">2.3</span> <strong>2. Find a single file by approximate name</strong></h2>
+<p>If you can’t remember the exact name of the file, or you’re not sure whether you capitalized any characters, you can do a partial and case-insensitive search like this:</p>
+<pre><code>$ find / -iname "*foo*txt" 2&gt;/dev/null
+/home/seth/Documents/Foo.txt
+/home/seth/Documents/foo.txt
+/home/seth/Documents/foobar.txt</code></pre>
+</section>
+<section id="find-everything" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="find-everything"><span class="header-section-number">2.4</span> <strong>3. Find everything</strong></h2>
+<p>The <code>ls -R</code> command lists the contents of a directory recursively, meaning that it doesn’t just list the target you provide for it, but also descends into every subdirectory within that target (and every subdirectory in each subdirectory, and so on.) The <code>find</code> command has that function too, by way of the <code>-ls</code> option:</p>
+<pre><code>$ find ~/Documents -ls
+3554235 0 drwxr-xr-x [...] 05:36 /home/seth/Documents/
+3554224 0 -rw-rw-r-- [...] 05:36 /home/seth/Documents/Foo
+3766411 0 -rw-rw-r-- [...] 05:36 /home/seth/Documents/Foo/foo.txt
+3766416 0 -rw-rw-r-- [...] 05:36 /home/seth/Documents/Foo/foobar.txt</code></pre>
+<p>Notice that I don’t use <code>2&gt;/dev/null</code> in this instance because I’m only listing the contents of a <a href="https://redhat.com/sysadmin/linux-path-absolute-relative">file path</a>&nbsp;within my home directory, so I don’t anticipate permission errors.</p>
+</section>
+<section id="find-by-content" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="find-by-content"><span class="header-section-number">2.5</span> <strong>4. Find by content</strong></h2>
+<p>A <code>find</code> command doesn’t have to perform just one task. In fact, one of the options in <code>find</code> enables you to execute a different command on whatever results <code>find</code> returns. This can be especially useful when you need to search for a file by <em>content</em> rather than by name, or you need to search by both.</p>
+<pre><code>$ find ~/Documents/ -name "*txt" -exec grep -Hi penguin {} \;
+/home/seth/Documents/Foo.txt:I like penguins.
+/home/seth/Documents/foo.txt:Penguins are fun.</code></pre>
+</section>
+<section id="find-files-by-type" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="find-files-by-type"><span class="header-section-number">2.6</span> <strong>5. Find files by type</strong></h2>
+<p>You can display files, directories, symlinks, named pipes, sockets, and more using the <code>-type</code> option.</p>
+<pre><code>$ find ~ -type f
+/home/seth/.bash_logout
+/home/seth/.bash_profile
+/home/seth/.bashrc
+/home/seth/.emacs
+/home/seth/.local/share/keyrings/login.keyring
+/home/seth/.local/share/keyrings/user.keystore
+/home/seth/.local/share/gnome-shell/gnome-overrides-migrated
+[...]</code></pre>
+<p>As long as you’re using the GNU version of <code>find</code>, you can include multiple file types in your search results:</p>
+<pre><code>$ find ~ -type f,l -name "notebook*"
+/home/seth/notebook.org
+/home/seth/Documents/notebook-alias.org</code></pre>
+</section>
+<section id="list-just-directories" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="list-just-directories"><span class="header-section-number">2.7</span> <strong>6. List just directories</strong></h2>
+<p>A shortcoming of the <a href="https://opensource.com/article/19/7/master-ls-command"><code>ls</code> command</a> is that you can’t filter its results by file type, so it can be noisy if you only want a listing of directories in a path. The <code>find</code> command combined with the <code>-type d</code> option is a better choice:</p>
+<pre><code>$ find ~/Public -type d
+find ~/Public/ -type d
+/home/seth/Public/
+/home/seth/Public/example.com
+/home/seth/Public/example.com/www
+/home/seth/Public/example.com/www/img
+/home/seth/Public/example.com/www/font
+/home/seth/Public/example.com/www/style</code></pre>
+</section>
+<section id="limit-listing-results" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="limit-listing-results"><span class="header-section-number">2.8</span> <strong>7. Limit listing results</strong></h2>
+<p>With hundreds of files in a default user directory and thousands more outside of that, sometimes you get more results from <code>find</code> than you want. You can limit the depth of searches with the <code>-maxdepth</code> option, followed by the number of directories you want <code>find</code> to descend into after the starting point:</p>
+<pre><code>$ find ~/Public/ -maxdepth 1 -type d
+/home/seth/Public/
+/home/seth/Public/example.com</code></pre>
+</section>
+<section id="find-empty-files" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="find-empty-files"><span class="header-section-number">2.9</span> <strong>8. Find empty files</strong></h2>
+<p>Sometimes it’s helpful to discover empty files as a way to declutter:</p>
+<pre><code>$ find ~ -type f -empty
+random.idea.txt</code></pre>
+<p><a href="https://www.redhat.com/sysadmin/linux-find-command#bottom-list">Skip to the bottom of list</a></p>
+</section>
+<section id="great-linux-resources" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="great-linux-resources"><span class="header-section-number">2.10</span> Great Linux resources</h2>
+<ul>
+<li><p><a href="https://developers.redhat.com/cheat-sheets/advanced-linux-commands/?intcmp=701f20000012ngPAAQ">Advanced Linux commands cheat sheet</a></p></li>
+<li><p><a href="https://developers.redhat.com/products/rhel/download?intcmp=701f20000012ngPAAQ">Download RHEL 9 at no charge through the Red Hat Developer program</a></p></li>
+<li><p><a href="https://opensource.com/downloads/installing-linux-applications-ebook?intcmp=701f20000012ngPAAQ">A guide to installing applications on Linux</a></p></li>
+<li><p><a href="https://rhtapps.redhat.com/assessment/?intcmp=701f20000012ngPAAQ">Linux system administration skills assessment</a></p></li>
+<li><p><a href="https://redhatdg.co1.qualtrics.com/jfe/form/SV_bjRFSHqPdTpIjoa?intcmp=701f20000012ngPAAQ">How well do you know Linux? Take a quiz and get a badge</a></p></li>
+</ul>
+<p>Technically, you can use <code>find</code> to remove empty files, but programmatic removal of files is dangerous. For instance, if you forget to include <code>-type f</code> in a search for empty <em>files</em>, you get directories in your results. By adding a delete flag, you would remove potentially important directory structures.</p>
+<p>It’s vital to compose your <code>find</code> command and then verify the results before deleting. Furthermore, a misplaced delete flag in <code>find</code> can delete results before qualifying them (in other words, you can delete directories in a command intended to delete only files by placing the delete flag before the type flag).</p>
+<p>I prefer to use <code>xargs</code> or <a href="https://www.redhat.com/sysadmin/gnu-parallel">Parallel</a> and a <a href="https://www.redhat.com/sysadmin/recover-file-deletion-linux#trashy">trash command</a> on the rare occasion that I remove files with <code>find</code>.</p>
+</section>
+<section id="find-files-by-age" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="find-files-by-age"><span class="header-section-number">2.11</span> <strong>9. Find files by age</strong></h2>
+<p>The <code>-mtime</code> option allows you to limit a search to files older than, but also files newer than, <em>some value</em> times 24.</p>
+<pre><code>$ find /var/log -iname "*~" -o -iname "*log*" -mtime +30</code></pre>
+<p>The <code>+</code> before the <code>-mtime</code> number doesn’t mean to add that number to the time. It’s a conditional statement that matches (in this example) a value <em>greater than</em> 24 times 30. In other words, the sample code finds log files that haven’t been modified in a month or more.</p>
+<p>To find log files modified within the past week, you can use the <code>-</code> conditional:</p>
+<pre><code>$ find /var/log -iname "*~" -o -iname "*log*" -mtime -7
+/var/log/tallylog
+/var/log/cups/error_log
+/var/log/cups/access_log
+/var/log/cups/page_log
+/var/log/anaconda/anaconda.log
+/var/log/anaconda/syslog
+/var/log/anaconda/X.log
+[...]</code></pre>
+<p>You already know about the <code>-ls</code> flag, so you can combine that with these commands for clarity:</p>
+<pre><code>$ find /var/log -iname "*~" -o -iname "*log*" -mtime -7 -ls
+-rw-------  1 root root            0 Jun  9 18:20 /var/log/tallylog
+-rw-------  1 root lp      332 Aug 11 15:05 /var/log/cups/error_log
+-rw-------  1 root lp      332 Aug 11 15:05 /var/log/cups/access_log
+-rw-------  1 root lp      332 Aug 11 15:05 /var/log/cups/page_log
+-rw-------  1 root root  53733 Jun  9 18:24 /var/log/anaconda/anaconda.log
+-rw-------  1 root root 835513 Jun  9 18:24 /var/log/anaconda/syslog
+-rw-------  1 root root  21131 Jun  9 18:24 /var/log/anaconda/X.log
+[...]</code></pre>
+</section>
+<section id="search-a-path" class="level2" data-number="2.12">
+<h2 data-number="2.12" class="anchored" data-anchor-id="search-a-path"><span class="header-section-number">2.12</span> <strong>10. Search a path</strong></h2>
+<p>Sometimes you know the directory structure leading up to a file you need; you just don’t know where the directory structure is located within the system. To search within a path string, you can use the <code>-ipath</code> option, which treats dots and slashes not as <a href="https://www.redhat.com/sysadmin/getting-started-regular-expressions-example">regex characters</a> but as dots and slashes.</p>
+<pre><code>$ find / -type d -name 'img' -ipath "*public_html/example.com*" 2&gt;/dev/null
+/home/tux/Public/public_html/example.com/font</code></pre>
+</section>
+<section id="found-it" class="level2" data-number="2.13">
+<h2 data-number="2.13" class="anchored" data-anchor-id="found-it"><span class="header-section-number">2.13</span> <strong>Found it</strong></h2>
+<p>The <code>find</code> command is an essential tool for a sysadmin. It’s useful when investigating or getting to know a new system, finding misplaced data, and <a href="https://www.redhat.com/sysadmin/find-best-friend">troubleshooting</a> everyday problems. But it’s also just a convenience tool.</p>
+<p><strong><em>[ Download the <a href="https://opensource.com/downloads/linux-find-cheat-sheet?intcmp=701f20000012ngPAAQ">Linux find cheat sheet</a> to keep all these shortcuts in one place. ]</em></strong></p>
+<p>You don’t need a “good” reason to use <code>find</code>. Using&nbsp;<code>find</code>&nbsp;makes it easier to search for something instead of traversing your system. It’s an understated but infinitely useful tool that embodies the sublime pleasure of everyday Linux. Start using it today, and <em>find</em> out what makes it great.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./summary.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

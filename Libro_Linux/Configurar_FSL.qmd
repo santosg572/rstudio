@@ -1,0 +1,27 @@
+---
+title: "Configurar FSL"
+---
+
+Pasos para configurar FSL:
+
+1.  Crear un Script llamado "fslr.sh" con el siguiente contenido:
+
+#!/bin/bash
+
+FSLDIR=/home/inb/soporte/lanirem_software/fsl_6.0.7.1
+
+*PATH=\${FSLDIR}/share/fsl/bin:\${PATH}*
+
+*export FSLDIR PATH*
+
+*. \${FSLDIR}/etc/fslconf/fsl.sh*
+
+2.  Dar al Script los permisos necesarios para para que se ejecute, de la siguiente manera:
+
+    chmod u+x fslr.sh
+
+3.  Ejecutar la siguiente instrucción
+
+    source fslr.sh
+
+4.  ES TODO

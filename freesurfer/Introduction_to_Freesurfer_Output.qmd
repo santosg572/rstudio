@@ -1,0 +1,603 @@
+---
+title: "Introduction to Freesurfer Output"
+---
+
+<https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview>
+
+# Introduction to Freesurfer Output
+
+In this
+exercise, you will visualize and inspect correctly processed output data
+so that you can become familiar with what the end product should look
+like. The exercise will take you through a variety of output, but is
+not necessarily the recommended procedure to take when trying to verify
+each subject for a real study. Some outputs are only necessary to check
+when troubleshooting, for example. However, it is a good idea for new
+users to become familiar with the variety of outputs and how to view
+them.
+
+------------------------------------------------------------------------
+
+## Preparations
+
+### If You're at an Organized Course
+
+If you are
+taking one of the formally organized courses, everything has been set up
+for you on the provided laptop. The only thing you will need to do is
+run the following commands in *every* **new** terminal window (aka shell) you open throughout this tutorial. Copy and paste the commands below to get started:
+
+```         
+export SUBJECTS_DIR=$TUTORIAL_DATA/buckner_data/tutorial_subjs
+cd $SUBJECTS_DIR
+```
+
+------------------------------------------------------------------------
+
+*To
+copy: Highlight the command in the box above, right click and select
+copy (or use keyboard shortcut Ctrl+c), then use the middle button of
+your mouse to click inside the terminal window to paste (or use the
+keyboard shortcut Ctrl+Shift+v).Press enter to run the command.* These two commands set the SUBJECTS_DIR
+variable to the directory where the data is stored and then navigates
+into this directory. You can now skip ahead to the tutorial (below the
+gray line).
+
+### If You're not at an Organized Course
+
+If you are **NOT** taking one of the formally organized courses, then to follow this exercise exactly be sure you've downloaded the [tutorial data set](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/Data)
+before you begin. If you choose not to download the data set you can
+follow these instructions on your own data, but you will have to
+substitute your own data paths and subject names. These are the commands
+that you need to run before getting started:
+
+```         
+<source_freesurfer>
+export TUTORIAL_DATA=<path_to_your_tutorial_data>
+export SUBJECTS_DIR=$TUTORIAL_DATA/buckner_data/tutorial_subjs
+cd $SUBJECTS_DIR
+```
+
+------------------------------------------------------------------------
+
+## Viewing Volumes with Freeview
+
+With one
+Freeview command line, you can load several output volumes, such as
+brainmask.mgz and wm.mgz; the surfaces, rh.white and lh.white; and the
+subcortical segmentation, aseg.mgz. Copy and paste the command below
+inside the terminal window and press enter:
+
+------------------------------------------------------------------------
+
+```         
+freeview -v \
+good_output/mri/T1.mgz \
+good_output/mri/wm.mgz \
+good_output/mri/brainmask.mgz \
+good_output/mri/aseg.mgz:colormap=lut:opacity=0.2 \
+-f good_output/surf/lh.white:edgecolor=blue \
+good_output/surf/lh.pial:edgecolor=red \
+good_output/surf/rh.white:edgecolor=blue \
+good_output/surf/rh.pial:edgecolor=red
+```
+
+**NOTE**:
+The backslash allows you to copy and paste multiple lines of code as
+one command (otherwise, separating the command onto different lines
+tells Linux they are different commands to be run separately). We use
+the backslash throughout the tutorials to display the commands in a more
+easy-to-read manner, while still allowing you to copy and paste. When
+you are done with the course & do not need to copy and paste from
+the tutorials, the backslash is not necessary to make the command work.
+
+------------------------------------------------------------------------
+
+Some notes on the above command line:
+
+-   good_output is the name of the subject
+
+-   The flag -v is used to open some of the most commonly used volumes including:
+
+    -   brainmask.mgz : skull-stripped volume primarily used for troubleshooting
+
+    -   wm.mgz : white matter mask also used for troubleshooting
+
+    -   aseg.mgz
+        : subcortical segmentation loaded with its corresponding color table
+        and at a low opacity. For more information on the subcortical
+        segmentation, see [here](https://surfer.nmr.mgh.harvard.edu/fswiki/SubcorticalSegmentation).
+
+-   The flag -f is used to load surfaces
+
+    -   white & pial surfaces are loaded for each hemisphere & with color indicated by 'edgecolor'
+
+After hitting enter, a Freeview window should open showing you the outputs you specified:
+
+![good_output_slice128_crop_new.png](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=good_output_slice128_crop_new.png "good_output_slice128_crop_new.png"){alt="good_output_slice128_crop_new.png"} \
+
+The menu on the left shows which files have been loaded.
+
+Use the ![sliceoptions.jpeg](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=sliceoptions.jpeg "sliceoptions.jpeg"){alt="sliceoptions.jpeg"}
+buttons at the top to change which orthogonal view appears in the main
+viewing window. Let's go with coronal for now. You can also use the ![viewingoptions.jpeg](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=viewingoptions.jpeg "viewingoptions.jpeg"){alt="viewingoptions.jpeg"}
+buttons to change the organization of the viewing panes. To change
+which brain slice you are viewing, use the 'Page Up' or 'Page Down' keys
+on your keyboard or the up and down arrows. (Mac users: press the fn
+key while using the up and down arrows.)
+
+While
+Freeview can load many volumes at once, you cannot necessarily see them
+all at once. You are able to see whichever volume is at the top of the
+list in the menu on the left. An exception to this are volumes such as
+the wm.mgz and aseg.mz which can be made translucent, allowing you to
+view the information they contain simultaneously with the volume
+directly below it on the list. For example, you are currently seeing
+information from both the aseg (labeled structures) and the brainmask
+(voxel intensities).
+
+You
+can hide or turn off a layer by unchecking the check box next to the
+layer name. Try this out - uncheck the box next to 'aseg'. Now you can
+see just the brainmask. You can also use the up and down arrows (located
+below the menu on the left) to move the aseg down on the list, below
+the brainmask (try it!). Let's now move the wm volume to the top of the
+list but instead of using the arrows, try this shortcut: double click on
+where it says 'wm'. It should automatically move to the top. The menu
+should now look like this: \
+
+![Menu.png](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=Menu.png "Menu.png"){alt="Menu.png"} \
+
+and the viewing window should look like this: \
+
+![wm_mask.jpeg](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=wm_mask.jpeg "wm_mask.jpeg"){alt="wm_mask.jpeg"}
+
+-   **Keyboard Shortcut**:
+    Alt+c will allow you to quickly cycle through all the layers. Every
+    time you hit it, the volume at the top of the list will move to the
+    bottom of the list. Mac users, all Freeview keyboard shortcuts are
+    located [here](https://surfer.nmr.mgh.harvard.edu/fswiki/MacCommands).
+
+When the Navigation button ![nav.jpeg](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=nav.jpeg "nav.jpeg"){alt="nav.jpeg"}
+is chosen, you can move the image in the viewing window around by
+holding down the middle mouse button and dragging the mouse where you
+want the image to go. Try it out. To zoom, scroll with the middle mouse
+button. In this navigation mode, notice the cursor (little red
+crosshair) moves to wherever you left click. When you change the
+orientation (to axial or sagittal), you will be viewing the slice that
+intersects with the cursor's location. To illustrate this point, if you
+are in the viewing pane selected here:
+
+![viewingoptions.jpeg](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=viewingoptions.jpeg "viewingoptions.jpeg"){alt="viewingoptions.jpeg"}
+
+You'll notice all the planes will shift based on where you move the cursor.
+
+One
+other important thing to note is that any action you do in the viewing
+window (i.e. erasing, changing brightness, etc.) will take place on
+whichever volume is currently highlighted in the left menu, regardless
+of which file is at the top of the list.
+
+Now
+that you know the basics, you can make your way through the data. To
+verify that FreeSurfer did a good job, you will want to check:
+
+1.  Whether the surfaces accurately follow the gray matter and white matter boundaries.
+
+2.  Whether the aseg accurately follows the subcortical intensity boundaries.
+
+### Checking the Surfaces
+
+Double
+click on 'brainmask' in the left menu to bring it to the top of the
+volume list. The white surface (blue line) is used to calculate total
+white matter volume and should accurately follow the boundary between
+white matter and gray matter. The pial surface (red line) is used to
+calculate cortical gray matter volume and should accurately follow the
+boundary between the gray matter and the CSF.
+
+As
+you scroll through the slices checking the surfaces for accuracy, keep
+in mind that you are looking at a 2-dimensional rendering of a
+3-dimensional image - be sure to look at more than just one view (i.e.,
+sagittal, coronal and horizontal). You can turn the surfaces off and on
+by checking and unchecking them in the left menu under where it says
+'Surfaces'. As you do this, ask yourself: would you draw the boundary in
+the same location?
+
+-   **Keyboard Shortcut**: Alt+f will turn on and off whichever surface is highlighted in the menu window.
+
+To
+help verify accuracy, adjust the brightness and contrast so you can
+easily identify the shift in intensity between gray and white matter. To
+do this, left click on the image while holding down both the 'Shift'
+key and the middle (scroll wheel) button on your mouse, and drag your
+mouse. (Make sure the brainmask volume is highlighted in the left menu
+in order for this to work.) The other way to do this is via the 'Window'
+and 'Level' sliders underneath the left menu.
+
+There are regions where the surfaces are not intended to be accurate that you should be aware of:
+
+-   Areas
+    around the hippocampus and amygdala. The surfaces will not completely
+    include or exclude certain subcortical regions. These inaccuracies can
+    be ignored as subcortical regions are excluded from the cortical
+    measures and subcortical volume is measured by the aseg, not the
+    surfaces.
+
+    -   For an
+        example of this, scroll to coronal slice 128 (slice numbers appear in
+        the upper right hand corner of the viewing window).
+
+### Subcortical Segmentation
+
+Uncheck all
+of the surfaces. Then check the box next to the aseg volume and double
+click it. The aseg volume will jump to the top of the left menu, above
+the brainmask volume. \
+
+\
+
+![good_output_5.3_sidebar_3.png](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=good_output_5.3_sidebar_3.png "good_output_5.3_sidebar_3.png"){alt="good_output_5.3_sidebar_3.png"} \
+
+This will show the complete segmentation of the subcortical structures.
+
+![good_output_nosurf.jpg](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=good_output_nosurf.jpg "good_output_nosurf.jpg"){alt="good_output_nosurf.jpg"}
+
+Each
+structure is labeled with a unique color/number distinction. If you
+click on a voxel the structure's name and number label will be shown in
+the 'Cursor' section under the viewing window next to the word, 'aseg'.
+If you hover over a voxel where the cursor is not located, the value of
+that voxel will appear under the 'Mouse' section.
+
+-   **Keyboard Shortcut**: Alt+v will turn on and off the layer that is currently highlighted.
+
+Make
+sure 'aseg' is highlighted in the left menu and press Alt+v to turn it
+off and on. While doing this, make sure the aseg is accurately following
+the underlying intensity boundaries of each structure. You can also
+adjust the 'Opacity' slider to better see the underlying brainmask.
+
+-   **Keyboard Shortcut**: Alt+a and Alt+s will change the opacity of the layer that is currently highlighted.
+
+### Other Things To Do in Freeview
+
+Below, we introduce you to other volumes and techniques which are good to be familiar with, especially when troubleshooting.
+
+#### Skull Strip
+
+Close the
+aseg. As you scroll through the brainmask volume, notice that there is
+no skull left in your image. You should also not see any regions of
+cortex or cerebellum missing from this volume. Bring the T1.mgz to the
+top of the volume list and toggle between it and the brainmask.mgz
+volume (Alt+v) to verify that the skullstrip has worked properly. In the
+[TroubleshootingData](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/TroubleshootingData) tutorial, we'll go over what to do if there was a skull strip error.
+
+#### Intensity Normalization
+
+Scroll
+through the brainmask volume and notice that the intensity is uniform
+throughout. You should not see any very bright or very dark spots in
+the white matter or gray matter. If you click on a voxel in the white
+matter, you can see that it has been normalized to an intensity of (or
+close to) 110 (look under the Cursor section next to where it says
+'brainmask'). When wm voxels are far from a value of 110, they may be
+erroneously excluded from the white surface. By "close to," we mean wm
+voxels have an intensity value of somewhere between 100 and 110. By "far
+from," we mean wm voxels are between a value of 85 and 100. In the [TroubleshootingData](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/TroubleshootingData) tutorial, we'll go over what to do if there is an intensity normalization error.
+
+#### WM Volume
+
+Recheck all
+of the surfaces and then double click on the wm volume to bring it to
+the top of the list. This volume is FreeSurfer's initial segmentation of
+the white matter (shown in gray) with additions from the automatic
+topology fixer (in white). This "mask" is the starting point for the
+white surface which grows out from here and stops at a more accurate
+location using the intensity gradients in the brainmask.mgz volume as a
+guide. The wm.mgz can be used to add missing wm voxels or delete voxels
+that are not white matter but were included in the surface. In the [TroubleshootingData](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/TroubleshootingDataV6.0)
+tutorial, we'll go over how to do this and when. For now, it will be
+good to learn how to change the wm mask to a heat overlay for ease of
+editing. The "heat" setting is used for editing because it allows us to
+be able to see the underlying anatomy, while still being able to locate
+inaccuracies in the wm.mgz "mask." You can also use 'Jet' overlay, if
+you prefer. With wm highlighted in the left menu, take a look at the
+options next to Color Map and choose 'Heat' or 'Jet'. Then adjust the
+opacity so you can also see the brainmask underneath (down to around
+0.20). It should look like this:
+
+![Good_Output_Heat.png](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=Good_Output_Heat.png "Good_Output_Heat.png"){alt="Good_Output_Heat.png"}
+
+This could have also be done via commandline when first loading the wm in Freeview if we used this command: freeview -v wm.mgz:colormap=heat:opacity=0.25 brainmask.mgz (**Note: You don't need to run this command.**)
+
+You can now close Freeview by hitting the **X** on the display window or Ctrl-q.
+
+## Viewing Surfaces in 3D using Freeview
+
+We're now
+going to view several surface overlays. You could view the volumes
+discussed above and the overlays discussed below all in one Freeview
+session. They are separated in this tutorial only for simplicity. The
+examples below are displayed only on the left hemisphere, however, you
+could also view just the right hemisphere or both hemispheres at the
+same time. Here are some surfaces you can look at with Freeview:
+
+-   pial, white and inflated surface
+
+-   sulcal and curvature maps
+
+-   thickness maps
+
+-   cortical parcellation
+
+You can load them all in Freeview with the command below (be patient while they all load):
+
+------------------------------------------------------------------------
+
+```         
+freeview -f  good_output/surf/lh.pial:annot=aparc.annot:name=pial_aparc:visible=0 \
+good_output/surf/lh.pial:annot=aparc.a2009s.annot:name=pial_aparc_des:visible=0 \
+good_output/surf/lh.inflated:overlay=lh.thickness:overlay_threshold=0.1,3::name=inflated_thickness:visible=0 \
+good_output/surf/lh.inflated:visible=0 \
+good_output/surf/lh.white:visible=0 \
+good_output/surf/lh.pial \
+--viewport 3d
+```
+
+------------------------------------------------------------------------
+
+Some notes on the above command line:
+
+-   lh.pial:annot=aparc.annot loads the Desikan-Killiany cortical parcellation on the pial surface. lh.pial:annot=aparc.a2009s.annot loads the Destrieux cortical parcellation on the pial surface.
+
+    -   :name=pial_aparc:visible=0 changes which name shows up in the menu display and turns off this layer
+
+-   lh.inflated:overlay=lh.thickness:overlay_threshold=0.1,3 loads the thickness overlay on top of the inflated surface and sets the min and max thresholds to display
+
+**Pial Surface**\
+
+The first volume you see is the pial surface. The pial surface here is
+the full 3D representation of the red surface you saw on each 2D slice
+of the brainmask volume, earlier in the tutorial. The green regions are
+gyri and the red regions are sulci. With this surface, the sulci are
+mostly hidden. Feel free to move the inflated brain around by left
+clicking on it and dragging the mouse. If you would like to put the
+brain back to its original state, go to **View \> Reset View**, press Ctrl+r, or click the Reset button: ![ResetButton.png](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=ResetButton.png "ResetButton.png"){alt="ResetButton.png"}
+
+![lh.pial.jpeg](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=lh.pial.jpeg "lh.pial.jpeg"){alt="lh.pial.jpeg"}
+
+To
+get rid of the yellow lines being displayed on the surface
+(corresponding to the 3 slice views), right-click on the surface and
+check Hide All Slices, or hit Crtl+Shift+s.
+
+**White Surface**\
+
+Press Alt+c to cycle to the white surface.
+
+![lh.white.jpeg](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=lh.white.jpeg "lh.white.jpeg"){alt="lh.white.jpeg"}
+
+The
+white surface shows the boundary between white matter and gray matter.
+It is the 3D representation of the blue surface you saw on the 2D slices
+of the brainmask. With this surface, we are able to see the sulci a bit
+better. You can inspect this surface by rotating it around as you wish.
+
+**Inflated Surface**\
+
+Press Alt+c to cycle to the curvature on the inflated surface. With the
+inflated surface, you can fully see the sulci. If you look at the
+options next to 'Curvature' in the left menu pane, you can switch it to
+binary to see the curvature in grayscale. Or switch it to 'off' to see
+the smooth inflated surface.
+
+![lh.curv.jpeg](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=lh.curv.jpeg "lh.curv.jpeg"){alt="lh.curv.jpeg"}
+
+The
+inflated surface can be helpful to find bumps, holes, or other defects
+that may need to be corrected. If you click on the inflated surface, you
+will see the coordinates of the vertex you clicked on in the 'Cursor'
+window.
+
+**Thickness Map**\
+
+Press Alt+c to cycle to the thickness map on the inflated surface.
+
+![lh_thick.jpeg](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=lh_thick.jpeg "lh_thick.jpeg"){alt="lh_thick.jpeg"}
+
+**Cortical Parcellation**\
+
+Press Alt+c to cycle to the cortical parcellations. On the left is the
+Desikan-Killiany parcellation and on the right is the Destrieux
+parcellation.
+
+![good_output_aparc_crop.png](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=good_output_aparc_crop.png "good_output_aparc_crop.png"){alt="good_output_aparc_crop.png"} ![DestrieuxAtlas.png](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=DestrieuxAtlas.png "DestrieuxAtlas.png"){alt="DestrieuxAtlas.png"}
+
+Click
+on a color and view the name of the cortical region in the 'Cursor' or
+'Mouse' windows next to where it says 'aparc.annot'. Rotate the brain so
+you are looking at the medial wall. Notice that all subcortical gray
+matter is not a part of the surface labels (because again, those areas
+do not count towards the cortical surface measures).
+
+By
+default there are two parcellations that are made when recon-all is
+run. The two parcellations are the ?h.aparc.annot, created with the
+Desikan-Killiany atlas, and the ?h.aparc.a2009s.annot, created with the
+Destrieux atlas. The difference is the number and designation of the
+areas that are labeled. You can load the Destrieux parcellation by
+clicking on the drop down box next to 'Annotation' on the left panel and
+choosing **Load from file...**. Browse to lh.aparc.a2009s.annot and hit 'Open'.
+
+------------------------------------------------------------------------
+
+## Summary
+
+By the end of this exercise, you should know:
+
+-   How to visualize and inspect FreeSurfer data
+
+-   The command to visualize data in Freeview
+
+-   What
+    to look for when visualizing data including that surfaces follow the
+    gray and white matter boundaries and that the aseg.mgz accurately
+    follows the subcortical intensity boundaries
+
+-   The
+    regions around the hippocampus and amygdala are not intended to be
+    accurate and these inaccuracies can be ignored as subcortical regions
+    are excluded from cortical measures
+
+-   Surfaces
+    can be viewed in 3D such as the pial, white, and inflated surfaces,
+    sulcul and cortical maps, thickness maps, and cortical parcellation.
+
+This
+tutorial was meant as an introduction to Freeview. For information on
+buttons or menu options not covered here, you can find out about them on
+the [FreeviewGuide](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeviewGuide) wiki.
+
+------------------------------------------------------------------------
+
+### Exercise 1
+
+**Difficulty:** Beginner
+
+**Goal:** Practice basic Freeview tasks.
+
+In
+the examples above you looked at data from a subject called
+“good_output”. For this challenge complete the following tasks for
+subject “004”.
+
+1.  Open the subject’s aparc+aseg.mgz volume with a colormap of “lut”.
+
+2.  Swap the view to sagittal
+
+3.  Navigate with the arrow keys to find the right putamen
+
+*Need a hint?*
+
+-   Here is how you opened up a similar volume for the “good_output” subject:  freeview -v good_output/mri/aseg.mgz:colormap=lut 
+
+-   Please note that we were in the \$TUTORIAL_DATA/buckner_data/tutorial_subjs directory when we used that command - so  cd  there if you'd like to base your command off the above example.
+
+Want to know the answer? Click and drag to highlight and reveal the text below.
+
+|     |                                                  |     |
+|-----|--------------------------------------------------|-----|
+|     |  cd \$TUTORIAL_DATA/buckner_data/tutorial_subjs  |     |
+|     |                                                  |     |
+|     | freeview -v 004/mri/aparc+aseg.mgz:colormap=lut  |     |
+|     |                                                  |     |
+
+### Exercise 2
+
+**Difficulty:** Beginner
+
+**Goal:** Practice visualizing data with overlays.
+
+1.  Open 004’s lh.pial surface, with the overlay named lh.thickness, set the overlay to display with a threshold of 1,2
+
+2.  Look up vertex 141813
+
+3.  What is the thickness of this vertex?
+
+*Need a hint?*
+
+-   Here is how you opened up a similar surface for the good_output subject, with thickness information:  freeview -f good_output/surf/lh.inflated:overlay=lh.thickness:overlay_threshold=0.1,3 --viewport 3d 
+
+-   And here is how you opened up a similar surface for the good_output subject with the Desikan-Killany parcellation:  freeview -f  good_output/surf/lh.pial:annot=aparc.annot 
+
+-   Please note that we were in the \$TUTORIAL_DATA/buckner_data/tutorial_subjs directory when we used that command - so  cd  there if you'd like to base your command off the above example.
+
+Want to know the answer? Click and drag to highlight and reveal the text below.
+
+|  |  |  |
+|----|----|----|
+|  |  cd \$TUTORIAL_DATA/buckner_data/tutorial_subjs |  |
+|  |  |  |
+|  | freeview -f 004/surf/lh.pial:overlay=lh.thickness:overlay_threshold=1,2 --viewport 3d |  |
+|  |  |  |
+
+### Exercise 3
+
+**Difficulty:** Beginner
+
+**Goal:** Practice opening multiple files at a time with [FreeView](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeView).
+
+-   For this challenge start with this terminal command:
+
+ freeview -v 004/mri/wm.mgz:colormap=jet 004/mri/brainmask.mgz -f 004/surf/lh.pial:edgecolor=blue 004/surf/lh.white:edgecolor=red 
+
+-   Right
+    now it only opens the left hemisphere pial and white matter surfaces,
+    alter it to open both for the right hemisphere as well, with colors that
+    match the left hemisphere side.
+
+-   Once
+    you have the last command working, rearrange the volume layers in
+    freesurfer so that the wm.mgz is at %20 opacity and the brainmask can be
+    seen underneath it (this can also be done through altering the terminal
+    command - you can choose which way to do so).
+
+-   You will need to be in \$TUTORIAL_DATA/buckner_data/tutorial_subjs for the command to work, so cd there if needed
+
+Want the solution? Click and drag to highlight and reveal the text below.
+
+|  |  |  |
+|----|----|----|
+|  |  cd \$TUTORIAL_DATA/buckner_data/tutorial_subjs |  |
+|  |  |  |
+|  | freeview
+ -v 004/mri/brainmask.mgz 004/mri/wm.mgz:colormap=jet:opacity=.2 -f 
+004/surf/lh.pial:edgecolor=blue 004/surf/lh.white:edgecolor=red 
+004/surf/rh.pial:edgecolor=blue 004/surf/rh.white:edgecolor=red |  |
+|  |  |  |
+
+### Exercise 4
+
+**Difficulty:** Intermediate - assumes some comfort with navigating Unix and [FreeView](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeView)
+
+**Goal:** Export a series of images from [FreeView](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeView) and stitch them together to create a GIF.
+
+1.  Open up any surface from the tutorial data
+
+2.  Set the viewport to 3d view, right click in the viewport and select  Hide All Slices 
+
+3.  In the  File  menu, select  Save Movie Frames 
+
+4.  Set
+    up the options as in the following picture - you will need to create a
+    new directory in the /home/developer/tutorial_data directory to save the
+    output to. ![MovieSetup.png](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=MovieSetup.png "MovieSetup.png"){alt="MovieSetup.png"}
+
+5.  Select 'Write' once you have set up the options and created a new directory for your gif
+
+6.  In a terminal, navigate to the new directory you output the movie data to.
+
+7.  Run this command:  convert -delay .1 \*.png brainanim.gif 
+
+    -   Note: convert is from the [ImageMagick](https://surfer.nmr.mgh.harvard.edu/fswiki/ImageMagick) library, this is setup on the course computers. If you are doing the tutorials from home you can get a copy of [ImageMagick](https://surfer.nmr.mgh.harvard.edu/fswiki/ImageMagick) here <https://imagemagick.org/index.php>
+
+    -    -delay  determines the gap between frames,  \*.png  selects all png files in the working directory,  brainanim.gif  is the output name.
+
+8.  To view your GIF, open it with firefox  firefox brainanim.gif 
+
+![brainanim.gif](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/OutputData_freeview?action=AttachFile&do=get&target=brainanim.gif "brainanim.gif"){alt="brainanim.gif"}
+
+------------------------------------------------------------------------
+
+## Quiz
+
+You can test your knowledge of this tutorial by [clicking here](https://forms.gle/mNryhwtiJDR53y17A) for a quiz!
+
+------------------------------------------------------------------------
+
+[Back to list of all tutorials](https://surfer.nmr.mgh.harvard.edu/fswiki/Tutorials)
+
+[Back to course page](https://surfer.nmr.mgh.harvard.edu/fswiki/VirtualCourse)
