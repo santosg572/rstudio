@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>c01</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="c01_files/libs/clipboard/clipboard.min.js"></script>
+<script src="c01_files/libs/quarto-html/quarto.js"></script>
+<script src="c01_files/libs/quarto-html/popper.min.js"></script>
+<script src="c01_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="c01_files/libs/quarto-html/anchor.min.js"></script>
+<link href="c01_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="c01_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="c01_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="c01_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="c01_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">c01</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Chapter 1 Interpolation and Approximation</p>
+<p>1.1 Introduction</p>
+<p>The application performed on a computer is based on a mathematical model, partic- ularly in physical sciences. Supposing that the model is perfect (which is never the</p>
+<p>case), the main considered error is the calculation error, related to the use of a nu- merical method called algorithm allowing us to solve the problem. This error is due</p>
+<p>to the approximation of our mathematical model by a numerical method and is called truncation error. The calculation being done on a computer, another type of error occurs, the rounding error related to the finite number of figures used for a number representation. The issue of approximating a complex function or a group of numerical data by another function is called approximation and occupies an important place in many numerical and optimization studies.</p>
+<p>1.2 Approximation of a Function by Another Function Suppose that a function f (x) has a form such that it is difficult to obtain. In this case, it is necessary to approximate it by another function g(x) easier to get. Thus, the functions sin(x) or log(x) are approximated by an nth-order Taylor expansion, i.e.&nbsp;a Taylor polynomial of degree n.&nbsp;We thus get, for a sequence of points xi, the corresponding values f (xi) in a table. The information on function f (x) is fundamental. If the values of f (xi) are known with some precision, the function g(x) will provide approximations of f (x) with a lower precision</p>
+<p>f (x) =g(x) (1.2.1)</p>
+<p>© The Author(s), under exclusive license to Springer Nature Switzerland AG 2021 J.-P. Corriou, Numerical Methods and Optimization, Springer Optimization and Its Applications 187, <a href="https://doi.org/10.1007/978-3-030-89366-8_1" class="uri">https://doi.org/10.1007/978-3-030-89366-8_1</a></p>
+<p>1</p>
+<p>2 Chapter 1. Interpolation and Approximation 1.2.1 Approximation Functions The approximation functions are often present under the form of a linear combination of a class of given functions gi(x) for example as a Fourier series expansion g(x) = a0 + a1 cos x + a2 cos(2x) + … + an cos(nx)+ b1 sin x + b2 sin(2x) + … + bn sin(nx) (1.2.2)</p>
+<p>or an exponential series expansion</p>
+<p>g(x) = a0 exp(b0 x) + a1 exp(b1 x) + … + an exp(bn x) (1.2.3) Among all expansions of this type, the simplest is the approximation polynomial which is a linear combination of monomials</p>
+<p>g(x) = a0 + a1 x + … + an xn (1.2.4) The advantage of the approximation polynomial is its easiness to be differentiated or integrated. It is possible to approximate any continuous function on a given interval to any degree of precision by a polynomial of degree n according to Weierstrass approximation theorem: ∀ f continuous on [a, b], ∀ &gt; 0, ∃ a polynomial Pn(x) of degree n() such that | f (x) − Pn(x)| &lt;, a ≤ x ≤ b</p>
+<p>(1.2.5)</p>
+<p>1.2.2 Polynomial Approximation 1.2.2.1 Interpolation Polynomial of Degree n A criterion can be that, given (n + 1) couples (xi, f (xi)), the interpolation polynomial passes through the (n + 1) points</p>
+<p>∀i = 1,…, n + 1 , Pn(xi) = f (xi) (1.2.6) The approximation is not at all guaranteed for any value of x different from xi. As the polynomial goes through all points, the term of collocation is also used. 1.2.2.2 Least Squares Polynomial When the number n of values is large or when the function is known with inaccuracy in a reduced number of points, it may be interesting to do the approximation by a polynomial of degree m lower than n.&nbsp;The least squares approximation consists in</p>
+<p>Numerical Methods and Optimization 3 searching the polynomial coefficients such that the sum of the squares of the errors is minimized</p>
+<p>min E = n i=0 [Pm(xi) − f (xi)]2 (1.2.7)</p>
+<p>with</p>
+<p>Pm(x) = m j=0 aj x j = a0 + a1 x + ··· + am xm (1.2.8) The coefficients aj are found by minimizing the criterion E, hence the nullity of the gradient of E with respect to the coefficients ∂E ∂a0 = ··· = ∂E ∂am = 0 (1.2.9) which results in a system of m + 1 linear equations with respect to the parameters aj. These (m + 1) equations can be written under the form</p>
+<p>⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ S0 S1 … Sm S1 S2 … Sm+1 . . . . . . . . . Sm Sm+1 … S2m ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦ ⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ a0 a1 . . . am ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦ = ⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ t0 t1 . . . tm ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦</p>
+<p>(1.2.10)</p>
+<p>with</p>
+<p>Sk = n i=0 xk i , tk = n i=0 xk i f (xi) (1.2.11)</p>
+<p>that is</p>
+<p>S a = t or a = S−1 t (1.2.12)</p>
+<p>When m is equal to 1, we thus get the least squares straight line. 1.2.2.3 Minimax Polynomial The coefficients of the approximation polynomial Pm(x) must be chosen so that the absolute value of the largest deviation f (xi) − Pm(xi), be minimum</p>
+<p>min max i | f (xi) − Pm(xi)|</p>
+<p>(1.2.13)</p>
+<p>1.2.2.4 Series Expansion If a function f (x) is continuous and continuously differentiable on the interval [x, x0], its Taylor series expansion can be used</p>
+<p>4 Chapter 1. Interpolation and Approximation f (x) = f (x0) + (x − x0) f</p>
+<p>(x0) + ··· + (x − x0) n n! f (n) (x0) + …</p>
+<p>= ∞ i=0 (x − x0) i i! f (i) (x0) (1.2.14)</p>
+<p>Note that we used the convention 0! = 1. In the case where x0 = 0, this is called Maclaurin series expansion. Very often, the nth degree Taylor polynomial or Taylor approximation of degree n is used. It is defined as the (n + 1) first terms of the Taylor series expansion f (x) = f (x0) + (x − x0) f (x0) + …</p>
+<p>+(x − x0) n n! f (n) (x0) + (x − x0) n+1 (n + 1)! f (n+1)</p>
+<p>(ξ) with x0 ≤ ξ ≤ x</p>
+<p>= f (x0) + (x − x0) f</p>
+<p>(x0) + … + (x − x0) n n! f (n) (x0) + 0((x − x0) n) (1.2.15)</p>
+<p>The remainder (x − x0)</p>
+<p>n+1/(n + 1)! f (n+1)</p>
+<p>(ξ) can be upper bounded as well as an evaluation of the error committed by truncating the Taylor series expansion at order n, hence the term of truncation error. The Taylor series expansion is little used as such in the numerical practice, but the nth degree Taylor polynomial is often used as the reference when designing a new numerical method based on discretization.</p>
+<p>1.2.2.5 Calculation of Polynomial Pn(x) Horner’s rule allows to calculate the polynomial Pn(x) with a minimum of operations, n multiplications and n additions, according to Pn(x) = a0 + x(a1 + x(a2 + x(a3) + x(a4 + ··· + x(an−1 + xan)) … )) (1.2.16)</p>
+<p>1.3 Determination of Interpolation Polynomials 1.3.1 Calculation of the Interpolation Polynomial Given n points of coordinates(xi, f (xi)), there exists only one interpolation polynomial of degree lower than or equal to n − 1 passing through the n points</p>
+<p>Pn−1(xi) = f (xi) ∀i = 1,…, n (1.3.1) The coefficients ai of the interpolation polynomial are solution of a linear system of n equations</p>
+<p>Numerical Methods and Optimization 5</p>
+<p>a0 + a1 x1 + a2 x2</p>
+<p>1 + ··· + an−1 xn−1 1 = f (x1)</p>
+<p>a0 + a1 x2 + a2 x2</p>
+<p>2 + ··· + an−1 xn−1 2 = f (x2) … = … a0 + a1 xn + a2 x2</p>
+<p>n + ··· + an−1 xn−1 n = f (xn)</p>
+<p>(1.3.2)</p>
+<p>The determinant of the matrix of coefficients of these equations is known as Vander- monde determinant</p>
+<p>1 x1 x2 1 … xn−1 1 1 x2 x2 2 … xn−1 2 . . . . . . . . . . . . . . . 1 xn x2 n … xn−1 n</p>
+<p>(1.3.3)</p>
+<p>Recall that the approximation is not at all guaranteed for any value of x different from xi.</p>
+<p>1.3.2 Newton Interpolation Polynomial From the definition of the derivative of a continuous function f (x)</p>
+<p>df (x) dx x0 = f (x0) = lim x→x0 f (x) − f (x0) x − x0</p>
+<p>(1.3.4)</p>
+<p>we can define the first divided difference</p>
+<p>f [x, x0] = f (x) − f (x0) x − x0</p>
+<p>(1.3.5) Indeed, this divided difference is the ratio or quotient of the finite difference ( f (x) − f (x0)) by the finite difference (x − x0). It is a rate of change of the function. Thus, it is a finite divided difference in general called divided difference that we maintain (Burden and Faires 2011; Gautschi 2012; Sauer 2012; Stoer and Bulirsch 1996). However, as soon as we deal with the discretization of ordinary differential equations and partial differential equations, with respect to the use of difference schemes in the finite difference method, frequently the term of finite difference is simply used even if it is a quotient (Allaire 2007; Sastry 2006; Epperson 2013). From the mean value theorem (Figure 1.1), we know that: ∀ f (x) continuous on a ≤ x ≤ b and differentiable on a ≤ x ≤ b, ∃ ξ ∈ [a, b] such that</p>
+<p>f (ξ) = f (b) − f (a) b − a (1.3.6)</p>
+<p>It results that the first divided difference is f [x, x0] = f (x) − f (x0) x − x0 = f (ξ) , ξ ∈ [x, x0] (1.3.7)</p>
+<p>The concept of divided difference can be generalized (Table 1.1).</p>
+<p>6 Chapter 1. Interpolation and Approximation</p>
+<p>( ) ( )</p>
+<p>( )</p>
+<p>Fig. 1.1 Mean value theorem Table 1.1 Divided differences Order Divided difference Definition 0 f [x0] f (x0) 1 f [x1, x0] f [x1] − f [x0] x1 − x0 2 f [x2, x1, x0] f [x2, x1] − f [x1, x0] x2 − x0 n f [xn,…, x1, x0] f [xn,…, x2, x1] − f [xn−1,…, x1, x0] xn − x0</p>
+<p>It results that the nth divided difference is equal to f [xn,…, x1, x0] = n i=0 f (xi) n j=0 ji (xi − xj)</p>
+<p>(1.3.8)</p>
+<p>or</p>
+<p>f [xn,…, x1, x0] = f (ξ)</p>
+<p>n! , ξ ∈ [x0, x1,…, xn] (1.3.9) The linear interpolation of function f (x) at a point x ∈ [x0, x1] will be done according to f (x) ≈ P1(x) = f (x0) + (x − x0) f [x1, x0] = f [x0] + (x − x0) f [x1, x0] (1.3.10) Indeed, the interpolation thus defined is an approximation if f (x) is not a linear function (Figure 1.2) and the error term R1(x) will be such that</p>
+<p>Numerical Methods and Optimization 7</p>
+<p>0 1 ( 0) ( )</p>
+<p>( 1)</p>
+<p>1 ( )</p>
+<p>1 ( )</p>
+<p>Fig. 1.2 Approximation of f (x) by P1(x) f (x) = f [x0] + (x − x0) f [x1, x0] + R1(x) = P1(x) + R1(x) (1.3.11) hence the error term which is zero at the limits x0, x1 R1(x) = (x − x0)( f [x, x0] − f [x1, x0]) = (x − x0)(x − x1) f [x, x1, x0] (1.3.12) thus for the function f (x) f (x) = f [x0] + (x − x0) f [x1, x0] + (x − x0)(x − x1) f [x, x1, x0] (1.3.13) The error term or remainder can be evaluated by introducing a known point (x2, f (x2)) if it is assumed that the function f (x) does not change too rapidly on the interval containing x0, x1, x2. In this case,</p>
+<p>R1(x)≈(x − x0)(x − x1) f [x2, x1, x0] (1.3.14) If the linear interpolation is insufficient, it is possible to add a curvature term with the second divided difference to evaluate the function f (x) according to a second degree polynomial f (x) ≈ P2(x) = f [x0] + (x − x0) f [x1, x0] + (x − x0)(x − x1) f [x2, x1, x0] (1.3.15) while the exact expression of f (x) is indeed f (x) = f [x0] + (x − x0) f [x1, x0] + (x − x0)(x − x1) f [x2, x1, x0]+ (x − x0)(x − x1)(x − x2) f [x, x2, x1, x0] = P2(x) + R2(x)</p>
+<p>(1.3.16)</p>
+<p>The formula can be generalized at order n; the function f (x) is the sum of an interpo- lation polynomial of degree n and a remainder</p>
+<p>8 Chapter 1. Interpolation and Approximation f (x) = Pn(x) + Rn(x) (1.3.17) with the interpolation polynomial of degree n according to the divided difference Pn(x) = f [x0] + (x − x0) f [x1, x0] + (x − x0)(x − x1) f [x2, x1, x0] + … + (x − x0)(x − x1) … (x − xn−1) f [xn,…, x1, x0]</p>
+<p>(1.3.18)</p>
+<p>whereas the corresponding error term is equal to Rn(x) = (x − x0)(x − x1) … (x − xn) f [x, xn,…, x1, x0] = [ n i=0(x − xi)] f [x, xn,…, x1, x0] (1.3.19)</p>
+<p>According to Rolle’s theorem: ∀ f (x) continuous and differentiable for x ∈ [a, b], if f (a) = f (b), ∃ ξ ∈ [a, b]such that f</p>
+<p>(ξ) = 0 (1.3.20) Using iteratively this theorem and noting that the remainder Rn(x) becomes zero at all points x0, x1,…, xn, Rn(x) is estimated Rn(x) =[ n i=0 (x − xi)] f (n+1) (ξ) (n + 1)! , ξ ∈ (x, xn,… x1, x0) (1.3.21) which allows us to find an upper bound for the remainder if the function f (x) is analytically known. The interpolation polynomial Pn(x) can also be seen under the form Pn(x) = a0 + a1(x − x0)+ a2(x − x0)(x − x1)+ ··· + an(x − x0) … (x − xn−1) (1.3.22) the coefficients ai being evaluated according to the recursive scheme</p>
+<p>f0 = P(x0) = a0 f1 = P(x1) = a0 + a1(x1 − x0) f2 = P(x2) = a0 + a1(x2 − x0) + a2(x2 − x0)(x2 − x1) . . .</p>
+<p>(1.3.23)</p>
+<p>The divided differences can be calculated according to a triangular iterative scheme symbolized by Table 1.2. The column k = 0 corresponds to the ordinates of the function at points of abscissa xi according to the relation f [xi] = f (xi), the column k = 1 is simply deduced from column k = 0 by a formula of type f [xi, xi−1] = f [xi] − f [xi−1] xi − xi−1</p>
+<p>(1.3.24) the column k = 2 is simply deduced from column k = 1 by a formula of type</p>
+<p>f [xi, xi−1, xi−2] = f [xi, xi−1] − f [xi−1, xi−2] xi − xi−2</p>
+<p>(1.3.25)</p>
+<p>Numerical Methods and Optimization 9 and so on; the column i is deduced from column i − 1 by a similar triangular relation. Table 1.2 Divided differences, iterative triangular calculation</p>
+<p>k = 0 k = 1 k = 2 … k = n x0 f [x0] f [x1, x0] x1 f [x1] f [x2, x1, x0] f [x2, x1] .. . x2 f [x2] . . . f [xn, xn−1,…, x1, x0]</p>
+<p>. . . ···</p>
+<p>. . . . . . f [xn, xn−1, xn−2] f [xn, xn−1] xn f [xn]</p>
+<p>1.3.3 Lagrange Interpolation Polynomial The Lagrange interpolation polynomial of degree 2 (see an example of Lagrange polynomial on Figure 1.3) is equal to P2(x) = (x − x1)(x − x2) (x0 − x1)(x0 − x2) f (x0) + (x − x0)(x − x2) (x1 − x0)(x1 − x2) f (x1)</p>
+<ul>
+<li>(x − x0)(x − x1) (x2 − x0)(x2 − x1) f (x2) = 2 i=0 ⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣</li>
+</ul>
+<p>2 j=0 ji (x − xj) (xi − xj) ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦ f (xi) = 2 i=0 Li(x) f (xi)</p>
+<p>(1.3.26)</p>
+<p>Generalizing at degree n, the Lagrange interpolation polynomial is written as</p>
+<p>Pn(x) = n i=0 Li(x) f (xi) (1.3.27)</p>
+<p>where the factors Li(x) are equal to Li(x) = n j=0 ji (x − xj) (xi − xj) (1.3.28)</p>
+<p>As previously, the function f (x) is equal to</p>
+<p>10 Chapter 1. Interpolation and Approximation f (x) = Pn(x) + Rn(x) (1.3.29)</p>
+<p>with the remainder Rn(x) equal to Rn(x) = [ n i=0 (x − xi)] f [x, xn,…, x1, x0] (1.3.30)</p>
+<p>Rn(x) = [ n i=0 (x − xi)] f (n+1) (ξ) (n + 1)! , ξ ∈ (x, xn,… x1, x0) (1.3.31)</p>
+<p>0 0.2 0.4 0.6 0.8 1 1.2 1.4 0 0.5 1 1.5 2 2.5</p>
+<p>x</p>
+<p>y</p>
+<p>Fig. 1.3 Lagrange interpolation polynomial of degree 4 passing exactly through 5 given points The Lagrange interpolation polynomial is determined by writing it under the form Pn(x) = a0(x − x1)(x − x2)(x − x3) … (x − xn) +a1(x − x0)(x − x2)(x − x3) … (x − xn) +a2(x − x0)(x − x1)(x − x3) … (x − xn) + … +ai(x − x0)(x − x1) … (x − xi−1)(x − xi+1) … (x − xn) + … +an(x − x0)(x − x1)(x − x2) … (x − xn−1)</p>
+<p>(1.3.32)</p>
+<p>where the coefficients ai are equal to ai = f (xi) (xi − x0)(xi − x1) … (xi − xi−1)(xi − xi+1) … (xi − xn) (1.3.33)</p>
+<p>Numerical Methods and Optimization 11 1.3.4 Polynomial Interpolation with Regularly Spaced Points The spacing h is equal to</p>
+<p>h = xi − xi−1 ∀i = 1,…, n (1.3.34) The interpolation polynomial can be expressed using a linear difference operator. According to the case, it will be the forward difference operator noted “Δ,” backward difference operator noted “∇,” central (or centered) difference operator noted “δ,” as below: Forward difference: Δ f (x) = f (x + h) − f (x) Backward difference: ∇ f (x) = f (x) − f (x − h) Central difference: δ f (x) = f (x + h 2 ) − f (x − h 2 )</p>
+<p>1.3.4.1 Forward Differences The forward difference operator is defined by</p>
+<p>Δ f (x) = f (x + h) − f (x) (1.3.35)</p>
+<p>Δ f (x) is called first forward difference (Figure 1.4). ( + h)</p>
+<p>Δ ( )</p>
+<ul>
+<li>h</li>
+</ul>
+<p>( )</p>
+<p>Fig. 1.4 Forward difference It is possible to again use the operator, hence the second forward difference</p>
+<p>Δ2 f (x) = Δ(Δ f (x)) = Δ( f (x + h) − f (x)) = Δ f (x + h) − Δ f (x) = f (x + 2h) − 2 f (x + h) + f (x)</p>
+<p>(1.3.36)</p>
+<p>and so on until the nth forward difference</p>
+<p>Δn f (x) = Δn−1 f (x + h) − Δn−1 f (x) (1.3.37)</p>
+<p>12 Chapter 1. Interpolation and Approximation The forward differences can be calculated and gathered in a table. The correspondences between the forward differences and the divided differences are the following:</p>
+<p>f [x1, x0] = Δ f (x0) h . . . f [xn,…, x1, x0] = Δn f (x0) n! hn</p>
+<p>(1.3.38)</p>
+<p>Defining α such that</p>
+<p>x = x0 + αh with x0 ≤ x ≤ xn and 0 ≤ α ≤ n (1.3.39)</p>
+<p>the fundamental Newton interpolation formula is f (x0 + αh) = f (x0) + αΔ f (x0) + α(α − 1)</p>
+<p>2! Δ2 f (x0) + … +</p>
+<p>α(α − 1) … (α − n + 1) n! Δn f (x0) + Rn(x0 + αh) = Pn(x0 + αh) + Rn(x0 + αh)</p>
+<p>(1.3.40)</p>
+<p>The residual Rn is equal to Rn(x0 + αh) = hn+1α(α − 1) … (α − n) f (n+1) (ξ) (n + 1)! with ξ ∈ (x, x0,…, xn) (1.3.41)</p>
+<p>an estimation of the remainder is</p>
+<p>Rn(x0 + αh) ≈ α(α − 1) … (α − n) Δn+1 f (x0) (n + 1)! (1.3.42)</p>
+<p>1.3.4.2 Backward Differences The backward difference operator is defined by</p>
+<p>∇ f (x) = f (x) − f (x − h) (1.3.43) The interpolation based on backward differences (Figure 1.5) is very similar to that based on forward differences. Thus, the function f (x) is expressed as f (x0 + αh) = f (x0) + α∇ f (x0) + α(α + 1)</p>
+<p>2! ∇2 f (x0) + … +</p>
+<p>α(α + 1) … (α + n − 1) n! ∇n f (x0) + Rn(x0 + αh) = Pn(x0 + αh) + Rn(x0 + αh)</p>
+<p>(1.3.44)</p>
+<p>Numerical Methods and Optimization 13</p>
+<p>( )</p>
+<p>∇ ( )</p>
+<p>− h ( − h )</p>
+<p>Fig. 1.5 Backward difference 1.3.4.3 Central Differences The central difference operator is defined by δ f (x) = f (x + h 2 ) − f (x − h 2 ) (1.3.45) The interpolation error by using a first central difference (Figure 1.6) is of order 2 with respect to h, whereas it is of order 1 for forward or backward differences. ( + h/ 2)</p>
+<p>( )</p>
+<p>− h / 2 + h/ 2</p>
+<p>( − h / 2)</p>
+<p>( )</p>
+<p>Fig. 1.6 Central difference Thus, it will be possible to perform interpolations with polynomials of lower degree than for forward or backward differences without increasing the error. The notations are more intricate than for forward or backward differences. Gauss formulas are Forward Gauss formula f (x0 + αh) = f (x0) + αδ f (x0 + h</p>
+<p>2 ) + α(α − 1) δ2 f (x0) 2! +</p>
+<p>α(α − 1)(α + 1) δ3 f (x0 + h 2 ) 3! + … + Rn(x0 + αh) (1.3.46)</p>
+<p>14 Chapter 1. Interpolation and Approximation Backward Gauss formula f (x0 + αh) = f (x0) + αδ f (x0 − h</p>
+<p>2 ) + α(α + 1) δ2 f (x0) 2! +</p>
+<p>α(α − 1)(α + 1) δ3 f (x0 − h 2 ) 3! + … + Rn(x0 + αh) (1.3.47)</p>
+<p>Central Gauss formula f (x0 + αh) = f (x0) + α 2 [δ f (x0 − h 2 ) + δ f (x0 + h</p>
+<p>2 )] + α2 δ2 f (x0) 2!</p>
+<p>+α(α − 1)(α + 1) 2 δ3 f (x0 − h 2 ) + δ3 f (x0 + h 2 )</p>
+<p>3! + … + Rn(x0 + αh)</p>
+<p>(1.3.48)</p>
+<p>1.3.5 Hermite Polynomials Consider a set of (n + 1) points (xi, f (xi)) with a ≤ x0 ··· ≤ xn ≤ b. f is a function of type Cm (function having continuous derivatives up to order m) with m = max(m0,…, mn) (each mi is the value of m at xi). The osculatory polynomial approximating the function f is the polynomial P(x) of lower degree such that dkP(xi) dxk = dk f (xi) dxk ∀i = 0,…, n and ∀ k = 0,…, mi (1.3.49)</p>
+<p>The polynomial and the function f coincide by the value of the function and its kth- order derivatives at any point xi. More generally, a curve is said to be osculatory</p>
+<p>to another curve when it touches it at any point and has the same tangent line and curvature at this point. The case mi = 1 corresponds to Hermite polynomials; the polynomial and the function coincide by the value of the function and the first derivative. The corresponding Hermite polynomial of degree (2n + 1) is given by</p>
+<p>H2n+1(x) = n i=0 f (xi)Hn,i(x) + n i=0 f (xi)Hˆn,i(x) (1.3.50)</p>
+<p>with Hn,i(x) = [1 − 2(x − xi)L n,i(xi)]L2 n,i(x) and Hˆn,i(x) = (x − xi)L2</p>
+<p>n,i(x) (1.3.51) where Ln,i is the ith factor (Li of Equation (1.3.28)) of the Lagrange polynomial of degree n.&nbsp;It is possible to show that f (x) = H2n+1(x) + (x − x0)</p>
+<p>2 … (x − xn) 2 (2n + 2)! f (2n+2)</p>
+<p>(ξ) with ξ ∈ [a, b] (1.3.52)</p>
+<p>Numerical Methods and Optimization 15 if f is C2n+2 on [a, b]. For that purpose, the following properties are useful:</p>
+<p>Ln,i(xj) = 0 if i j Ln,i(xi) = 0 (1.3.53)</p>
+<p>hence</p>
+<p>Hn,i(xj) = 0 if i j Hn,i(xi) = 1 Hˆn,i(xj) = 0 if i j Hˆn,i(xi) = 0</p>
+<p>(1.3.54) inducing the coincidence of the polynomial and the functions as well as their respective derivatives</p>
+<p>H2n+1(xi) = f (xi) and H 2n+1(xi) = f</p>
+<ol start="11" type="i">
+<li>(1.3.55)</li>
+</ol>
+<p>resulting in Equation (1.3.52). An interesting property of Hermite polynomials is that it is possible to determine them from the divided differences. First, we use Newton interpolation polynomial defined by Pn(x) = f [x0] + n i=1 f <a href="x%20−%20x0">x0,…, xi</a> … (x − xi−1) (1.3.56)</p>
+<p>Defining</p>
+<p>z2i = z2i+1 = xi ∀i = 0,…, n (1.3.57)</p>
+<p>the divided difference results theoretically</p>
+<p>f [z2i, z2i+1] = f [z2i] − f [z2i+1] z2i − z2i+1</p>
+<p>(1.3.58) which is not suitable as z2i = z2i+1, but taking into account the definition of a derivative</p>
+<p>f (x0) = lim x→x0 f (x) − f (x0) x − x0</p>
+<p>(1.3.59)</p>
+<p>we can write f (z2i) = f (z2i+1) = f (xi) = f [z2i, z2i+1] ∀i = 0,…, n (1.3.60)</p>
+<p>Thus, Hermite polynomial results with respect to divided differences H2n+1(x) = f [z0] + 2 n+1 i=1 f <a href="x%20−%20z0">z0,…, zi</a> … (x − zi−1) (1.3.61) In particular, we will find an application of Hermite polynomials for the approximation of function in section 1.3.7 or differential equations in section 7.10.2.</p>
+<p>16 Chapter 1. Interpolation and Approximation 1.3.6 Chebyshev Polynomials and Irregularly Spaced Points Suppose that the variable x varies in [−1, 1]. In this case, the interpolation polynomial Pn(x) of f (x) defined as a sum of monomials produces a minimum error when x is close to 0 and maximum when |x| is close to 1. Thus, the error is irregularly distributed on the interval [0, 1]. In the general case where x ∈ [a, b], if we do a change of variable such that</p>
+<p>t = 2x − a − b b − a (1.3.62)</p>
+<p>we are brought back to the previous case with t ∈ [−1, 1]. It is interesting to find a series expansion of functions such that the error is better distributed and the maximum error is minimum. The cosinus functions offer this type of advantage; their values are regularly spread on [0, π]. Moreover, the extreme values of two functions cos jα and cos kα with j k are in general reached for different values of α. The cosinus function is numerically evaluated by a series. Indeed, we can use the expression of cos nα with respect to x = cos α. Thus Chebyshev polynomials Ti(x) = cos(iα) are defined by Ti(x) = cos(iα) = 2 cos(α) cos((i − 1)α) − cos((i − 2)α) , i = 0, 1,… (1.3.63) giving the recurrence</p>
+<p>Ti(x) = 2xTi−1(x) − Ti−2(x) (1.3.64)</p>
+<p>In this way, we get</p>
+<p>T0(x) = 1 T1(x) = x T2(x) = 2x2 − 1 T3(x) = 4x3 − 3x T4(x) = 8x4 − 8x2 + 1 …</p>
+<p>(1.3.65)</p>
+<p>and reciprocally the monomials 1, x, x2 , x3 ,… are simply expressed with respect to</p>
+<p>Chebyshev polynomials</p>
+<p>1 = T0 x = T1 x2 = 1 2(T0 + T2) x3 = 1 4(3T1 + T3) x4 = 1 8(3T0 + 4T2 + T4) …</p>
+<p>(1.3.66)</p>
+<p>The Chebyshev polynomials Tn(x) = cos(nα) have (n + 1) extrema of modulus 1, alternatively positive and negative on the interval [−1, 1] (Figure 1.7). The n roots of Tn(x) are real, in [−1, 1] and given by</p>
+<p>Numerical Methods and Optimization 17</p>
+<p>−1 −0.5 0 0.5 1 −1 −0.8 −0.6 −0.4 −0.2 0 0.2 0.4 0.6 0.8 1</p>
+<p>x</p>
+<p>Ti(x)</p>
+<p>T1(x)</p>
+<p>T2(x) T3(x)</p>
+<p>Fig. 1.7 Chebyshev polynomials xi = cos (2i − 1)π 2n</p>
+<p>, i = 1, 2,… n (1.3.67) The coefficient of xn in the polynomial Tn(x) is equal to 2n−1, and it can be shown that among all polynomials Pn(x) having 1 as coefficient of xn (such a polynomial is called monic), the monic Chebyshev polynomial φn(x) = Tn(x) 2n−1 (1.3.68) is the one which has, in absolute value, the lowest upper bound in the interval [−1, 1]. The monic Chebyshev polynomials are represented in Figure 1.8 where it can be noticed that the band surrounding each polynomial φn(x) has a decreasing amplitude as it is situated in [− 1 2n−1 , 1 2n−1 ].</p>
+<p>Demonstration: Suppose that a polynomial Pn(x) exists which has the upper bound of its absolute value in the interval [−1, 1] which would be lower than that of polynomial φn(x). We form the difference polynomial Dn(x) = φn(x) − Pn(x). As φn and Pn both have 1 as coefficient of xn, Dn(x) is a polynomial of degree (n − 1). The polynomial φn is zero and crosses the x axis n times in [−1, 1]; it possesses (n + 1) extrema x0, x1, x2,… . As at each extremum, Pn is lower in absolute value than φn, it implies that the difference Dn(x) changes its sign for each extremum, sign of Dn(xi−1) = − sign of Dn(xi), which implies that Dn(x) changes its sign n times in [−1, 1]. Thus, Dn(x) would at least have</p>
+<p>18 Chapter 1. Interpolation and Approximation</p>
+<p>−1 −0.5 0 0.5 1 −1 −0.8 −0.6 −0.4 −0.2 0 0.2 0.4 0.6 0.8 1</p>
+<p>x</p>
+<p>Φ(x)</p>
+<p>Φ1 (x)</p>
+<p>Φ2 (x)</p>
+<p>Φ3 (x)</p>
+<p>Φ4 (x)</p>
+<p>Fig. 1.8 Monic Chebyshev polynomials n roots and would be of degree larger than or equal to n which contradicts the initial hypotheses. 1.3.6.1 Minimization of the Maximum Error According to Chebyshev polynomial expansion, we know that φn presents the lowest maximum on the interval [−1, 1]. Thus, it will be possible to minimize the error expressed under the form of a polynomial of degree n on the interval [−1, 1] by equaling it to φn(x). For example, we can minimize the error term of the interpolation polynomial</p>
+<p>Rn(x) = [ n i=0 (x − xi)] f (n+1) (ξ) (n + 1)! (1.3.69)</p>
+<p>The term f (n+1)</p>
+<p>(ξ) can be considered as constant and we can simply minimize the polynomial of degree (n + 1) which appears under the form of the product that we make equal to φn+1(x). Thus, the terms (x − xi) are simply the (n + 1) factors of φn+1(x); it results that the roots of φn+1(x) are the roots of the corresponding Chebyshev polynomial, that is</p>
+<p>xi = cos (2i − 1)π 2n + 2</p>
+<p>, i = 1,…, n + 1 (1.3.70)</p>
+<p>Numerical Methods and Optimization 19 The previous reasoning was made on the interval x ∈ [−1, 1]; it can be generalized to any interval z ∈ [a, b] by doing the change of variable z = x(b − a) + (b + a)</p>
+<p>2 (1.3.71) The minimization thus performed of the maximum error constitutes the minimax principle. Generalization: In general, we desire to find a polynomial P∗</p>
+<p>n(x) of degree n which minimizes the maximum deviation with respect to a function f (x) on the interval [−1, 1]. If the function f (x) can be expanded with respect to Chebyshev polynomials (Fourier series expansion)</p>
+<p>f (x) = ∞ i=0 aiTi(x) (1.3.72)</p>
+<p>then the partial sum</p>
+<p>Pn(x) = n i=0 aiTi(x) (1.3.73)</p>
+<p>constitutes a good approximation of P∗</p>
+<p>n(x), and Pn(x) will nearly be minimax.</p>
+<p>Example 1.1 : Lagrange polynomials: interpolation on irregularly spaced points Consider the function y = exp(−x2) that we want to interpolate on the interval [−2, 2]. The function can be interpolated by a Lagrange interpolation polynomial of degree n by using (n + 1) points regularly spaced (left Figure 1.9). It is possible to act differently by choosing as interpolation points the (n + 1) roots of Chebyshev polynomial Tn+1(x) according to Equation (1.3.70) as</p>
+<p>xi = b + a 2 + (b − a) 2 cos (2i − 1)π 2n + 2</p>
+<p>, i = 1,…, n + 1 (1.3.74)</p>
+<p>and perform the interpolation of the function by a Lagrange interpolation polynomial based on these ir- regularly spaced points (right Figure 1.9). The interpolation thus performed is better than the one based</p>
+<p>on the regularly spaced points, which appears clearly in Figure 1.9 at both extremities of the interval.</p>
+<p>1.3.6.2 Chebyshev Economization • The polynomial of degree n is written as Pn(z) = n i=0 aizi (1.3.75)</p>
+<p>with a ≤ z ≤ b • The previous polynomial must be transformed as</p>
+<p>20 Chapter 1. Interpolation and Approximation</p>
+<p>Pn(x) = n i=0 a∗ i xi (1.3.76)</p>
+<p>−2 −1 0 1 2 −0.2 0 0.2 0.4 0.6 0.8 1</p>
+<p>x</p>
+<p>y</p>
+<p>Lagrange Function</p>
+<p>−2 −1 0 1 2 −0.2 0 0.2 0.4 0.6 0.8 1</p>
+<p>x</p>
+<p>y</p>
+<p>Lagrange Function</p>
+<p>Fig. 1.9 Interpolation of a function by a Lagrange polynomial of degree n with n+1 regularly spaced points (left) and with irregularly spaced Chebyshev points (right) with −1 ≤ x ≤ 1 and x = 2z − a − b b − a • The polynomial Pn(x) is expressed under the form of its expansion with respect to Chebyshev polynomials by using the tables Pn(x) = n i=0 biTi(x) (1.3.77) • The Chebyshev economization process is done by neglecting the terms whose contribution is lower than a given threshold . Thus, a truncated polynomial of degree m is obtained</p>
+<p>Pn(x) = Pm(x) + E = m i=0 biTi(x) + E (1.3.78)</p>
+<p>with the term corresponding to the truncation E = n i=m+1 biTi(x) (1.3.79)</p>
+<p>so that the maximum error is lower than Emax = n i=m+1 |bi | ≤ (1.3.80)</p>
+<p>• The economized polynomial</p>
+<p>Numerical Methods and Optimization 21</p>
+<p>Pm(x) = m i=0 c∗ i xi (1.3.81)</p>
+<p>is written by using the tables. • Then, the optimized polynomial must be transformed with respect to the original variable z</p>
+<p>Pm(z) = m i=0 cizi (1.3.82)</p>
+<p>1.3.6.3 Runge Phenomenon When the number (n + 1) of points used for the interpolation of a function f (x) increases, we can expect the convergence of the Lagrange interpolation polynomial Pn(x) to increase. Difficulties can be highlighted when the function is nearly constant (plane function) or linear on some part of the domain of x and has a totally different behavior in the other parts of the domain. First, examine the case of regularly spaced points. Consider on the interval [−2, 2] the function y = exp(−10 x2) which tends rapidly to 0 outside a domain close to the origin. The polynomial very well approximates the function around the middle of the interpolation interval [a, b] and thus there is convergence, but on the opposite a divergence occurs close to the endpoints of the interval (Figure 1.10) when the degree n of the interpolation polynomial increases. This is Runge phenomenon (Hairer 1993).</p>
+<p>−2 −1 0 1 2 −1 −0.5 0 0.5 1 1.5 2 2.5 3</p>
+<p>x</p>
+<p>y</p>
+<p>n=2</p>
+<p>−2 −1 0 1 2 −1 −0.5 0 0.5 1 1.5 2 2.5 3</p>
+<p>x</p>
+<p>y</p>
+<p>n=8</p>
+<p>−2 −1 0 1 2 −1 −0.5 0 0.5 1 1.5 2 2.5 3</p>
+<p>x</p>
+<p>y</p>
+<p>n=14</p>
+<p>−2 −1 0 1 2 −1 −0.5 0 0.5 1 1.5 2 2.5 3</p>
+<p>x</p>
+<p>y</p>
+<p>n=20</p>
+<p>Fig. 1.10 Runge phenomenon and regularly spaced points: highlighting of the divergence between the function and the interpolation polynomial close to the endpoints of the interpolation interval. The degree of the interpolation polynomial is given in each subfigure</p>
+<p>22 Chapter 1. Interpolation and Approximation When irregularly spaced points are used for interpolation according to the equation of Chebyshev polynomial roots (Figure 1.11), the convergence is neatly improved. With respect to Figure 1.10, the same Lagrange interpolation polynomial was used, only the position of the interpolation points changed.</p>
+<p>−2 −1 0 1 2 −0.5 0 0.5 1 1.5</p>
+<p>x</p>
+<p>y</p>
+<p>n=2</p>
+<p>−2 −1 0 1 2 −0.5 0 0.5 1 1.5</p>
+<p>x</p>
+<p>y</p>
+<p>n=8</p>
+<p>−2 −1 0 1 2 −0.5 0 0.5 1 1.5</p>
+<p>x</p>
+<p>y</p>
+<p>n=14</p>
+<p>−2 −1 0 1 2 −0.5 0 0.5 1 1.5</p>
+<p>x</p>
+<p>y</p>
+<p>n=20</p>
+<p>Fig. 1.11 Runge phenomenon and irregularly spaced Chebyshev points: highlighting of the improved convergence between the function and the interpolation polynomial close to the endpoints of the interpolation interval. The degree of the interpolation polynomial is given in each subfigure</p>
+<p>1.3.7 Interpolation by Cubic Hermite Polynomial The interpolation of a function given by a cubic Hermite polynomial (also called cubic Hermite spline) lies on the principle that the interpolation function passes through the endpoints of the interval and possesses the same derivatives at these endpoints. Consider a variable t ∈ [0, 1] such that the function f (t) to approximate and its derivatives are given at the endpoints of the interval. Note f (t = 0) = f0 , f (t = 1) = f1 , f (t = 0) = f 0 , f (t = 1) = f 1 (1.3.83) This imposes four constraints for the interpolating function ̃f (t) which can thus be a polynomial of degree 3, that is</p>
+<p>̃f (t) = a0 + a1 t + a2 t 2 + a3 t 3 (1.3.84)</p>
+<p>The respect of the constraints results in the following linear system:</p>
+<p>Numerical Methods and Optimization 23</p>
+<p>a0 = f0 a0 + a1 + a2 + a3 = f1 a1 = f 0 a1 + 2 a2 + 3 a3 = f 1</p>
+<p>(1.3.85)</p>
+<p>from which the values of the polynomial coefficients are drawn</p>
+<p>a0 = f0 a1 = f 0 a2 = −3 f0 + 3 f1 − 2 f 0 − f 1 a3 = 2 f0 − 2 f1 + f 0 + f 1</p>
+<p>(1.3.86)</p>
+<p>It is possible to reorder the interpolating function under the form ̃f (t) = f0(1 − 3 t 2 + 2 t 3) + f1(3 t 2 − 2 t 3) + f 0 (t − 2 t 2 + t 3) + f 0 (−t 2 + t 3) (1.3.87)</p>
+<p>which is noted as</p>
+<p>̃f (t) = f0 h00(t) + f1 h01(t) + f 0 h10(t) + f 1 h11(t) (1.3.88)</p>
+<p>where the polynomials hi j(t) are Hermite basis polynomials defined by</p>
+<p>h00(t) = 1 − 3 t 2 + 2 t 3 h01(t) = 3 t 2 − 2 t 3 h10(t) = t − 2 t 2 + t 3 h11(t) = −t 2 + t 3</p>
+<p>(1.3.89)</p>
+<p>which are displayed in Figure 1.12. The interpolation here defined on [0, 1] of course can be extended to subintervals [xi, xi+1] of any domain [a, b]. This type of interpolation by Hermite cubic polynomials is frequently used to simulate ordinary differential equations with boundary conditions (Section 6.6) or partial differential equations (Section 7.10.2). In the case of an interval [xi, xi+1], by using the linear relation</p>
+<p>t = x − xi xi+1 − xi</p>
+<p>(1.3.90)</p>
+<p>and the transformation</p>
+<p>g(x) = f (t) and g (x) = f (t) 1 xi+1 − xi</p>
+<p>(1.3.91) we obtain the interpolation of a function g(x) by an interpolating function g ̃(x) g ̃(x) = g(xi) h00 x − xi xi+1 − xi</p>
+<ul>
+<li>g(xi+1) h01 x − xi xi+1 − xi</li>
+</ul>
+<p>+g (xi) (xi+1 − xi) h10 x − xi xi+1 − xi</p>
+<p>+g (xi+1) (xi+1 − xi) h11 x − xi xi+1 − xi</p>
+<p>(1.3.92)</p>
+<p>24 Chapter 1. Interpolation and Approximation</p>
+<p>0 0.2 0.4 0.6 0.8 1 −0.2 0 0.2 0.4 0.6 0.8 1 1.2</p>
+<p>t</p>
+<p>h</p>
+<p>h00 h01 h10 h11</p>
+<p>Fig. 1.12 Basis Hermite polynomials with the basis polynomials h, of Equation (1.3.89), that can be calculated as</p>
+<p>h(t) = h x − xi xi+1 − xi</p>
+<p>(1.3.93)</p>
+<p>Noting h = xi+1 − xi and s = x − xi, Equation (1.3.92) becomes</p>
+<p>g ̃(x) = g(xi) h3 − 3hs2 + 2s3</p>
+<p>h3 + g(xi+1) 3hs2 − 2s3 h3</p>
+<p>+g (xi) s(s − h) 2 h2 + g (xi+1) s2(s − h) h2</p>
+<p>(1.3.94)</p>
+<p>When the tangents g</p>
+<ol start="24" type="a">
+<li>are not known at points (xi, yi), they can be estimated by</li>
+</ol>
+<p>the approximation mi defined by mi = Δi−1 + Δi 2 with Δi = yi+1 − yi xi+1 − xi</p>
+<p>(1.3.95) i.e.&nbsp;the tangent at a point is approximated as the half-sum of the slopes of two segments situated on both sides of this point. Another possible approximation of the tangent is the harmonic mean as 1 mi = 1 2 1 Δi−1 + 1 Δi</p>
+<p>(1.3.96) By using Equations (1.3.94) and (1.3.95), it is thus possible to approximate any function only known by the endpoints of the subintervals composing the domain by means of cubic Hermite polynomials.</p>
+<p>Numerical Methods and Optimization 25 The approximation by cubic Hermite polynomials (or Hermite splines) is local while that by the cubic splines (Section 1.3.8) is global, as a slight modification of the position of a point (xi, yi) influences only the calculation on the interval [xi−1, xi+1] by cubic Hermite polynomials whereas it influences all the coefficients by the cubic spline of Section 1.3.8. The cubic splines of Section 1.3.8 are slightly more accurate than cubic Hermite polynomials. They take into account the second derivative, which is not done by cubic Hermite polynomials which are only of class C1, i.e.&nbsp;continuously differentiable. Example 1.2 : Cubic Hermite polynomials: interpolation on subintervals</p>
+<p>0 0.5 1 1.5 2 2.5 3 3.5 4 0 0.5 1 1.5 2 2.5</p>
+<p>x</p>
+<p>y</p>
+<p>Fig. 1.13 Cubic Hermite polynomials: interpolation on subintervals For the set of points of Table 1.3, we have plotted the interpolation on subintervals by cubic Hermite polynomials obtained by Equation (1.3.92) (Figure 1.13). The values of the derivatives were specified at the endpoints (at x = 0, y = 0.7 and at x = 4, y = −0.3). Other values could have been specified to be in a case similar to the natural spline. The values of the tangents at the internal points were estimated by Equation (1.3.95). The result can be compared to that of Figure 1.16 obtained by a cubic spline.</p>
+<p>1.3.8 Interpolation by Spline Functions</p>
+<p>The spline functions1 are extremely appreciated for their quality of graphical interpo- lation (de Boor 1978). There exist several types of spline functions, B-splines, cubic</p>
+<p>splines, and exponential splines. The spline functions are produced by associating to a partition [a = x1, x2, …, xn−1, b = xn] a set of piecewise polynomial functions, i.e.&nbsp;to each subinterval [xi, xi+1] a different polynomial Pi(x) is associated. Nevertheless, all polynomials will</p>
+<p>have the same degree. Moreover, it is possible to add a condition such that the inter- polated functions f coincide at right with the polynomials Pi(xi) = f (xi) except at</p>
+<ol start="2" type="a">
+<li>1 A spline is a thin wood or metal strip used in building construction (Webster Dictionary).</li>
+</ol>
+<p>26 Chapter 1. Interpolation and Approximation In this section, only the cubic splines which are the most used are described. A spline function S(x) is a real function defined on the partition [a = x1, x2,…, xn−1, b = xn] which possesses the following properties: • S is twice continuously differentiable on [a, b]. • S coincides on each subinterval [xi, xi+1] of [a, b] with a polynomial of degree 3. Thus, a spline function is composed of pieces of cubic polynomials connected together so that, on one side, the first derivatives and, on another side, the second derivatives coincide at the nodes. Frequently, one of the following conditions is added to ensure the unicity of the spline function S: (a) S(a) = 0, S(b) = 0 (natural spline function). (b) S(k) (a) = S(k) (b) for k = 0, 1, 2; S is periodic.</p>
+<ol start="3" type="a">
+<li>S</li>
+<li>= y 1, S</li>
+<li>= y n with y 1 and y n given.</li>
+</ol>
+<p>An important property of spline functions is that the spline function minimizes the following norm:</p>
+<p>f 2 = ∫ b a | f (x)|2dx (1.3.97) which is thus the integral of the square of the absolute value of the curvature on the considered interval. This integral represents the energy of the spline. The spline function can be compared to the curve drawn by a designer who takes his French curve ruler to draw by eye the best curve passing through a set of points. On each subinterval [xi, xi+1], a function Si(x) is defined so that the function S(x) can be considered as the family of functions Si(x) connected on the subintervals composing the interval [a, b]. Determination of spline functions: Let Δ = {xi , i = 1,…, n} be a partition of the interval [a, b] by the ordered nodes a = x1 &lt; x2 &lt; … &lt; xn = b and Y = {yi , i = 1,…, n} a set of n real numbers. Let hi = xi+1 − xi , i = 1,…, n − 1. The values of the second derivatives at the nodes xi are called moments</p>
+<p>Mi = S i (xi) , i = 1,…, n (1.3.98) The spline function being a polynomial of degree 3, the second derivative is a linear function on the subinterval [xi, xi+1]. It results on that subinterval S i (x) = Mi xi+1 − x hi + Mi+1 x − xi hi , x ∈ [xi, xi+1] , i = 1,…, n − 1 (1.3.99)</p>
+<p>Then, we proceed to an integration, hence Si(x) = Mi (xi+1 − x) 3 6hi + Mi+1 (x − xi) 3 6hi + ai(x − xi) + bi , x ∈ [xi, xi+1] (1.3.100)</p>
+<p>• The values at the extremities are imposed, giving the relations</p>
+<p>Numerical Methods and Optimization 27 Si(xi) = Mi h2 i 6 +bi = yi , i = 1,…, n − 1</p>
+<p>Si(xi+1) = Mi+1 h2 i 6 + aihi +bi = yi+1 , i = 1,…, n − 1</p>
+<p>(1.3.101)</p>
+<p>hence the values of the coefficients ai = yi+1 − yi hi − hi 6 (Mi+1 − Mi) , i = 1,…, n − 1</p>
+<p>bi = yi − Mi h2 i 6 , i = 1,…, n − 1</p>
+<p>(1.3.102)</p>
+<p>• The equality of the first left and right derivatives is imposed, that is</p>
+<p>S i−1(xi) = S i(xi) , i = 2,…, n − 1 (1.3.103)</p>
+<p>giving the relations Mi hi−1 2 + ai−1 = −Mi hi 2 + ai , i = 2,…, n − 1 (1.3.104) In total, there are 3n − 2 unknowns, n moments Mi, n − 1 coefficients ai, and n − 1 coefficients bi. We have 3n − 4 equations by means of Equations (1.3.102) and (1.3.104). Thus, 2 equations are missing which are provided by the conditions at the extremities a and b. Therefore, one of the three previously mentioned conditions (a), (b), (c) will be exploited. Indeed, according to Equations (1.3.102), the coefficients ai and bi are directly calculable from the moments Mi, thus there remains a problem of calculation of moments by replacing the coefficients ai and bi given by Equations (1.3.102) in Equation (1.3.104), which gives hi−1 hi−1 + hi Mi−1 + 2 Mi + hi hi−1 + hi Mi+1 = 6 hi−1 + hi</p>
+<p>yi+1 − yi hi − yi − yi−1 hi−1</p>
+<p>for i = 2,…, n − 1</p>
+<p>(1.3.105)</p>
+<p>which can be transformed under the form</p>
+<p>μi Mi−1 + 2 Mi + λi Mi+1 = di , i = 2,…, n − 1 (1.3.106)</p>
+<p>by posing the auxiliary variables μi = hi−1 hi−1 + hi , λi = hi hi−1 + hi , di = 6 hi−1 + hi</p>
+<p>yi+1 − yi hi − yi − yi−1 hi−1</p>
+<p>(1.3.107) In addition to n − 2 equations (1.3.107), there remains to consider the conditions at the extremities: • Case (a): S(a) = S(b) = 0 =⇒ M1 = Mn = 0. • Case (b): S(k) (a) = S(k) (b) for k = 0, 1, 2. It gives M1 = Mn. Thus, there remain</p>
+<p>n − 1 unknowns to find, the moments M1 to Mn−1. Moreover, the condition S (a) = S (b) joined to y1 = yn gives after transformation</p>
+<p>28 Chapter 1. Interpolation and Approximation 2 M1 + h1 h1 + hn−1 M2 + hn−1 h1 + hn−1 Mn−1 = 6 h1 + hn−1</p>
+<p>y2 − y1 h1 − yn − yn−1 hn−1</p>
+<p>(1.3.108) Finally, Equation (1.3.105) for i = n − 1, with M1 = Mn, gives the relation hn−1 hn−1 + hn−2</p>
+<p>M1+ hn−2 hn−1 + hn−2</p>
+<p>Mn−2 + 2 Mn−1 = 6 hn−1 + hn−2</p>
+<p>yn − yn−1 hn−1 − yn−1 − yn−2 hn−2 (1.3.109)</p>
+<p>• Case (c): S (x1) = y 1 known and S (xn) = y n known. These are the two additional</p>
+<p>equations that give S 1(x1) = −M1 h1 2 + a1 = y 1</p>
+<p>S n−1(xn) = Mn hn−1</p>
+<p>2 + an−1 = y n</p>
+<p>(1.3.110)</p>
+<p>hence</p>
+<p>2 M1 + M2 = 6 h1</p>
+<p>y2 − y1 h1 − y 1</p>
+<p>Mn−1 + 2 Mn = 6 hn−1</p>
+<p>y n − yn − yn−1 hn−1 (1.3.111)</p>
+<p>In all cases, it amounts to solving a linear system. • In the case (a), the moments are obtained by solving the following linear system:</p>
+<p>⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ 2 λ2 0 … 0 μ3 2 λ3 0 … . . . 0 μ4 2 λ4 . . .</p>
+<p>. . . . . . . . . . . . . . . 0 0 μn−2 2 λn−2 0 … 0 μn−1 2 ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦ ⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ M2 M3 . . .</p>
+<p>Mn−1 ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦ = ⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ d2 d3 . . .</p>
+<p>dn−1 ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦</p>
+<p>(1.3.112)</p>
+<p>• In the case (b), the moments are obtained by solving the following linear system:</p>
+<p>⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ 2 λ1 0 … 0 μ1 μ2 2 λ2 0 … 0 0 μ3 . . . . . . . . . . . .</p>
+<p>. . . . . . . . . . . . . . . 0 0 . . . 0 μn−2 2 λn−2 λn−1 0 … 0 μn−1 2 ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦ ⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ M1 M2 . . .</p>
+<p>Mn−1 ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦ = ⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ d1 d2 . . .</p>
+<p>dn−1 ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦ (1.3.113)</p>
+<p>by adding to the variables defined by Equation (1.3.107) the following auxiliary variables: μ1 = hn−1 h1 + hn−1 , λ1 = h1 h1 + hn−1 , d1 = 6 h1 + hn−1</p>
+<p>y2 − y1 h1 − yn − yn−1 hn−1</p>
+<p>(1.3.114) • In the case (c), the moments are obtained by solving the following linear system:</p>
+<p>Numerical Methods and Optimization 29</p>
+<p>⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ 2 λ1 0 … 0 μ2 2 λ2 0 … . . . 0 μ3 2 λ3 . . .</p>
+<p>. . . . . . . . . . . . . . . 0 0 μn−1 2 λn−1 0 … 0 μn 2 ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦ ⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ M1 M2 . . .</p>
+<p>Mn ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦ = ⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ d1 d2 . . .</p>
+<p>dn ⎤ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎥ ⎦ (1.3.115)</p>
+<p>by adding to the variables defined by Equation (1.3.107) the following auxiliary variables: μn = 1 , λ1 = 1 , d1 = 6 h1</p>
+<p>y2 − y1 h1 − y 1</p>
+<p>, dn = 6 hn−1</p>
+<p>y n − yn − yn−1 hn−1</p>
+<p>(1.3.116) It is possible to demonstrate that the previous square matrices are not singular. Example 1.3 : Interpolation by spline functions For the set of points of Table 1.3, the three types of splines have been drawn (Figures 1.14, 1.15, and 1.16). In the case (c), the values of the first derivatives had to be specified at the extremities (at x = 0, y = 0.7 and at x = 4, y = −0.3); these values were chosen arbitrarily. The two other cases (natural and periodic splines) require no specification. Different behaviors can be noticed close to the extremities a and b related to the conditions chosen at these points. Table 1.3 Spline functions: experimental points for interpolation x 012 3 4 y 0 1 2 0.5 0</p>
+<p>1.3.9 Interpolation by Parametric Splines It may occur that the points (xi, yi) of a curve cannot be represented by a function of the form y = f (x). In this case, a parameter t must be used so that the curve is represented by</p>
+<p>x = f (t) , y = g(t) (1.3.117)</p>
+<p>It is called a parametric curve. To build this parametric curve, Fortin (2008) proposes to define the parameter ti such that</p>
+<p>ti = ti−1 + −−−−−−→ Mi−1Mi 2 ∀i ≥ 1 with t0 = 1 (1.3.118)</p>
+<p>30 Chapter 1. Interpolation and Approximation</p>
+<p>0 0.5 1 1.5 2 2.5 3 3.5 4 0 0.5 1 1.5 2 2.5</p>
+<p>x</p>
+<p>y</p>
+<p>Natural spline</p>
+<p>Fig. 1.14 Natural spline</p>
+<p>0 0.5 1 1.5 2 2.5 3 3.5 4 −0.5 0 0.5 1 1.5 2 2.5</p>
+<p>x</p>
+<p>y</p>
+<p>Periodic spline</p>
+<p>Fig. 1.15 Periodic spline</p>
+<p>0 0.5 1 1.5 2 2.5 3 3.5 4 −0.5 0 0.5 1 1.5 2 2.5</p>
+<p>x</p>
+<p>y</p>
+<p>Spline with specified derivatives</p>
+<p>Fig. 1.16 Spline with derivatives specified at the extremities</p>
+<p>Thus Δt = ti − ti−1 represents the length of the vector formed by two consecutive points. Then, two splines are determined, one passing through the points (ti, xi), the other one passing through the points (ti, yi), proceeding in the following way: • Supposing that n points exist, tmax = tn is defined and the set [t0,…, tn] is defined. • The interval [0, tmax] is divided in steps dt of small size to obtain a fine graphical representation. Let τ be the new variable dt = τi − τi−1. • We calculate the splines passing on one hand through the points (ti, xi), on the other hand through the points (ti, yi), and the splines are evaluated at all points defined by τi.</p>
+<p>Numerical Methods and Optimization 31 Example 1.4 : Interpolation by parametric spline functions Let the cardioid of equation</p>
+<p>x = a cos2(φ) + l cos(φ) y = a cos(φ) sin(φ) + l sin(φ) (1.3.119) with the parameters a = 1.5, l = 1, φ ∈ [0, 2π). We consider 20 values of φ regularly spaced between 0 and 2π, which gives the couples of points (xci, yci) to represent the cardioid by means of parametric splines. Let (xci, yci) be the set issued from the corresponding parameters φi. We follow the procedure previously described, first the ti are calculated, then two natural splines are calculated on the sets (t, xc) and (t, yc), and an interpolation is performed on these splines with the parameter τ (Figure 1.17). Then, we simply draw the interpolated set, which represents in a very satisfactory way the cardioid passing through the couples (xc, yc) (Figure 1.18).</p>
+<p>0 2 4 6 8 10 12 −0.5 0 0.5 1 1.5 2 2.5</p>
+<p>t</p>
+<p>x</p>
+<p>0 2 4 6 8 10 12 −2 −1.5 −1 −0.5 0 0.5 1 1.5 2</p>
+<p>t</p>
+<p>y</p>
+<p>Fig. 1.17 Splines built on (t, xc) (left) and on (t, yc) (right)</p>
+<p>−0.5 0 0.5 1 1.5 2 2.5 3 −2 −1.5 −1 −0.5 0 0.5 1 1.5 2</p>
+<p>x</p>
+<p>y</p>
+<p>Fig. 1.18 Parametric spline: rebuilding of the cardioid with the points (xc, yc) (o)</p>
+<p>32 Chapter 1. Interpolation and Approximation 1.4 Bézier Curves When we desire to represent a set of points (xi, yi) by means of parametric curves, a possibility often used is Bézier curves. This technique consists in determining a couple of cubic Hermite polynomials depending on a parameter t for each couple of consecutive points, a polynomial for x(t) and a polynomial for y(t). Let (xk, yk ) and (xk+1, yk+1) be two such points (Figure 1.19). Any point of the curve is written as (x(t), y(t)). Thus, t = 0 at the beginning point of the curve and t = 1 at the endpoint, so that xk = x(0) and xk+1 = x(1), and similarly yk = y(0) and yk+1 = y(1).</p>
+<p>+1</p>
+<p>+1</p>
+<p>( + + )</p>
+<p>( +1 + +1 +1 + +1)</p>
+<p>Fig. 1.19 Bézier curve: interpolation with guide-points The derivatives are specified at both extremities, thus y (t)/x (t) for t = 0 and t = 1. As two cubic polynomials must be determined, this represents eight unknowns with only six constraints {xk , yk , xk+1, yk+1, dyk /dxk , dyk+1/dxk+1}. Thus, there exist two degrees of freedom that are fulfilled by specifying two guide-points, each one along a tangent line at one extremity. These guide-points are used to “pull” the curve. Let</p>
+<p>(xk +αk, yk + βk ) and (xk+1 +αk+1, yk+1 + βk+1) be the coordinates of these two guide- points. The Hermite polynomial x(t) must verify x</p>
+<ol start="0" type="1">
+<li><p>= αk and x</p></li>
+<li><p>= αk+1, and the</p></li>
+</ol>
+<p>Hermite polynomial y(t) must also verify y</p>
+<ol start="0" type="1">
+<li><p>= βk and y</p></li>
+<li><p>= βk+1. The tangents at the extremities must verify βk /αk = dyk /dxk and βk+1/αk+1 = dyk+1/dxk+1, which leaves a freedom for, either α, or β, hence a displacement of the guide-points along the tangent lines. Both cubic Hermite polynomials are now completely specified and equal to</p></li>
+</ol>
+<p>x(t) = xk + αk t + [3(xk+1 − xk )−(2 αk + αk+1)]t 2+</p>
+<p>[2(xk − xk+1) + (αk + αk+1)]t</p>
+<p>3 , t ∈ [0, 1] y(t) = yk + βk t + [3(yk+1 − yk )−(2 βk + βk+1)]t 2+</p>
+<p>[2(yk − yk+1) + (βk + βk+1)]t 3</p>
+<p>(1.4.1)</p>
+<p>Numerical Methods and Optimization 33 The form of the parametric equations for Bézier curves is very slightly different from the previous Hermite polynomials, as each term α or β is multiplied by a factor 3, but this is not a fundamental change. Example 1.5 : Bézier curves Two examples are given to show how Bézier curves can be flexible. The extremities are (1, 1) and (3, 2). Three cases have been considered for each example (Tables 1.4 and 1.5). Table 1.4 Bézier curves: first study</p>
+<p>Case 1 Case 2 Case 3 (dy/dx)0 = 1 (dy/dx)0 = −1 (dy/dx)0 = 1 (dy/dx)1 = −2 (dy/dx)1 = −2 (dy/dx)1 = 2 α0 β0 α1 β1 α0 β0 α1 β1 α0 β0 α1 β1 111 −2 1 −1 1 −2 1 −112 333 −6 3 −3 3 −6 3 −336 666 −12 6 −6 6 −12 6 −6 6 12 10 10 10 −20 10 −10 10 −20 10 −10 10 20</p>
+<p>For each case, three sets of parameters have been used. The slope specified at x1 is different between the case 1 and cases 2, 3. The form of the parametric equations is (1.4.1).</p>
+<p>1 1.5 2 2.5 3 1 2 3 4 5 6</p>
+<p>x</p>
+<p>y</p>
+<p>1 1.5 2 2.5 3 0 1 2 3 4 5</p>
+<p>x</p>
+<p>y</p>
+<p>1 1.5 2 2.5 3 −1 −0.5 0 0.5 1 1.5 2</p>
+<p>x</p>
+<p>y</p>
+<p>1 1 1 −2 3 3 3 −6 6 6 6 −12 10 10 10 −20</p>
+<p>1 −1 1 −2 3 −3 3 −6 6 −6 6 −12 10 −10 10 −20</p>
+<p>1 1 1 2 3 3 3 6 6 6 6 12 10 10 10 20</p>
+<p>Fig. 1.20 Bézier curves in the three cases of Table 1.4. The values indicated in the legend correspond to {α0, β0, α1, β1 } Figures 1.20 in the three cases of Table 1.4 show both a great diversity and flexibility. The different choice α0 = −α1 produces different curves while still respecting the tangent lines at the origin, because of the modification of the guide-points. This is demonstrated in Figures 1.21 which correspond to Table 1.5.</p>
+<p>34 Chapter 1. Interpolation and Approximation Table 1.5 Bézier curves: second study</p>
+<p>Case 1 Case 2 Case 3 (dy/dx)0 = 1 (dy/dx)0 = −1 (dy/dx)0 = 1 (dy/dx)1 = −2 (dy/dx)1 = −2 (dy/dx)1 = 2 α0 β0 α1 β1 α0 β0 α1 β1 α0 β0 α1 β1 1 1 −1 2 1 −1 −1 2 1 1 −1 −2 3 3 −3 6 3 −3 −3 6 3 3 −3 −6 6 6 −6 12 6 −6 −6 12 6 6 −6 −12 10 10 −10 20 10 −10 −10 20 10 10 −10 −20</p>
+<p>1 1.5 2 2.5 3 1 2 3 4 5 6</p>
+<p>x</p>
+<p>y</p>
+<p>1 2 3 4 5 −3 −2 −1 0 1 2</p>
+<p>x</p>
+<p>y</p>
+<p>1 2 3 4 5 1 2 3 4 5 6</p>
+<p>x</p>
+<p>y 1 1 −1 −2 3 3 −3 −6 6 6 −6 −12 10 10 −10 −20</p>
+<p>1 −1 −1 2 3 −3 −3 6 6 −6 −6 12 10 −10 −10 20</p>
+<p>1 1 1 −2 3 3 3 −6 6 6 6 −12 10 10 10 −20</p>
+<p>Fig. 1.21 Bézier curves in the three cases of Table 1.5. The values indicated in the legend correspond to {α0, β0, α1, β1 } 1.5 Discussion and Conclusion The choice of approximation methods strongly depends on the sought objective. The divided differences methods and Newton’s differences are naturally related to the method of finite differences that will be found in particular in the study of partial differential equations. Their application is simple, and they can be easily automated.</p>
+<p>The Lagrange interpolation polynomials will be very useful for the integration of func- tions, but they often pose problems because of their oscillations between interpolation</p>
+<p>points as soon as their degree becomes larger than 2. Chebyshev polynomials allow us to considerably improve the interpolation quality by using irregularly spaced points. Hermite polynomials will be used to approximate the solution of ordinary differential equations with boundary values. The interpolation of important sets of points by spline functions possessing remarkable smoothness qualities is very important and heavily used in some technical domains. Bézier curves find applications in particular in the graphics domain due to their potential to generate complex forms.</p>
+<p>Numerical Methods and Optimization 35 1.6 Exercise Set Exercise 1.6.1 (Easy) Figure 1.22 shows a simple countercurrent heat exchanger made of an internal cylindrical tube and an external annulus. The heating fluid is saturated steam. It is assumed that the temperature of the heating fluid remains constant and equal to Ts. Saturated steam</p>
+<p>2 1</p>
+<p>Condensate</p>
+<p>Entering cold fluid</p>
+<p>Exiting hot fluid</p>
+<p>Fig. 1.22 Countercurrent heat exchanger Expressing the energy conservation leads to the energy balance for a small length increment</p>
+<p>mC pdT = πDh(Ts − T) (1.6.1)</p>
+<p>then, the length L of the heat exchanger results by integration</p>
+<p>L = m πD ∫ T2 T1 CpdT h(Ts − T) (1.6.2) where D is the internal tube diameter, m the mass flow rate of the fluid, and h the local heat transfer coefficient between the inner wall of the tube and the fluid. A literature correlation (Bergman et al.&nbsp;2011, p.&nbsp;595) allows us to calculate the dimensionless Nusselt number with respect to Reynolds and Prandtl dimensionless numbers in turbulent flow Nu = 0.023Re4/5Pr2/5 with Re = 4m πDμ , Pr = ν α = μCp λ (1.6.3)</p>
+<p>hence the local heat transfer coefficient h = 0.0697 λ D m πDμ 0.8 μCp λ 0.4</p>
+<p>(1.6.4) where Cp, μ, λ are the heat capacity, viscosity, and thermal conductivity of the fluid, respectively. These physical properties can be temperature dependent.</p>
+<p>36 Chapter 1. Interpolation and Approximation Tables 1.6 and 1.7 give the values of the thermal conductivity and viscosity of oil and ammoniac NH3 at different temperatures. Table 1.6 Thermal conductivity, heat capacity, and viscosity of oil (Bergman et al.&nbsp;2011)</p>
+<p>T λ Cp μ (K) (W m−1 K−1) (J kg−1 K−1) (kg m−1 s−1) 290 0.147 1868 0.999 320 0.143 1993 0.141 350 0.138 2118 0.0356 380 0.136 2250 0.0141 410 0.133 2381 0.00698</p>
+<p>Table 1.7 Thermal conductivity, heat capacity, and viscosity of ammoniac NH3 (Bergman et al.&nbsp;2011)</p>
+<p>T λ Cp μ (K) (W m−1 K−1) (J kg−1 K−1) (kg m−1 s−1) 300 0.0247 2158 101.5 × 10−7 380 0.0340 2254 131 × 10−7 460 0.0463 2393 159 × 10−7 540 0.0575 2540 186.5 × 10−7</p>
+<ol type="1">
+<li>By means of the finite difference method, find the interpolation polynomial of lowest degree allowing you to approximate in each case the thermal conductivity of NH3 and the viscosity of oil in the desired temperature range with a precision of 1%. Remark: About viscosity, log(μ) is more easily correlated to temperature than μ.</li>
+<li>Write a program which calculates the length L of the heat exchanger with respect to the data of m, T1, T2, Ts, D (Table 1.8) as well as the physical properties which depend on temperature.</li>
+</ol>
+<p>Table 1.8 Characteristics of the heat exchanger Fluid NH3 Oil phase gas liquid m (kg/s) 3 × 10−3 6 T1 (K) 300 290 T2 (K) 520 360 Ts (K) 560 390 D (cm) 1.27 2.54 Cp (J/kg K) 1661.6 + 1.606T 625.17 + 4.277T λ (W/m K) cf.&nbsp;Table 1.7 0.1802–1.167 × 10−4 T μ (kg/m s) exp(−12.86 + 5.66 × 10−3 T − 3.73 × 10−6 T2) cf.&nbsp;Table 1.6</p>
+<p>Numerical Methods and Optimization 37 In general, it is admitted that, as a first approximation, the physical properties are constant. They are evaluated at the mean temperature T ̄ = (T1 + T2)/2. Compare the difference of length calculated by both methods. Exercise 1.6.2 (Easy) Given the function g defined by g(x) = erf(x) = 2 √ π ∫ x 0 e−t2 dt (1.6.5) we study how we could calculate the values of this function at the points of abscissa x = 0 , x = 0.25 , x = 0.5 , x = 0.75 , x = 1 , with a precision better than 10−4 by using a nth degree Taylor polynomial in the neighborhood of 0 (thus, a MacLaurin series expansion). 1. To that purpose, you will first use a third degree Taylor polynomial and examine whether the chosen order is sufficient. Give the results at that order with an estimation of the precision achieved. 2. Based on that assessment, explain under an algorithmic form how to proceed to obtain the required precision. Exercise 1.6.3 (Medium) A family of quadratic splines is defined for each spline on [xi, xi+1] by the equation</p>
+<p>Si(x) = ai + bi(x − xi) + ci(x − xi)</p>
+<p>2 (1.6.6) The points of abscissa xi are not regularly spaced but are ordered by increasing abscissae. The family of splines passes through all the points (xi, f (xi)). The family is studied on the set from Table 1.9. Find the relations about the coefficients ai, bi, ci, so that the solution satisfies a maximum of conditions for a high quality interpolation and the solution is consistent. Deduce the numerical solving method. Write a program achieving this interpolation. Table 1.9 Points xi, yi to interpolate by the family of splines x −2 −1.2 0 1.2 2 y −0.964 −0.834 0 0.834 0.964</p>
+<p>Exercise 1.6.4 (Medium) Given a set of pairs (xi, yj), a two-dimensional interpolation is desired to estimate the value of the function f (x, y) corresponding to a given value of a pair (x, y). First, a rectangular grid is achieved as in Figure 1.23. We desire to extend the use of spline functions to this two-dimensional case. We suppose the following general for a spline function: S(t) = Mk (tk+1 − t) 3 6hk + Mk+1 (t − tk ) 3 6hk + ak (t − tk ) + bk , t ∈ [tk, tk+1] (1.6.7)</p>
+<p>38 Chapter 1. Interpolation and Approximation</p>
+<p>+1 +2 +3</p>
+<p>+1 +2 +3 A B ( ) C D</p>
+<p>Fig. 1.23 Principle of the two-dimensional interpolation where t is any variable. We decide to interpolate four times (for each of the values {yi, yi+1, yi+2, yi+3}) in the x direction to obtain the points A, B, C, D for the set {xi, xi+1, xi+2, xi+3} and any given value of y, then in the direction y to obtain the desired value f (x, y). Do a general flow chart and then detail the algorithm of this method by clearly explaining what is known and how you obtain the necessary information at each instant. Table 1.10 Surface z = f (x, y) to interpolate by the splines in two dimensions x(i) 1 1.25 1.6 2 y(j) 3 3.7 4.8 6</p>
+<p>z(i, j) 10.000 14.690 24.040 37.000 10.562 15.253 24.602 37.562 11.560 16.250 25.600 38.560 13.000 17.690 27.040 40</p>
+<p>Write a program achieving this interpolation and verify it on the points of the surface z = f (x, y) (Table 1.10). The element z(i, j) of Table 1.10 must be considered as the element zi j of the matrix z where i is the row index and j the column index.</p>
+<p>Numerical Methods and Optimization 39 Exercise 1.6.5 (Medium)</p>
+<p>Construction of Bézier curves</p>
+<p>The interpolation of curves by classic methods is not possible when several values of y correspond to a given value of x like in parametric curves. Bézier curves are often used in graphical programs on computers when fast continuous plots using the mouse are performed. Bézier curves are a very slight variant of the following construction by Hermite polynomials. The parametric curve (x(t), y(t)) passing through the points (x0, y0) and (x1, y1) is built (Figure 1.24). Furthermore, at point (x0, y0), the tangent line is drawn on which the point (x0 + α0, y0 + β0) is located. This last point is called guide-point for (x0, y0). Similarly, the point (x1 +α1, y1 + β1) belongs to the tangent line at (x1, y1) and is called guide-point for (x1, y1). These guide-points are used to draw the parametric curve in a given direction.</p>
+<p>Fig. 1.24 Interpolation by a Bézier curve Interpolation polynomials are chosen for x(t) and y(t)separately. These are Hermite cubic polynomials which are such that the parameter t varies in the interval [0, 1] and x(0) = x0, y(0) = y0, x(1) = x1, y(1) = y1. The polynomial x(t) satisfies the derivative conditions at the bounds x</p>
+<ol start="0" type="1">
+<li>= α0 and</li>
+</ol>
+<p>x (1) = α1 and, similarly, the polynomial y(t) satisfies the derivative conditions at the bounds y (0) = β0 and y (1) = β1.</p>
+<ol type="1">
+<li>Demonstrate that the expression of polynomial x(t) is x(t) = [2(x0 − x1) + (α0 + α1)]t</li>
+</ol>
+<p>3 + [3(x1 − x0)−(α1 + 2 α0)]t</p>
+<p>2 + α0 t + x0 (1.6.8)</p>
+<p>Find the expression of polynomial y(t). 2. Let Ci be the Bézier cubic curve built parametrically by the relation (xi(t), yi(t)) = (a(i) 0 + a(i) 1 t + a(i) 2 t 2 + a(i) 3 t 3 , b (i) 0 + b (i) 1 t + b (i) 2 t 2 + b (i) 3 t 3) (1.6.9) where (xi, yi) is the left interpolation point, (xi+1, yi+1) is the right interpolation point, (x g i , y g i ) is the left guide-point, (xd i+1 , yd i+1) the right guide-point. Calculate</p>
+<p>the parameters a(i) j and b (i) j .</p>
+<p>40 Chapter 1. Interpolation and Approximation Exercise 1.6.6 (Difficult) We first consider the usual Chebyshev polynomials Tn(x) for which the coefficient of its highest degree monomial is equal to 2n−1. A polynomial is called monic when the coefficient of its highest degree monomial is equal to 1. From Tn(x), we build the monic Chebyshev polynomials T ̃</p>
+<p>n(x) defined by</p>
+<p>T ̃ n(x) = Tn(x) 2n−1 for n ≥ 1 and T ̃</p>
+<p>0(x) = 1 (1.6.10)</p>
+<p>An important property of monic Chebyshev polynomials T ̃ n(x) is that</p>
+<p>max x∈[−1,1] |T ̃ n(x)| = 1 2n−1 for n ≥ 1 (1.6.11) Furthermore, if all monic polynomials Pn(x) are considered, all of them verify</p>
+<p>max x∈[−1,1] |Pn(x)| ≥ 1 2n−1 for n ≥ 1 (1.6.12)</p>
+<ol type="1">
+<li>Calculate T ̃ 1(x), T ̃ 2(x), and T ̃ 3(x).</li>
+<li>Give the recurrence relation relating T ̃ n(x), T ̃ n−1(x), and T ̃</li>
+</ol>
+<p>n−2(x) when n ≥ 2. Verify</p>
+<p>this recurrence relation for n = 3. 3. Plot the graphs of T ̃ 1(x), T ̃ 2(x), T ̃ 3(x).</p>
+<ol start="4" type="1">
+<li>The function f (x) = exp(x) can be approximated near 0, on the interval [−1, +1], by the following polynomial P5(x) issued from the nth degree Taylor polynomial:</li>
+</ol>
+<p>P5(x) = 1 + x + x2 2 + x3 6 + x4 24 + x5 120 = n i=0 ai xi (1.6.13)</p>
+<p>with an error e equal to e = exp(x) − P5(x) = x6 f (6) (ξ) 720 for x ∈ [−1, 1] (1.6.14)</p>
+<ol type="a">
+<li><p>Build the polynomial Q(x) = P5(x) − a5 T ̃ 5(x).</p></li>
+<li><p>What is the degree of Q(x) ?</p></li>
+<li><p>Give the expression of {P5(x)−Q(x)} ? Deduce an upper bound of |P5(x)−Q(x)|.</p></li>
+<li><p>Find an upper bound of the absolute value of the error e.</p></li>
+<li><p>What is the error done by choosing the polynomial Q(x) as an approximation of exp(x) ?</p></li>
+<li><p>Compare the previous error to that which would be done if the polynomial P4(x) issued from the nth degree Taylor polynomial was chosen. Conclude. Exercise 1.6.7 (Medium) The Chebyshev series expansion of a function f (x) is</p></li>
+</ol>
+<p>f (x) = ∞ i=0 ai Ti(x) , x ∈ [−1, 1] (1.6.15)</p>
+<p>Numerical Methods and Optimization 41 where Ti(x) is the Chebyshev polynomial of rank i. When f (x) is a polynomial, this expansion can be easily achieved.</p>
+<ol type="1">
+<li>Demonstrate that, when f (x) is any function, the orthogonality of Chebyshev poly- nomials implies</li>
+</ol>
+<p>a0 = 1 π ∫ 1 −1 f (x) √ 1 − x2 dx , ai = 2 π ∫ 1 −1 f (x)Ti(x) √ 1 − x2 dx for i ≥ 1 (1.6.16) 2. Carry out Chebyshev expansion of order 2 for the function f (x) = exp(−x) based on property (1.6.16). The integrals will be calculated by a five-point Gauss–Legendre quadrature. 3. Carry out a second degree Taylor polynomial for f (x) in the neighborhood of 0. Call that approximation g(x). Deduce the Chebyshev expansion of order 2 for the function g(x). Compare this expansion to that of f (x) obtained in question 2. Exercise 1.6.8 (Medium)</p>
+<p>We desire to determine the family of natural cubic splines approximating the func- tion f (x) = cos(πx) by using the points of abscissae x = 0; x = 0.25; x = 0.5;</p>
+<p>x = 0.75; x = 1. Each spline approximates the function on [xi, xi+1]. 1. Explain how you calculate the family of splines and their coefficients. 2. Write a program calculating the splines. Exercise 1.6.9 (Medium) Integration of an ordinary differential equation by approximation Let the ordinary differential equation</p>
+<p>x y + y − 4 y = −4x2 + 8 x − 1 , 0 ≤ x ≤ 1 (1.6.17)</p>
+<p>with the conditions y(0) = 0, y(1) = 0. We search an approximation of the solution by means of spline functions. For that purpose, we decide to apply the spline functions on subintervals of length h = 0.2. 1. Pose the equations so that the problem is complete. “Complete” means well posed i.e.&nbsp;the number of equations must be in agreement with the number of unknowns. 2. Transform the problem so that it can be executed by a computer. Remarks: This requires that the equations must not be posed in any order. Constantly think in terms of unknowns, number of unknowns, and number of available equations. There exist several different ways to pose the problem. Exercise 1.6.10 (Easy) Find the third order Lagrange interpolation polynomial for the following function: f (x) = cos(x) + sin(x) (1.6.18)</p>
+<p>with the nodes x0 = 0, x1 = 0, 25, x2 = 0, 5, x3 = 1.</p>
+<p>42 Chapter 1. Interpolation and Approximation Exercise 1.6.11 (Medium) 1. A cubic spline, defined by the specification of the first derivatives at the extremities, approximating a function f , is defined by S0(x) = 1 + ax + 2x2 − 2x3 for 0 ≤ x ≤ 1 S1(x) = 1 + b(x − 1) − 4(x − 1) 2 + 7(x − 1) 3 for 1 ≤ x ≤ 2 (1.6.19)</p>
+<p>Deduce f (0) and f (2) that were necessary.</p>
+<ol start="2" type="1">
+<li>Let f (x) be a function, indeed a third order polynomial on [a, b] that will be noted P3(x). Demonstrate that f (x) can be considered as a cubic spline defined by its first derivatives at the extremities, but that it is neither a natural spline nor a periodic spline. Which conditions should be fulfilled so that f (x) could be considered as a natural spline or a periodic spline? Exercise 1.6.12 (Easy) A quadratic spline is defined by</li>
+</ol>
+<p>Si(x) = ai + bi(x − xi) + ci(x − xi)</p>
+<p>2 , x ∈ [xi, xi+1] (1.6.20) Find the quadratic splines that interpolate the data f (0) = 2, f (1) = 5, f (2) = 1, with f (0) = 1. Exercise 1.6.13 (Difficult) Consider the following ordinary differential equation:</p>
+<p>y + 1 4 y(x) − 3 32 sin x 4</p>
+<p>= 0 (1.6.21)</p>
+<p>with both boundary conditions y(0) = 1/3 and y(π) = √ 2/4.</p>
+<p>A manner to find an approximate solution of that ordinary differential equation is to use a family of cubic splines. The nodes are as follows x1 = 0, x2 = 0.25π, x3 = 0.5π, x4 = 0.75π, x5 = π. Let Si(x) be a curve of that family defined on [xi, xi+1], i = 1,…, 4, by the following equation: Si(x) = Mi (xi+1 − x) 3 6hi + Mi+1 (x − xi) 3 6hi + ai(x − xi) + bi , x ∈ [xi, xi+1] (1.6.22) with hi = xi+1 − xi. The parameters Mi are called moments. The set of parameters to find is thus formed by the Mi, the parameters ai and bi. The following conditions are imposed: (a) The continuity of splines at xi, i = 2,…, 4. (b) The continuity of derivatives at xi, i = 2,…, 4. (c) The fact that the splines pass through the extreme points at 0 and π. (d) The splines are solution of the ordinary differential equation at points xi. 1. Find the number of unknown parameters.</p>
+<p>Numerical Methods and Optimization 43</p>
+<ol start="2" type="1">
+<li><p>Explain each of these conditions from (a) to (d) by indicating the number of equa- tions that each condition represents.</p></li>
+<li><p>Verify if the system is perfectly determined (same number of equations and param- eters).</p></li>
+<li><p>Write a program that solves the problem. Exercise 1.6.14 (Medium)</p></li>
+</ol>
+<p>Fourier series expansion Let { f0, f1,…, f2n−1} be the set of functions defined by</p>
+<p>f0(x) = 1 2 fk (x) = cos(k x) , ∀ k = 1, 2,…, n fn+k (x) = sin(k x) , ∀ k = 1, 2,…, n − 1</p>
+<p>(1.6.23) 1. Demonstrate that the previous functions are orthogonal on the interval [−π, +π] with the weight function w(x) = 1, i.e.&nbsp;they should verify ∫ +π −π w(x) fi(x) fj(x)dx = 0 , ∀i, j = 1, 2,…, n , i j ∫ +π −π w(x) fn+i(x) fn+j(x)dx = 0 , ∀i, j = 1, 2,…, n − 1 , i j (1.6.24)</p>
+<p>The following trigonometric relations can be used:</p>
+<p>sin(p)sin(q) = 1</p>
+<p>2 (cos(p − q) − cos(p + q))</p>
+<p>cos(p) cos(q) = 1</p>
+<p>2 (cos(p + q) + cos(p − q))</p>
+<p>sin(p) cos(q) = 1</p>
+<p>2 (sin (p + q) + sin (p − q))</p>
+<p>(1.6.25)</p>
+<ol start="2" type="1">
+<li>We desire to approximate any function g(x) on the interval [−π, +π] by a function S(x) which is a Fourier expansion by means of functions fi(x), i = 0, 1,…, 2n − 1, according to S(x) = a0 2</li>
+</ol>
+<ul>
+<li>n−1 i=1 [ai cos(ix) + bi sin(ix)] + an cos(nx) (1.6.26) Demonstrate that the coefficients ai and bi are given by the following relations: ai = 1 π ∫ +π −π g(x) cos(ix) dx , ∀i = 0, 1,…, n</li>
+</ul>
+<p>bi = 1 π ∫ +π −π g(x) sin(ix) dx , ∀i = 0, 1,…, n − 1</p>
+<p>(1.6.27)</p>
+<p>The following trigonometric relations can be used: cos2(x) = 1 2 [1 + cos(2x)] sin2(x) = 1 2 [1 − cos(2x)] (1.6.28)</p>
+<p>44 Chapter 1. Interpolation and Approximation References G. Allaire. Numerical Analysis and optimization. Oxford University Press, Oxford, 2007. J. J. Beers. Numerical methods in chemical engineering - Applications in Matlab. Cambridge University Press, Cambridge, 2007. T. L. Bergman, A. S. Lavine, F. P. Incropera, and D. P. DeWitt. Fundamentals of Heat and Mass Transfer. John Wiley, New York, 7th edition, 2011. I. N. Bronstein, K. A. Semendjajew, G. Musiol, and H. Mühlig. Taschenbuch der Mathematik. Verlag Harri Deutsch, 2005. R. L. Burden and J. D. Faires. Numerical Analysis. Brooks/Cole, Boston, 9th edition, 2011. B. Carnahan, H. A. Luther, and J. O. Wilkes. Applied Numerical Methods. Wiley, New York, 1969. S. D. Conte and C. De Boor. Elementary numerical analysis. Mc Graw Hill, Singapore, 1981. C. de Boor. A practical guide to splines. Springer-Verlag, Berlin, 1978. B. Demidovitch and L. Maron. Elements de calcul numérique. Mir, Moscou, 1973. J. F. Epperson. An Introduction to Numerical Methods and Analysis. Wiley, Hoboken, 2nd edition, 2013. A. Fortin. Analyse numérique pour ingénieurs. Presses Internationales Polytechnique, Canada, 3ème edition, 2008. W. Gautschi. Numerical Analysis. Birhäuser-Springer, New York, 2nd edition, 2012. C. F. Gerald and P. O. Wheatley. Applied Numerical Analysis. Pearson, Boston-Addison Wesley, 7th edition, 2004. E. Hairer. Introduction à l’analyse numérique. Université de Genève, 1993. G. I. Marchuk. Methods of numerical mathematics. Springer-Verlag, New York, 1980. W. H. Press, B. P. Flannery, S. A. Teukolsky, and W. T. Vetterling. Numerical recipes in Fortran. The art of scientific computing. Cambridge University Press, Cambridge, 1992. S. S. Sastry. Introductory Methods of Numerical Analysis. Prentice-Hall of India, New Delhi, 4th edition, 2006. T. Sauer. Numerical Analysis. Pearson, Boston, 2nd edition, 2012. J. Stoer and R. Bulirsch. Introduction to numerical analysis. Springer Verlag, New York, second edition, 1996. J. J. Tuma. Handbook of Numerical Calculations in Engineering. Mc Graw Hill, New York, 1989.</p>
+<p>Chapter 2 Numerical Integration</p>
+<p>2.1 Introduction In some simple cases, the calculation of the definite integral</p>
+<p>∫ b a f (x)dx (2.1.1) is directly possible when the primitive (or antiderivative) function F(x) is known</p>
+<p>∫ f (x)dx = F(x) (2.1.2)</p>
+<p>hence</p>
+<p>∫ b a f (x)dx = F(b) − F(a) (2.1.3) Most often, this is impossible and the only possible solution is numerical. Frequently, moreover, the function f (x) is only known at a given number of points xi, i = 0, 1,…, n.&nbsp;In this case, it is possible to search an approximation g(x) of the function f (x) and to proceed to a formal integration. The interpolation polynomials Pn(x) possess the required approximation properties and are easily integrable. Thus, they will be largely used in numerical integration (also called quadrature).</p>
+<p>2.2 Newton and Cotes Closed Integration Formulas The following integration formulas are called “closed” as they use the two basis points a and b to determine the approximation polynomial.</p>
+<p>© The Author(s), under exclusive license to Springer Nature Switzerland AG 2021 J.-P. Corriou, Numerical Methods and Optimization, Springer Optimization and Its Applications 187, <a href="https://doi.org/10.1007/978-3-030-89366-8_2" class="uri">https://doi.org/10.1007/978-3-030-89366-8_2</a></p>
+<p>45</p>
+<p>46 Chapter 2. Numerical Integration 2.2.1 Global Integration on Interval [a, b] Consider basis points uniformly distributed on interval [a, b] xi = a + ih , i = 0, 1,…, n with h = b − a</p>
+<p>n (2.2.1)</p>
+<p>Note that n is the degree of the interpolation polynomial Pn(x) such that</p>
+<p>Pn(xi) = f (xi) = fi , i = 0, 1,…, n (2.2.2) For example, a Lagrange polynomial can be chosen as an interpolation polynomial. In this case</p>
+<p>Pn(x) = n i=0 Li(x) fi (2.2.3)</p>
+<p>with</p>
+<p>Li(x) = n k=0 ki x − xk xi − xk</p>
+<p>(2.2.4) The variable t ∈ [0, n] is introduced such that x = a + ht. The polynomial Li(x) becomes</p>
+<p>Li(x) = φi(t) = n k=0 ki t − k i − k (2.2.5)</p>
+<p>By integrating, we get ∫ b a Pn(x)dx = n i=0 fi ∫ b a Li(x)dx</p>
+<p>= h n i=0 fi ∫ n 0 φi(t)dt</p>
+<p>= h n i=0 fiwi</p>
+<p>(2.2.6)</p>
+<p>The coefficients wi are called weights; they depend only on n, thus they neither depend on the function f nor on the integration limits a and b. Recall that h = (b − a)/n.&nbsp;Example: n = 1</p>
+<p>w0 = ∫ 1 0 t − 1 0 − 1 dt = ∫ 1 0 (1 − t)dt = 1 2 (2.2.7)</p>
+<p>w1 = ∫ 1 0 t − 0 1 − 0 dt = ∫ 1 0 tdt = 1 2 (2.2.8)</p>
+<p>which gives the following result: ∫ b a P1(x)dx = h 2 ( f0 + f1) = h 2 [ f (a) + f (b)] (2.2.9)</p>
+<p>Numerical Methods and Optimization 47 corresponding to the trapezoidal rule with h = (b − a) (Figure 2.2). Example: n = 2 w0 = ∫ 2 0 t − 1 0 − 1 t − 2 0 − 2 dt = 1 2 ∫ 2 0 (t 2 − 3t + 2)dt = 1</p>
+<p>3 (2.2.10)</p>
+<p>w1 = ∫ 2 0 t − 0 1 − 0 t − 2 1 − 2 dt = − ∫ 2 0 (t 2 − 2t)dt = 4 3 (2.2.11)</p>
+<p>w2 = ∫ 2 0 t − 0 2 − 0 t − 1 2 − 1 dt = 1 2 ∫ 2 0 (t 2 − t)dt = 1 3 (2.2.12)</p>
+<p>which gives the following result: ∫ b a P2(x)dx = h 3 ( f0 + 4 f1 + f2) = h 3 [ f (a) + 4 f ( a + b 2 ) + f (b)] (2.2.13)</p>
+<p>which is Simpson rule with h = (b − a)/2 (Figure 2.1).</p>
+<p>By continuing, Table 2.1 results for different values of the degree n of the interpo- lation polynomial. From the degree n, the value of s results, then the weights wi. The</p>
+<p>values σi are introduced only to display a table of integer values instead of fractional weights. Table 2.1 Integration rules with respect to the degree n of the interpolation polynomials n ns σi = wi s Error Name of the rule 1 2 11 h31/12f (2)</p>
+<p>(ξ) Trapezoidal rule</p>
+<p>2 6 141 h51/90f (4)</p>
+<p>(ξ) Simpson’s rule</p>
+<p>3 8 1331 h53/80f (4)</p>
+<p>(ξ) Newton’s rule</p>
+<p>4 90 7 32 12 32 7 h78/845f (6)</p>
+<p>(ξ) Milne’s rule (or Boole)</p>
+<p>1 ( )</p>
+<p>( )</p>
+<p>( +1)</p>
+<p>+1 ( )</p>
+<p>Fig. 2.1 Simpson’s rule Newton–Cotes formulas thus give the approximation of the integral</p>
+<p>48 Chapter 2. Numerical Integration</p>
+<p>∫ b a Pn(x)dx = h n i=0 wi fi (2.2.14)</p>
+<p>with</p>
+<p>h = b − a n (2.2.15) The weights wi are such that their sum is equal to the degree n of interpolation polynomial</p>
+<p>n i=0 wi = n (2.2.16) Let s be the lowest common denominator of the weights wi. The integer numerators σi are such that</p>
+<p>σi = swi (2.2.17)</p>
+<p>+2 2 ( ) ( )</p>
+<p>+1</p>
+<p>Fig. 2.2 Trapezoidal rule Example: For Simpson’s rule, according to Table 2.1, we have n = 2, ns = 6, thus s = 3. The weights result w0 = 1/3, w1 = 4/3, w2 = 1/3. Newton–Cotes are now expressed as</p>
+<p>∫ b a Pn(x)dx = h n i=0 wi fi = b − a ns n i=0 σi fi (2.2.18)</p>
+<p>The error made by doing the numerical integration is equal to ∫ b a Pn(x)dx − ∫ b a f (x)dx = hp+1K f (p)</p>
+<p>(ξ) where ξ ∈ [a, b] (2.2.19) The values of the degree p and of the constant K only depend on the degree n of the interpolation polynomial. The error being of order p, any polynomial function of degree lower than p will be exactly integrated as the derivative of order p will be zero.</p>
+<p>Numerical Methods and Optimization</p>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
