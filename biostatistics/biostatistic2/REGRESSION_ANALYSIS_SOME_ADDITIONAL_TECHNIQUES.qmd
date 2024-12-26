@@ -2,7 +2,7 @@ REGRESSION ANALYSIS: SOME ADDITIONAL TECHNIQUES
 
 \
 
-# **CHAPTER OVERVIEW** 
+# **CHAPTER OVERVIEW**
 
 En este capítulo se analizan algunas herramientas y conceptos adicionales que resultan útiles en el análisis de regresión. La presentación incluye ampliaciones de las ideas y técnicas básicas del análisis de regresión que se presentaron en los capítulos 9 y 10.
 
@@ -79,7 +79,7 @@ Supongamos, por ejemplo, que estamos estudiando la relación entre la variable d
 
 Una variable ficticia es una variable que asume solo un número finito de valores (como 0 o 1) con el propósito de identificar las diferentes categorías de una variable cualitativa.
 
-El término \"variable ficticia\" se utiliza para indicar que los valores numéricos (como 0 y 1) que asume la variable no tienen un significado cuantitativo, sino que se utilizan simplemente para identificar diferentes categorías de la variable cualitativa en cuestión. Las variables cualitativas a veces se denominan variables indicadoras y, cuando solo hay dos categorías, se las denomina variables dicotómicas.
+El término "variable ficticia" se utiliza para indicar que los valores numéricos (como 0 y 1) que asume la variable no tienen un significado cuantitativo, sino que se utilizan simplemente para identificar diferentes categorías de la variable cualitativa en cuestión. Las variables cualitativas a veces se denominan variables indicadoras y, cuando solo hay dos categorías, se las denomina variables dicotómicas.
 
 A continuación se presentan algunos ejemplos de variables cualitativas y las variables ficticias utilizadas para cuantificarlas:
 
@@ -503,7 +503,7 @@ mandibular width, mm
 
 Use the following reported measurements to perform a stepwise regression.
 
-11.3.3 Uno de los objetivos de un estudio realizado por Connor et al. (A-8) fue examinar la agresión reactiva entre niños y adolescentes derivados a un centro de tratamiento residencial. Los investigadores utilizaron la Escala de Calificación Proactiva/Reactiva, obtenida presentando tres afirmaciones a los médicos que examinaron a los sujetos. Los encuestados respondieron utilizando una escala del 1 al 5, donde 5 indica que la afirmación casi siempre se aplicaba al niño. Un ejemplo de una afirmación de agresión reactiva es: \"Cuando este niño ha sido objeto de burlas o amenazas, se enoja fácilmente y contraataca\". La puntuación reactiva fue la respuesta media a tres afirmaciones de este tipo. Con esta variable como variable de resultado, los investigadores también examinaron lo siguiente: AGE (años), VERBALIQ (CI verbal), STIM (uso de estimulantes), AGEABUSE (edad en la que se abusó por primera vez), CTQ (una medida de hiperactividad en la que las puntuaciones más altas indican una hiperactividad más alta), TOTALHOS (hostilidad total medida por un evaluador, donde los números más altos indican una hostilidad más alta). Realice una regresión por pasos para encontrar las variables más útiles para predecir la agresión reactiva en la siguiente muestra de 68 sujetos.
+11.3.3 Uno de los objetivos de un estudio realizado por Connor et al. (A-8) fue examinar la agresión reactiva entre niños y adolescentes derivados a un centro de tratamiento residencial. Los investigadores utilizaron la Escala de Calificación Proactiva/Reactiva, obtenida presentando tres afirmaciones a los médicos que examinaron a los sujetos. Los encuestados respondieron utilizando una escala del 1 al 5, donde 5 indica que la afirmación casi siempre se aplicaba al niño. Un ejemplo de una afirmación de agresión reactiva es: "Cuando este niño ha sido objeto de burlas o amenazas, se enoja fácilmente y contraataca". La puntuación reactiva fue la respuesta media a tres afirmaciones de este tipo. Con esta variable como variable de resultado, los investigadores también examinaron lo siguiente: AGE (años), VERBALIQ (CI verbal), STIM (uso de estimulantes), AGEABUSE (edad en la que se abusó por primera vez), CTQ (una medida de hiperactividad en la que las puntuaciones más altas indican una hiperactividad más alta), TOTALHOS (hostilidad total medida por un evaluador, donde los números más altos indican una hostilidad más alta). Realice una regresión por pasos para encontrar las variables más útiles para predecir la agresión reactiva en la siguiente muestra de 68 sujetos.
 
 ### **1 .4 LOGISTIC REGRESSION**
 
@@ -596,11 +596,11 @@ Vemos que la estimación de a es -1,4773 y la estimación de b 1 es 1,7649. La r
 \
 **EXAMPLE 11.4.2**
 
-Según Gallagher et al. (A-10), los programas de rehabilitación cardíaca ofrecen \"información, apoyo y seguimiento para el retorno a las actividades, el manejo de los síntomas y la modificación de los factores de riesgo\". Los investigadores llevaron a cabo un estudio para identificar entre las mujeres los factores que se asocian con la participación en dichos programas. Los datos de la Tabla 11.4.3 corresponden a las edades de 185 mujeres dadas de alta de un hospital de Australia que cumplían los criterios de elegibilidad que incluían el alta por infarto de miocardio, cirugía de bypass arterial, angioplastia o colocación de stent. Deseamos utilizar estos datos para obtener información sobre la relación entre la edad (años) y la participación en un programa de rehabilitación cardíaca (ATT = 1, si participó, y ATT = 0, si no). También deseamos saber si podemos utilizar los resultados de nuestro análisis para predecir la probabilidad de participación de una mujer si conocemos su edad.
+Según Gallagher et al. (A-10), los programas de rehabilitación cardíaca ofrecen "información, apoyo y seguimiento para el retorno a las actividades, el manejo de los síntomas y la modificación de los factores de riesgo". Los investigadores llevaron a cabo un estudio para identificar entre las mujeres los factores que se asocian con la participación en dichos programas. Los datos de la Tabla 11.4.3 corresponden a las edades de 185 mujeres dadas de alta de un hospital de Australia que cumplían los criterios de elegibilidad que incluían el alta por infarto de miocardio, cirugía de bypass arterial, angioplastia o colocación de stent. Deseamos utilizar estos datos para obtener información sobre la relación entre la edad (años) y la participación en un programa de rehabilitación cardíaca (ATT = 1, si participó, y ATT = 0, si no). También deseamos saber si podemos utilizar los resultados de nuestro análisis para predecir la probabilidad de participación de una mujer si conocemos su edad.
 
 **Solution**:
 
-La variable independiente es la variable continua edad (AGE), y la variable dependiente o de respuesta es el estado con respecto a la asistencia a un programa de rehabilitación cardíaca. La variable dependiente es una variable dicotómica que puede asumir uno de dos valores: 0 = no asistió y 1 = asistió. Utilizamos el paquete de software SAS® para analizar los datos. El comando SAS® es PROC LOGISTIC, pero si deseamos predecir la asistencia al programa cardíaco, debemos utilizar la opción \"descendente\" con PROC LOGISTIC. (Cuando desee predecir el resultado etiquetado como \"1\" de la variable dependiente, utilice la \"opción descendente\" en SAS®. Consulte la documentación de SAS® para obtener más detalles). En la Figura 11.4.2 se muestra una impresión parcial del análisis.
+La variable independiente es la variable continua edad (AGE), y la variable dependiente o de respuesta es el estado con respecto a la asistencia a un programa de rehabilitación cardíaca. La variable dependiente es una variable dicotómica que puede asumir uno de dos valores: 0 = no asistió y 1 = asistió. Utilizamos el paquete de software SAS® para analizar los datos. El comando SAS® es PROC LOGISTIC, pero si deseamos predecir la asistencia al programa cardíaco, debemos utilizar la opción "descendente" con PROC LOGISTIC. (Cuando desee predecir el resultado etiquetado como "1" de la variable dependiente, utilice la "opción descendente" en SAS®. Consulte la documentación de SAS® para obtener más detalles). En la Figura 11.4.2 se muestra una impresión parcial del análisis.
 
 \
 The slope of our regression is -.0379, and the intercept is 1.8744. The regression equation, then, is
@@ -612,7 +612,7 @@ $$\
 where $\hat{y}_i = \ln[\hat{p}_i / (1 - \hat{p}_i)]$ and $\hat{p}_i$ is the predicted probability of attending cardiac rehabilitation for a woman aged $x_i$.
 
 \
-**Test of** $H_0$ **that** $\beta_1 =  0$
+**Test of** $H_0$ **that** $\beta_1 = 0$
 
 \
 Llegamos a una conclusión sobre la adecuación del modelo logístico probando la hipótesis nula de que la pendiente de la línea de regresión es cero. El estadístico de prueba es $z = \hat{\beta}_1 / s_{\hat{\beta}_1}$ donde z es el estadístico normal estándar, $\hat{\beta}_1$ es la pendiente de la muestra 1-.03792, y $s_{\hat{\beta}_1}$ es su error estándar (.0146) como se muestra en la Figura 11.4.2. A partir de estos números calculamos z = -.0379/.0146 = -2.5959, que tiene un valor p bilateral asociado de .0094. Concluimos, por lo tanto, que el modelo logístico es adecuado. El cuadrado de z es chi-cuadrado con 1 grado de libertad, un estadístico que se muestra en la Figura 11.4.2.
@@ -630,7 +630,7 @@ SAS® calcula las probabilidades estimadas para los valores dados de X. Podemos 
 \
 \
 
-**Multiple Logistic Regression** \
+**Multiple Logistic Regression**\
 
 Los profesionales de la regresión logística múltiple suelen estar interesados ​​en las relaciones de varias variables independientes con una variable de respuesta. Estas variables independientes pueden ser continuas o discretas o una combinación de ambas.
 
@@ -681,9 +681,9 @@ $$\
 Note that the coefficient for TRYPT is 0, and therefore it is not playing a role in the model.
 
 \
-**Test of** $H_0$ **that** $\beta_1 =  0$
+**Test of** $H_0$ **that** $\beta_1 = 0$
 
-Las pruebas de significancia de los coeficientes de regresión se pueden obtener directamente de la Figura 11.4.3. Nótese que tanto la constante (intersección) como las variables 5-HIAA son significativas en el modelo (ambas tienen valores p, indicados como \"Sig.\" en la tabla, \< .05); sin embargo, TRYPT no es significativo y por lo tanto no necesita estar en el modelo, lo que sugiere que no es útil para identificar a aquellos participantes del estudio con inicio temprano o tardío del alcoholismo.
+Las pruebas de significancia de los coeficientes de regresión se pueden obtener directamente de la Figura 11.4.3. Nótese que tanto la constante (intersección) como las variables 5-HIAA son significativas en el modelo (ambas tienen valores p, indicados como "Sig." en la tabla, \< .05); sin embargo, TRYPT no es significativo y por lo tanto no necesita estar en el modelo, lo que sugiere que no es útil para identificar a aquellos participantes del estudio con inicio temprano o tardío del alcoholismo.
 
 Como se indicó anteriormente, las probabilidades se pueden obtener fácilmente utilizando la ecuación 11.4.7 y sustituyendo los valores obtenidos del análisis.
 
@@ -698,7 +698,7 @@ Hemos analizado únicamente los conceptos y aplicaciones básicos de la regresi�
 
 **EXERCISES**
 
-11.4.1 En un estudio sobre la victimización violenta de mujeres y hombres, Porcerelli et al. (A-11) recopilaron información de 679 mujeres y 345 hombres de 18 a 64 años en varios centros de medicina familiar en el área metropolitana de Detroit. Los pacientes completaron un cuestionario de antecedentes médicos que incluía una pregunta sobre la victimización. La siguiente tabla muestra los sujetos de la muestra clasificados de forma cruzada por género y si el sujeto se autoidentificó como \"golpeado, pateado, golpeado o lastimado de otra manera por alguien en el último año\". Los sujetos que respondieron sí a esa pregunta se clasificaron como \"victimizados violentamente\". Utilice el análisis de regresión logística para encontrar los coeficientes de regresión y la estimación de la razón de probabilidades. Escriba una interpretación de sus resultados.
+11.4.1 En un estudio sobre la victimización violenta de mujeres y hombres, Porcerelli et al. (A-11) recopilaron información de 679 mujeres y 345 hombres de 18 a 64 años en varios centros de medicina familiar en el área metropolitana de Detroit. Los pacientes completaron un cuestionario de antecedentes médicos que incluía una pregunta sobre la victimización. La siguiente tabla muestra los sujetos de la muestra clasificados de forma cruzada por género y si el sujeto se autoidentificó como "golpeado, pateado, golpeado o lastimado de otra manera por alguien en el último año". Los sujetos que respondieron sí a esa pregunta se clasificaron como "victimizados violentamente". Utilice el análisis de regresión logística para encontrar los coeficientes de regresión y la estimación de la razón de probabilidades. Escriba una interpretación de sus resultados.
 
 \
 11.4.2 Consulte la investigación de Gallagher et al. (A-10) analizada en el Ejemplo 11.4.2. Otra covariable de interés fue una puntuación obtenida con el Índice de ansiedad y depresión hospitalaria. Un valor más alto de esta puntuación indica un nivel más alto de ansiedad y depresión. Utilice los siguientes datos para predecir si una mujer del estudio participó en un programa de rehabilitación cardíaca.
@@ -965,11 +965,11 @@ GOALSPEC---higher values indicate higher specificity of goals related to aquatic
 
 INTER---interaction of GOALDIFF and GOALSPEC.
 
-TSE---higher values indicate participants\' confidence in their abilities to attend aquatic
+TSE---higher values indicate participants' confidence in their abilities to attend aquatic
 
 classes.
 
-SSE---higher values indicate participants\' confidence in their abilities to perform eight tasks
+SSE---higher values indicate participants' confidence in their abilities to perform eight tasks
 
 related to scheduling exercise into their daily routine for 8 weeks.
 
@@ -986,7 +986,7 @@ Con el conjunto de datos AQUATICS, realice una regresión múltiple para predeci
 \
 \
 
-2\. Rodehorst (A-28) conducted a prospective study of 212 rural elementary school teachers. The main outcome variable was the teachers\' intent to manage children demonstrating symptoms of asthma in their classrooms. This variable was measured with a single-item question that used a seven-point Likert scale (INTENT, with possible responses of 1 = extremely probable to 7 = extremely improbable). Rodehorst used the following variables as independent variables to predict INTENT:
+2\. Rodehorst (A-28) conducted a prospective study of 212 rural elementary school teachers. The main outcome variable was the teachers' intent to manage children demonstrating symptoms of asthma in their classrooms. This variable was measured with a single-item question that used a seven-point Likert scale (INTENT, with possible responses of 1 = extremely probable to 7 = extremely improbable). Rodehorst used the following variables as independent variables to predict INTENT:
 
 \
 

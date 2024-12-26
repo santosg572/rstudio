@@ -1,0 +1,1476 @@
+---
+title: "c02"
+---
+
+## Chapter 2 One-Dimensional Maps
+
+### 2.1 Chaos in Maps
+
+El estudio de ecuaciones diferenciales está naturalmente ligado al estudio de mapas. Dependiendo del punto de vista, las ecuaciones diferenciales son de interés por sí mismas, y una posición extrema conduce a temas tan esotéricos (¡pero elegantes!) como el estudio de los fractales, el conjunto de Mandelbrot, los conjuntos de Julia, etc. (para lo cual, véase el capítulo 6). En un nivel más mundano, las ecuaciones diferenciales pueden considerarse modelos matemáticos por derecho propio. En particular, las generaciones discretas de poblaciones de animales o insectos pueden modelarse por el tamaño de generaciones sucesivas x1, x2, x3, . . ., y es plausible que los valores sucesivos estén relacionados con los de la generación anterior por una ecuación diferencial de la forma
+
+$$
+x_{n+1} = f (x_n ). 
+$$\
+\
+El supuesto más simple es el del crecimiento exponencial: la tasa de reproducción es directamente proporcional a la población, donde
+
+$$
+x_{n+1} = λ x_n . 
+$$\
+(2.2)
+
+Sin embargo, en la práctica es evidente que no puede haber un crecimiento poblacional ilimitado y que los efectos del hacinamiento, la limitación de recursos, las enfermedades, etc., harán que una función realista f (x) sea sublineal; en particular, f (∞) suele estar acotada y a menudo es negativa.
+
+Posiblemente la corrección más simple para tener en cuenta tales efectos es la ecuación de diferencia logística.
+
+$$
+x_{n+1} = λx_n (1 − x_n ).
+$$\
+\
+Obviamente, las poblaciones (aquí normalizadas de modo que la tasa de crecimiento sea cero en x = 1) deben tener x n ≥ 0, lo que sugiere que $0 ≤ x_n ≤ 1$ para que la secuencia conserve un significado.
+
+En consecuencia, debemos tomar 0 ≤ λ ≤ 4 si x n ∈ \[0, 1\] para todo n. 1 El parámetro λ es un parámetro de bifurcación, llamado así porque a medida que cambia, el comportamiento de las secuencias de {x n } cambiará drásticamente. En la práctica, se podría esperar que los valores de λ dependan de circunstancias externas, como las que regulan el suministro de alimentos, la temperatura, etc.
+
+Un método instructivo para tener una idea de la dinámica de las secuencias de interés es trazarlas gráficamente. Se obtiene una secuencia $x_1, x_2, x_3 . . .$ en el espacio bidimensional con ejes $(x_n , x_{n+1 )}$ trazando una "escalera" verticalmente desde $x_1$ en el eje $x_n$ hasta el gráfico de $x_{n+1} = f (x_n )$ (que da $x_2$ ); luego horizontalmente hasta la línea en $45^◦$, $x_{n+1} = x_n$ (por lo tanto $x_2$ es la nueva abscisa); luego verticalmente hasta $f (x_2)$, horizontalmente hasta la línea de $45^◦$ (dando $x^3$ ) y así sucesivamente. La figura 2.1 ilustra este procedimiento (llamado telaraña) esquemáticamente para dos valores diferentes de λ en (2.3). Si λ es bastante pequeño (1 \< λ \< 3, de hecho), entonces las iteraciones sucesivas parecen converger al punto fijo no trivial $x^∗ = f (x^∗)$ en (0, 1). Sin embargo, si λ es mayor, entonces las iteraciones parecen vagar sin rumbo.
+
+Before we proceed, we need some simple definitions.
+
+**Definition** For the map $x_{n+1} = f (x-n ), x^∗$ is a fixed point if $x^∗ = f (x^∗)$.
+
+\
+**Definition** An orbit of f is a sequence { $x_n$ } such that $x_{n+1}= f (x_n)$.
+
+Notation We will write iterates of f with a superscript. Thus $f^2 = f ◦ f$ , i.e. $f^2(x) ≡ f [ f (x)]$, and more generally $f^n ≡ f ◦ f^{n−1}$.
+
+Definition A periodic orbit or p-cycle is an orbit $\{x_i \}_{i∈Z}$ with some smallest value p such that $x_{ i+ p} = f^p (x_i ) = x_i$ for all i; p is the period.
+
+**Definition** An aperiodic orbit is an orbit which is not periodic
+
+Ahora podemos, por supuesto, examinar fácilmente iteraciones de funciones como (2.3) numéricamente, usando un programa simple. Si 0 \< λ \< 1, se encuentra que cada secuencia tiende a cero (x n → 0 cuando n → ∞), y de hecho es fácil ver por qué esto debe ser así. 2 Para λ \> 1, hay un punto fijo no trivial $x^∗ = 1 − (1/λ)$, y encontramos que si 1 \< λ \< 3, entonces cualquier valor inicial (distinto de x1 = 0 o 1) da una secuencia que tiende a x∗ cuando n → ∞. Sin embargo, a medida que λ aumenta aún más, el comportamiento se vuelve más interesante. Por ejemplo, si λ = 4, entonces casi cualquier condición inicial conduce a una secuencia que parece comportarse aperiódicamente.
+
+La transición en el comportamiento de las secuencias a medida que λ aumenta de 3 a 4 está asociada con una secuencia complicada de bifurcaciones. Por ejemplo, en λ = 3,1, vemos un 2-ciclo. Este se bifurca a partir de x∗ en λ = 3 en el sentido de que a medida que λ se acerca a 3 desde arriba, la amplitud (\|x i+1 − x i \|) del 2-ciclo se acerca a cero, y cada punto del ciclo se acerca a x∗. Esta es la bifurcación de duplicación de período (llamada así porque la órbita de período 1 (x∗) se bifurca para dar lugar a una órbita de período 2); se ilustra en la figura 2.2. Nótese que el punto fijo x∗ continúa existiendo para λ \> 3. Sin embargo, se vuelve inestable a medida que λ aumenta hasta 3.
+
+Ahora bien, un 2-ciclo de f también puede considerarse como dos puntos fijos de $f^2$ . A medida que λ aumenta aún más, se descubre que estos puntos fijos también pierden estabilidad (en $λ = λ_2 3,449 . . .$) en una bifurcación de duplicación de período, lo que da una órbita de período 4 para f . Este proceso continúa a medida que λ aumenta, dando órbitas de período 8, período 16, etc. Además, los valores de λ en los que se producen estas bifurcaciones se acumulan, de modo que en λ 3,57, hay períodos de todos los órdenes 2k. Además, todas estas órbitas son inestables.
+
+No hace falta mucho para darse cuenta de que, para λ \> 3,57, es probable que una secuencia calculada típica parezca \"caótica\". Con un número contable de órbitas periódicas inestables esparcidas por todo el intervalo unitario, se podría suponer que \"la mayoría\" de las secuencias se moverían de un lado a otro, acercándose ocasionalmente a diferentes ciclos antes de desviarse nuevamente.
+
+\
+Y, de hecho, esta afirmación es aproximadamente precisa (y se vuelve más precisa a medida que λ → 4), pero la descripción completa es algo más complicada que esto.
+
+El caso λ = 4 es especial, porque el comportamiento dinámico es verdaderamente caótico y porque el comportamiento se puede describir con mucha precisión. Para ver esto, ponemos
+
+$$
+x = \sin^2 θ, λ = 4, 
+$$\
+(2.4)
+
+in (2.3). Then \$sin\^2 θn+1 = sin 2 2θn , so that {x n } can be determined from the sequence {θn }, where
+
+\
+
+θn+1 = 2θn mod 2π.3 (2.5)
+
+\
+
+This is an elementary example of a circle map, defined on the circle S1 and will be termed the (one-dimensional) baker map.4 We put θ = 2πφ. The map
+
+\
+
+Este es un ejemplo elemental de un mapa circular, definido en el círculo S1 y se denominará mapa de Baker (unidimensional).4 Ponemos θ = 2πφ. El mapa
+
+\
+\
+
+φn+1 = f (φn ) = 2φn mod 1, (2.6)
+
+\
+
+is equivalent to a binary shift on two symbols. For each f n ∈ (0, 1), there corresponds a unique5 binary representation
+
+\
+
+es equivalente a un desplazamiento binario de dos símbolos. Para cada f n ∈ (0, 1), corresponde una representación binaria única5
+
+\
+\
+
+φ = .a1a2a3 . . . =
+
+∞∑
+
+1
+
+ai
+
+2i . (2.7)
+
+\
+
+The map acting on the unit interval is equivalent to the shift map .a1a2a3 . . . → .a2a3a4 . . .. In particular, it is clear that the binary representation of the initial value φ1 = .a1a2a3 . . . encodes the entire trajectory (since it contains all subsequent iterates, thus φk = .a k a k+1 . . .). In particular, the sequence a1a2a3 . . . tells us whether the k-th iterate lies in (0, 1 2 ) (a k = 0) or ( 1 2 , 1) (a k = 1). 6 Thus trajectories can be uniquely encoded by the binary sequences on the symbols (L, R) which denote whether φk is in (0, 1 2 ) or ( 1 2 , 1). For values of λ other than λ = 4 (and for other maps), such sequences, called kneading sequences, can be used to establish the order of bifurcation of periodic orbits. 7
+
+\
+
+La función que actúa sobre el intervalo unitario es equivalente a la función de desplazamiento .a1a2a3 . . . → .a2a3a4 . . .. En particular, es evidente que la representación binaria del valor inicial φ1 = .a1a2a3 . . . codifica la trayectoria completa (ya que contiene todas las iteraciones subsiguientes, por lo tanto φk = .a k a k+1 . . .). En particular, la secuencia a1a2a3 . . . nos dice si la iteración k-ésima se encuentra en (0, 1 2 ) (a k = 0) o ( 1 2 , 1) (a k = 1). 6 Por lo tanto, las trayectorias pueden codificarse de forma única mediante las secuencias binarias de los símbolos (L, R) que indican si φk está en (0, 1 2 ) o ( 1 2 , 1). Para valores de λ distintos de λ = 4 (y para otros mapas), dichas secuencias, llamadas secuencias de amasado, se pueden utilizar para establecer el orden de bifurcación de las órbitas periódicas. 7
+
+\
+\
+
+It is immediate to see from the shift map that
+
+\
+
+Es inmediato ver en el mapa de cambios que
+
+\
+\
+
+\(i\) there are a countable number of periodic orbits (φ = m/n ∈ Q, n = 2r , r ∈ N),
+
+\(ii\) there are an uncountable number of aperiodic orbits (φ /∈ Q);
+
+\(iii\) there are an uncountable number of homoclinic points (φ = m/2r ), that is to
+
+say, points for which φk = 0 for some k, and for which there exist trajectories . . . φ−m , φ−(m−1) , . . . , φ1, . . . which pass through φ1 and emanate from
+
+0 (φ−m → 0 as m → ∞);
+
+\(iv\) f has sensitive dependence to initial conditions: given x, there exists δ \> 0
+
+such that for any ε \> 0 , there is a value y with \|x − y\| \< ε, such that, for some
+
+N , \| f N (x) − f N (y)\| \> δ;
+
+\(v\) f has (infinitely many) dense orbits.
+
+\
+
+There are various definitions of chaos for maps or flows, which involve some or all of the above properties. A working definition used by Devaney 8 uses essentially properties (i) (actually, that periodic points are dense), (iv) and (v). One reason that no universal definition for chaos is agreed on is the practical importance of numerical computations. The essence of chaos, as opposed to noise, is that the dynamics of the system are \'generally\' chaotic in appearance. 
+
+\
+
+Existen varias definiciones de caos para mapas o flujos que incluyen algunas o todas las propiedades anteriores. Una definición de trabajo utilizada por Devaney8 utiliza esencialmente las propiedades (i) (en realidad, que los puntos periódicos son densos), (iv) y (v). Una razón por la que no se ha llegado a un acuerdo sobre una definición universal del caos es la importancia práctica de los cálculos numéricos. La esencia del caos, a diferencia del ruido, es que la dinámica del sistema es "generalmente" caótica en apariencia.
+
+\
+\
+
+But it is typically the case that not all initial points lead to aperiodic orbits, and furthermore machine accuracy when one actually computes orbits can lead to misleading results. If a computed orbit looks chaotic, it ought to be chaotic; but in a mathematical sense, it may well not be. For example, finite precision computations ensure that all numerically computed iterates of difference equations must be periodic (if they do not terminate), though this is typically an academic (if important) point. But a machine working in binary arithmetic would numerically predict that 0 was a globally stable attracting fixed point for the baker map!
+
+\
+
+Pero lo habitual es que no todos los puntos iniciales conduzcan a órbitas aperiódicas y, además, la precisión de las máquinas cuando se calculan órbitas puede llevar a resultados engañosos. Si una órbita calculada parece caótica, debería ser caótica; pero en un sentido matemático, puede que no lo sea. Por ejemplo, los cálculos de precisión finita garantizan que todas las iteraciones numéricas de ecuaciones diferenciales deben ser periódicas (si no terminan), aunque esto suele ser un punto académico (aunque importante). Pero una máquina que trabaje en aritmética binaria predeciría numéricamente que 0 es un punto fijo de atracción globalmente estable para el mapa de Baker.
+
+\
+\
+
+The two critical features of Devaney\'s definition are thus the dense orbit, and the sensitive dependence on initial conditions. These imply that numerical computations will typically look chaotic, and in normal circumstances, a decent numerical computation which looks chaotic may well correspond to chaos thus defined. However, one needs to avoid being dogmatic.
+
+\
+
+Las dos características críticas de la definición de Devaney son, por lo tanto, la órbita densa y la dependencia sensible de las condiciones iniciales. Esto implica que los cálculos numéricos normalmente parecerán caóticos y, en circunstancias normales, un cálculo numérico decente que parezca caótico puede corresponder perfectamente al caos así definido. Sin embargo, hay que evitar ser dogmático.
+
+\
+\
+
+The best definition of chaos would be one where what looks chaotic is chaotic, but it is quite possible (for example) to have extremely long chaotic transients, which eventually lead to steady behaviour. It is often the case that such behaviour can be related to the more restrictive definition of chaos given above.
+
+\
+
+La mejor definición de caos sería aquella en la que lo que parece caótico es caótico, pero es muy posible (por ejemplo) tener transitorios caóticos extremadamente largos, que eventualmente conducen a un comportamiento estable. Suele suceder que dicho comportamiento se puede relacionar con la definición más restrictiva de caos que se dio anteriormente.
+
+\
+\
+
+**2.2 Bifurcations in Maps**
+
+\
+
+Although the logistic map has infinitely many periodic orbits for λ ≥ λ∞ ≈ 3.57 . . ., and exhibits chaotic motion over much of the parameter interval (λ∞, 4) there are many intervals, or windows, in which stable periodic behaviour can occur. For example, if 3.8284 \< λ \< 3.8415, there is a stable 3-cycle, to which almost all (in the sense of Lebesgue measure) initial values of x1 are attracted. In some sense, the transition to chaos is a gradual thing. This also shows that periodic orbits with periods other than 2r can exist. In order to understand where these come from, we now categorise the two basic bifurcations exhibited by general one-dimensional maps.
+
+\
+
+Aunque el mapa logístico tiene infinitas órbitas periódicas para λ ≥ λ∞ ≈ 3,57 . . ., y exhibe movimiento caótico en gran parte del intervalo de parámetros (λ∞, 4), hay muchos intervalos, o ventanas, en los que puede ocurrir un comportamiento periódico estable. Por ejemplo, si 3,8284 \< λ \< 3,8415, hay un 3-ciclo estable, al que son atraídos casi todos los valores iniciales (en el sentido de la medida de Lebesgue) de x1. En cierto sentido, la transición al caos es algo gradual. Esto también muestra que pueden existir órbitas periódicas con períodos distintos de 2r. Para entender de dónde provienen, ahora categorizamos las dos bifurcaciones básicas exhibidas por los mapas unidimensionales generales.
+
+\
+\
+
+First we define stability for fixed points.
+
+\
+
+**Definition**
+
+\
+
+A fixed point x∗ of the one-dimensional map f is (asymptotically) stable if there is a δ \> 0 such that for all x with \|x − x∗ \| \< δ, f n (x) → x∗ as n → ∞. Otherwise, x∗ is unstable.
+
+\
+
+Un punto fijo x∗ de la función unidimensional f es (asintóticamente) estable si existe un δ \> 0 tal que para todo x con \|x − x∗ \| \< δ, f n (x) → x∗ cuando n → ∞. En caso contrario, x∗ es inestable.
+
+\
+\
+
+It follows from this definition that x∗ is (linearly) stable if \| f ′(x∗)\| \< 1, unstable if \| f ′(x∗)\| \> 1. This is because if x n = x∗ + yn , then yn+1 ≈ f ′(x∗)yn . If \| f ′(x∗)\| = 1, linear theory is inconclusive, but as we will be interested in the passage of \| f ′(x∗)\| through one as a parameter μ is varied, this is of little consequence. Two principal possibilities now occur. 9
+
+\
+
+De esta definición se deduce que x∗ es (linealmente) estable si \| f ′(x∗)\| \< 1, inestable si \| f ′(x∗)\| \> 1. Esto se debe a que si x n = x∗ + yn , entonces yn+1 ≈ f ′(x∗)yn . Si \| f ′(x∗)\| = 1, la teoría lineal no es concluyente, pero como nos interesará el paso de \| f ′(x∗)\| por uno cuando se varía un parámetro μ, esto tiene poca importancia. Ahora se dan dos posibilidades principales. 9
+
+\
+\
+
+\(i\) Saddle-node bifurcation
+
+\
+
+\(i\) Bifurcación del nodo en silla de montar
+
+\
+\
+
+Suppose that, when the parameter μ = 0, f (x∗, μ) = x∗ is a fixed point of the map f (x, μ) and that f x (x∗, 0) = 1. For x near x∗ and μ near 0, we have (by appropriately re-defining μ if necessary)
+
+\
+
+Supongamos que, cuando el parámetro μ = 0, f (x∗, μ) = x∗ es un punto fijo de la función f (x, μ) y que f x (x∗, 0) = 1. Para x cerca de x∗ y μ cerca de 0, tenemos (redefiniendo μ apropiadamente si es necesario)
+
+\
+\
+
+f ≈ x + μ + a(x − x∗)2 + · · · , (2.8)
+
+\
+
+and thus there exist two fixed points given by
+
+\
+
+x = x∗ ± (−μ/a) 1
+
+2 (2.9)
+
+\
+
+when μ/a \< 0. This bifurcation is called the saddle-node bifurcation, as it represents (more generally) the confluence of a saddle-type fixed point with a node-type fixed point. The saddle is unstable, while the node is stable. In one sense, this is not a true bifurcation---no new fixed points are created; rather, one can view the fold as part of a one-parameter family of fixed points which is simply not monotonically determined by μ (Fig. 2.3).
+
+\
+
+cuando μ/a \< 0. Esta bifurcación se denomina bifurcación silla-nodo, ya que representa (de manera más general) la confluencia de un punto fijo tipo silla con un punto fijo tipo nodo. La silla es inestable, mientras que el nodo es estable. En cierto sentido, esta no es una verdadera bifurcación: no se crean nuevos puntos fijos; más bien, se puede ver el pliegue como parte de una familia de un parámetro de puntos fijos que simplemente no está determinada monótonamente por μ (Fig. 2.3).
+
+\
+\
+
+\(ii\) Period-doubling bifurcation
+
+\
+
+\(ii\) Bifurcación de duplicación de período
+
+\
+\
+
+This occurs as f ′ decreases through -1. If f (x∗, 0) = x∗, f x (x∗, 0) = -1, it is clear (since y = f (x) cuts y = x transversely) that the fixed point persists for μ = 0, and without loss of generality x∗(μ) = constant. Then f (x∗, μ) ≡ x∗, and for small μ and x − x∗,
+
+\
+
+Esto ocurre cuando f ′ disminuye hasta -1. Si f (x∗, 0) = x∗, f x (x∗, 0) = -1, es claro (ya que y = f (x) corta transversalmente a y = x) que el punto fijo persiste para μ = 0, y sin pérdida de generalidad x∗(μ) = constante. Entonces f (x∗, μ) ≡ x∗, y para μ pequeños y x − x∗,
+
+\
+\
+
+f ≈ x∗ − (1 + μ)(x − x∗) + a(x − x∗)2 + b(x − x∗)3 . . . (2.10)
+
+\
+
+with error O(μy, y3), where y = x − x∗. Composing f with itself, we find
+
+\
+
+f 2(x) − x ≈ −2by3 − 2a2 y3 + 2μy, (2.11)
+
+\
+
+whence it follows that f has only the fixed point x∗ for \|μ\|  1, while f 2 has two
+
+fixed points
+
+\
+
+x − x∗ = ±\[μ/(b + a2)\] 1
+
+2 . (2.12)
+
+\
+
+We say that f 2 has a pitchfork bifurcation at μ = 0, on account of the amplitude-
+
+parameter diagram, Fig. 2.4.
+
+\
+
+The stability of the bifurcated two cycle (x1, x2) is given by ( f 2)′(x1) =
+
+( f 2)′(x2) = f ′(x1) f ′(x2) (using the chain rule). More generally, the stability of
+
+a p-cycle {x1, . . . , x p } is determined by whether \| p 1 f ′(x i )\| \< 1
+
+\
+
+For equations such as the logistic map, we find numerically that there are a whole host of period-doubling bifurcations, as indicated by Fig. 2.5. These, for example, produce the 2r -orbits. Other orbits are produced by saddle-node bifurcations, e.g. that of period 3 for λ 3.83, in which an unstable and stable 3-cycle appear. It is then found that the stable 3-cycle period doubles to orbits of period 3 × 2r , and these period-doublings have their own accumulation point (at 3.8495 ...).
+
+\
+
+Para ecuaciones como el mapa logístico, encontramos numéricamente que hay toda una serie de bifurcaciones de duplicación de período, como se indica en la figura 2.5. Estas, por ejemplo, producen las órbitas 2r . Otras órbitas son producidas por bifurcaciones de nodos de silla, por ejemplo, la de período 3 para λ 3.83, en la que aparece un 3-ciclo inestable y estable. Se encuentra entonces que el período del 3-ciclo estable se duplica a órbitas de período 3 × 2r , y estas duplicaciones de período tienen su propio punto de acumulación (en 3.8495 ...).
+
+\
+\
+
+**2.3 Period-Doubling and the Feigenbaum Conjectures**
+
+\
+
+2.3 La duplicación del período y las conjeturas de Feigenbaum
+
+\
+\
+
+In the late 1970s, the world of chaos was lit up by the (re-)discovery of concepts of universality applied to the bifurcations in one-dimensional maps. The promoter of these ideas was Mitchell Feigenbaum, and in this section, we describe the rather beautiful way in which ideas imported from physics were applied to maps. \'Universality\' is big business for physicists, which explains the popularity of the ideas at the time, although subsequently their influence has waned. We will restrict our consideration to the so-called \'unimodal\' (i.e. one-humped) maps, such as the logistic map, which for the present section are defined as follows: 10
+
+\
+
+A finales de los años 70, el mundo del caos se iluminó con el (re)descubrimiento de los conceptos de universalidad aplicados a las bifurcaciones en los mapas unidimensionales. El promotor de estas ideas fue Mitchell Feigenbaum, y en esta sección describimos la forma bastante hermosa en que las ideas importadas de la física se aplicaron a los mapas. La "universalidad" es un gran negocio para los físicos, lo que explica la popularidad de las ideas en ese momento, aunque posteriormente su influencia ha disminuido. Limitaremos nuestra consideración a los llamados mapas "unimodales" (es decir, de una joroba), como el mapa logístico, que para la presente sección se definen de la siguiente manera: 10
+
+\
+\
+
+**Definition**
+
+\
+
+A unimodal map f : \[-1, 1\] → \[-1, 1\] is one for which f is continuous, f (0) = 1,
+
+and it is strictly monotone on each of \[-1, 0), (0,1\].
+
+\
+
+We will, in fact suppose, that in addition, f is symmetric, although this is not in fact necessary. An example and its second iterate f 2 = f ◦ f are shown in Fig. 2.6.
+
+\
+
+Supondremos, de hecho, que además f es simétrica, aunque esto no es necesariamente así. En la figura 2.6 se muestra un ejemplo y su segunda iteración f 2 = f ◦ f.
+
+\
+\
+
+As illustrated in Fig. 2.6, f 2 has a single (stable) fixed point, which is the same as the fixed point of f . Now suppose f depends on a parameter μ, and is such that as μ increases, f gets steeper (or sharper). It follows that f 2 gets steeper also. Moreover, if f ′ at the fixed point decreases through -1, we know that a period-doubling occurs. This means that f 2 has a pitchfork bifurcation, since in addition to the fixed point of f , the 2-cycle of f consists of two points each of which is a fixed point of f 2 . This transition is illustrated in Fig. 2.7, where we see that the bifurcation corresponds to the passage of the slope of f 2 through +1.
+
+\
+
+Como se ilustra en la Fig. 2.6, f 2 tiene un único punto fijo (estable), que es el mismo que el punto fijo de f . Ahora supongamos que f depende de un parámetro μ, y es tal que a medida que μ aumenta, f se vuelve más empinada (o más aguda). Se deduce que f 2 también se vuelve más empinada. Además, si f ′ en el punto fijo disminuye hasta -1, sabemos que ocurre una duplicación del período. Esto significa que f 2 tiene una bifurcación en horquilla, ya que además del punto fijo de f , el 2-ciclo de f consta de dos puntos, cada uno de los cuales es un punto fijo de f 2 . Esta transición se ilustra en la Fig. 2.7, donde vemos que la bifurcación corresponde al paso de la pendiente de f 2 hasta +1.
+
+\
+\
+
+The key idea is that as μ continues to increase, the slope of f 2 at the two new fixed points will increase in magnitude, and if circumstances permit, a further period-doubling (of the f 2 fixed points) will occur, thus producing four period four orbits (actually, one period four orbit, but four fixed points of f 4 ). Moreover, the process of transition of f 2 is similar to that of f (see Fig. 2.8), provided we invert the picture and scale it down by a factor (of about 2.5, in fact).
+
+\
+
+La idea clave es que, a medida que μ continúa aumentando, la pendiente de f 2 en los dos nuevos puntos fijos aumentará en magnitud y, si las circunstancias lo permiten, se producirá una nueva duplicación del período (de los puntos fijos de f 2 ), lo que producirá cuatro órbitas de período cuatro (en realidad, una órbita de período cuatro, pero cuatro puntos fijos de f 4 ). Además, el proceso de transición de f 2 es similar al de f (véase la figura 2.8), siempre que invirtamos la imagen y la reduzcamos en un factor (de aproximadamente 2,5, de hecho).
+
+\
+\
+
+There is nothing in principle to stop this sequence of bifurcations continuing indefinitely, and indeed it is commonly found numerically that such period-doubling sequences do occur. For example, the logistic map (in the form x −→ 1 − μx2 ) has period-doubling bifurcations at μ1 = 0.75, μ2 = 1.25, μ3 = 1.3680989 . . ., μ4 = 1.3940461 . . ., and these values appear to accumulate geometrically at the value μ∞ = 1.401155 . . ., that is
+
+\
+
+En principio, no hay nada que impida que esta secuencia de bifurcaciones continúe indefinidamente y, de hecho, se encuentra numéricamente que tales secuencias de duplicación de períodos ocurren. Por ejemplo, el mapa logístico (en la forma x −→ 1 − μx2 ) tiene bifurcaciones de duplicación de períodos en μ1 = 0,75, μ2 = 1,25, μ3 = 1,3680989 . . ., μ4 = 1,3940461 . . ., y estos valores parecen acumularse geométricamente en el valor μ∞ = 1,401155 . . ., es decir
+
+\
+\
+
+μ∞ − μn ∼ δ−n . (2.13)
+
+\
+
+Feigenbaum\'s achievement was the discovery that the number δ is independent of the function f , providing f has a quadratic maximum. The number δ = 4.669201609 . . . is sometimes called Feigenbaum\'s constant. This remarkable fact endows the process of period-doubling with the fashionable property of universality---a mechanism which is independent of precise detail. Such an idea is veryattractive to physicists, though less exciting for mathematicians; it is a remarkable discovery, nonetheless, and the underlying property of self-similarity which provides the explanation has led to new concepts in applying ideas involving fractals to such phenomena as isotropic turbulence, earthquake mechanisms and the permeability of sandstones, for example.
+
+\
+
+El logro de Feigenbaum fue el descubrimiento de que el número δ es independiente de la función f, siempre que f tenga un máximo cuadrático. El número δ = 4,669201609 . . . a veces se denomina constante de Feigenbaum. Este hecho notable confiere al proceso de duplicación del período la propiedad de moda de la universalidad, un mecanismo que es independiente de los detalles precisos. Esta idea es muy atractiva para los físicos, aunque menos emocionante para los matemáticos; no obstante, es un descubrimiento notable, y la propiedad subyacente de autosimilitud que proporciona la explicación ha llevado a nuevos conceptos en la aplicación de ideas que involucran fractales a fenómenos como la turbulencia isotrópica, los mecanismos de los terremotos y la permeabilidad de las areniscas, por ejemplo.
+
+\
+\
+\
+
+In order to explain the universal geometric convergence, we use the ideas of renormalisation, which for the present case is based on the idea embodied in Fig. 2.9: that is to say, f resembles the central portion of f 2 , inverted and rescaled. To be specific, define
+
+\
+
+Para explicar la convergencia geométrica universal, utilizamos las ideas de renormalización, que para el presente caso se basa en la idea plasmada en la figura 2.9: es decir, f se asemeja a la porción central de f 2 , invertida y reescalada. Para ser más específicos, definamos
+
+\
+\
+
+α = −1/ f 2(0) = −1/ f (1), (2.14)
+
+\
+
+and we suppose 0 \< α \< 1. Since f 2(0) = −1/α, it follows that the graph of f 2 needs to be scaled up by a factor α to make the central portion unimodal. Equivalently, for it to be unimodal in −1 \< x \< 1, and since the central portion of f 2 lies in −1/α \< x \< 1/α, we require the argument to be scaled up by −α (see Fig. 2.9). Thus if we define a function ˜f (x) via
+
+\
+
+y suponemos 0 \< α \< 1. Puesto que f 2(0) = −1/α, se deduce que el gráfico de f 2 necesita ser ampliado por un factor α para hacer que la porción central sea unimodal. De manera equivalente, para que sea unimodal en −1 \< x \< 1, y puesto que la porción central de f 2 se encuentra en −1/α \< x \< 1/α, requerimos que el argumento sea ampliado por −α (véase la figura 2.9). Por lo tanto, si definimos una función ˜f (x) mediante
+
+\
+\
+
+˜f (x) = −α f 2\[−x/α\] (2.15)
+
+\
+
+(where α = −1/ f (1)), then the idea is that ˜f \'resembles\' f . The hope is that this
+
+resemblance gets better as the period-doubling progresses.
+
+\
+
+To proceed more formally, we define a map T on the space of unimodal functions
+
+as follows: the function T f is defined by
+
+\
+
+T f (x) = −α f 2\[−x/α\], α = −1/ f (1). (2.16)
+
+\
+
+We hope T f \'resembles\' f , i.e. f is \'close\' to a fixed point of T . If this is the case, we can hope to linearise about the fixed point in order to study the effect of T . We first need to check whether T f is itself unimodal. We require α \> 0 for the rescaling to be possible, and f 2(1/α) \< 1/α so that T f maps \[−1, 1\] into \[−1, 1\]. Thus T in fact maps a subspace of the space of unimodal mappings (M) to M. Denote this subspace by D. We now propose, without further ado, the three Feigenbaum conjectures
+
+\
+
+Esperamos que T f se parezca a f , es decir, que f esté cerca de un punto fijo de T . Si este es el caso, podemos esperar linealizar en torno al punto fijo para estudiar el efecto de T . Primero debemos comprobar si T f es en sí unimodal. Requerimos que α \> 0 para que sea posible el reescalamiento, y f 2(1/α) \< 1/α de modo que T f mapea \[−1, 1\] en \[−1, 1\]. Por lo tanto, T de hecho mapea un subespacio del espacio de mapeos unimodales (M) a M. Denotemos este subespacio por D. Ahora proponemos, sin más preámbulos, las tres conjeturas de Feigenbaum.
+
+\
+\
+
+\(i\) T has a unique real fixed point g (in D) satisfying the Cvitanovi´c--Feigenbaum
+
+equation
+
+\
+
+g(x) = −αg\[g(−x/α)\], α = −1/g(1) (2.17)
+
+(g is in fact analytic).
+
+\
+
+\(ii\) The derivative DT of T has a single unstable eigenvalue δ = 4.669 . . . (for quadratic maxima of f ), and the remainder of the spectrum lies within the unit circle (i.e. is contracting). It follows that there is a one-dimensional unstable manifold11 of g, written W u .
+
+\
+
+\(ii\) La derivada DT de T tiene un único valor propio inestable δ = 4,669 . . . (para máximos cuadráticos de f ), y el resto del espectro se encuentra dentro del círculo unitario (es decir, se contrae). De ello se deduce que existe una variedad inestable unidimensional11 de g, escrita W u .
+
+\
+\
+
+\(iii\) If we denote by 1 the space of functions in D where the first period-doubling occurs (that is, if x∗ is the unique fixed point in (0, 1) of f ∈ D, then f ′(x∗) = −1), then W u intersects 1 transversely.12
+
+\
+
+\(iii\) Si denotamos por 1 el espacio de funciones en D donde ocurre la primera duplicación del período (es decir, si x∗ es el único punto fijo en (0, 1) de f ∈ D, entonces f ′(x∗) = −1), entonces W u interseca a 1 transversalmente.12
+
+\
+\
+
+The principal statements here are (i) and (ii), whose likelihood was shown formally by Feigenbaum, and later proved by Lanford. The transversality condition (iii) was in effect proved by Eckmann and Wittwer. First of all, we show how these conjectures can explain the universality of period-doubling sequences, and then we show formally how to calculate g and δ.
+
+\
+
+Las principales afirmaciones aquí son (i) y (ii), cuya verosimilitud fue demostrada formalmente por Feigenbaum y luego demostrada por Lanford. La condición de transversalidad (iii) fue demostrada en efecto por Eckmann y Wittwer. En primer lugar, mostramos cómo estas conjeturas pueden explicar la universalidad de las secuencias de duplicación de períodos y luego mostramos formalmente cómo calcular g y δ.
+
+\
+\
+
+Suppose fμ (x) = f (x, μ) is a family of unimodal maps which exhibits a full period-doubling sequence. Put another way, fμ intersects all the co-dimension one13 surfaces n on which the n-th period-doubling occurs. Now T maps n+1 to n (i.e. if f ∈ n+1 , then T f ∈ n , for if {x i }2n+1 1 is a 2n+1 cycle of f in n+1 , then {yi }2n 1 , yi = αx2i , is a 2n -cycle of T f in n , and the stability is the same. Since 1 intersects W u transversely, we have the picture shown in Fig. 2.10. Since T maps f away from the stable manifold W s , but towards W u , we see that { r } forms a sequence of surfaces which tend to W s as r → ∞, moreover, W s = ∞ defines the surface where the sequence accumulates. It immediately follows that μ∞ − μn ∼ δ−n as n → ∞.
+
+\
+
+Supongamos que fμ (x) = f (x, μ) es una familia de funciones unimodales que exhibe una secuencia completa de duplicación de períodos. Dicho de otro modo, fμ interseca todas las superficies codimensionales 13 n en las que se produce la duplicación de períodos n-ésima. Ahora T mapea n+1 a n (es decir, si f ∈ n+1 , entonces T f ∈ n , porque si {x i }2n+1 1 es un ciclo 2n+1 de f en n+1 , entonces {yi }2n 1 , yi = αx2i , es un ciclo 2n de T f en n , y la estabilidad es la misma. Como 1 interseca a W u transversalmente, tenemos la imagen que se muestra en la Fig. 2.10. Como T mapea f lejos de la variedad estable W s , pero hacia W u , vemos que { r } forma una secuencia de superficies que tienden a W s cuando r → ∞, además, W s = ∞ define la superficie donde se acumula la secuencia. Inmediatamente se sigue que μ∞ − μn ∼ δ−n cuando n → ∞.
+
+\
+\
+
+We can go further. Since T maps fμ towards W u , and since W s is invariant, we have the situation shown in Fig. 2.11. T maps fμn+1 on n+1 to a function on n . It is convenient to define a map which stays on n . This is T ∗, defined by
+
+\
+
+Podemos ir más allá. Puesto que T mapea fμ hacia W u , y puesto que W s es invariante, tenemos la situación que se muestra en la Fig. 2.11. T mapea fμn+1 en n+1 a una función en n . Es conveniente definir una función que permanezca en n . Esta es T ∗, definida por
+
+\
+\
+
+T ∗ fμn = T fμn+1 . (2.18)
+
+\
+
+T ∗ maps functions sideways on n , and it follows that lim r→∞T ∗r fμn = gn ∈ W u exists (and is a universal function), and that gn → g as n → ∞.
+
+\
+
+In order to calculate g, we substitute a Taylor expansion into (2.17). One finds
+
+\
+
+α = 2.502,
+
+g = 1 − 1.527 x2 − 0.1048 x4 . . . . (2.19)
+
+\
+
+The calculation of δ is a little more subtle. Linearisation of T about g (write f =
+
+g + εh, ε  1, and expand to terms in O(ε)) gives the derivative operator
+
+\
+
+DT (g)h = Lh + αh(1){g − xg′ }, (2.20)
+
+\
+
+where α = −1/g(1), and
+
+\
+
+Lh = −α\[h{g(−x/α)} + g′ {g(−x/α)}h(−x/α)\]. (2.21)
+
+\
+
+We require h(0) = 0, h′(0) = 0 in order that g and g + εh both be unimodal. The
+
+eigenvalues of DT can be related to those of L, as follows.
+
+\
+
+Suppose
+
+\
+
+Lψ = δψ, (2.22)
+
+\
+
+and choose ψ(0) = 1 (and ψ′(0) = 0) without loss of generality. It is an easy exercise
+
+to show that
+
+\
+
+Lψ\|x=0 = δ = −α\[ψ1 + g′1\], (2.23)
+
+\
+
+where ψ1 = ψ(1), g′1 = g′(1). Also g(1) = −1/α, and applying L\'Hôpital\'s rule to
+
+the derivative of (2.17) as x → 0, we get g′1 = −α: therefore
+
+\
+
+ψ1 = −(δ/α) + α. (2.24)
+
+\
+
+It is also straightforward to show that
+
+\
+
+L\[g − xg′ \] = g − xg′, (2.25)
+
+\
+
+associated with the fact that gμ (x) = μg(x/μ) also satisfies the Cvitanovi´c--
+
+Feigenbaum equation for any μ. Now define
+
+\
+
+h = ψ − (g − xg′), (2.26)
+
+\
+
+and note h(0) = h′(0) = 0. We find, with a little effort,
+
+\
+
+DT (g)h = δh. (2.27)
+
+\
+
+It therefore follows that the eigenvalues of DT can be calculated from those of L.
+
+One then finds (using Taylor expansions) that
+
+\
+
+ψ ≈ 1 − 0.3256x2 − 0.00505x4,
+
+δ = 4.66920 . . . (2.28)
+
+\
+
+**2.3.1 Bifurcation Trees**
+
+\
+
+It is instructive to plot trajectories of a difference equation, such as the logistic map, as points in (x, μ) space. This can be easily done on a computer, and gives the typical diagram shown in Figs. 2.12 and 2.13. As μ varies, we see successive bifurcations from the fixed point to a period-2 cycle, then to a four cycle, and eventually to (apparently) chaotic trajectories at μ 1.4. The chaotic region coincides with the limit point of the period-doubling bifurcation values μn . It does not fill the unit interval but gradually grows as μ increases.
+
+\
+
+Resulta instructivo trazar las trayectorias de una ecuación diferencial, como el mapa logístico, como puntos en el espacio (x, μ). Esto se puede hacer fácilmente en una computadora y da el diagrama típico que se muestra en las figuras 2.12 y 2.13. A medida que μ varía, vemos bifurcaciones sucesivas desde el punto fijo hasta un ciclo de período 2, luego a un ciclo de cuatro y, finalmente, a trayectorias (aparentemente) caóticas en μ 1,4. La región caótica coincide con el punto límite de los valores de bifurcación de duplicación de período μn . No llena el intervalo unitario, sino que crece gradualmente a medida que μ aumenta.
+
+\
+\
+
+Various features are apparent in the chaotic régime, and these are associated with further bifurcations. Most noticeable are the \'periodic windows\' in which the chaos disappears, to be replaced by periodic orbits. The biggest window is the period-three window at about μ 7/4, but others are visible. A useful exercise is to blow up the régime map by magnifying the scale of x and μ. Figure 2.14 shows a magnified region near x = 0 and μ = 1.75. We see that there appears to be a tangency of the period-three orbit just where the chaotic region ends. 
+
+\
+
+En el régimen caótico se aprecian diversas características asociadas a otras bifurcaciones. Las más notables son las «ventanas periódicas» en las que desaparece el caos para ser reemplazado por órbitas periódicas. La ventana más grande es la del período tres, en torno a μ 7/4, pero también se pueden ver otras. Un ejercicio útil consiste en ampliar el mapa del régimen ampliando la escala de x y μ. La figura 2.14 muestra una región ampliada cerca de x = 0 y μ = 1,75. Vemos que parece haber una tangencia de la órbita del período tres justo donde termina la región caótica.
+
+\
+\
+
+This tangency effects a crisis in the following way. The period-three orbit is annihilated as μ decreases in a saddle-node bifurcation with an unstable period three orbit, shown dotted in Fig. 2.14, and further magnified in Fig. 2.15. As μ increases, the stable period three orbit undergoes period-doubling, to periods 6, 12, . . . , 3 × 2n . . .. In a sense, these orbits are generated by the \'production\' of the unstable period-three orbit (at μ = 4). The crisis is precipitated by the collision of the unstable orbit as μ decreases with the chaotic attractor which exists just below the saddle-node bifurcation. Such bifurcations occur ubiquitously.
+
+\
+
+Esta tangencia produce una crisis de la siguiente manera. La órbita de período tres se aniquila a medida que μ disminuye en una bifurcación de nodo de silla con una órbita de período tres inestable, que se muestra con puntos en la Fig. 2.14 y se amplía aún más en la Fig. 2.15. A medida que μ aumenta, la órbita de período tres estable sufre una duplicación de período, hasta los períodos 6, 12, . . . , 3 × 2n . . .. En cierto sentido, estas órbitas se generan por la "producción" de la órbita de período tres inestable (en μ = 4). La crisis se precipita por la colisión de la órbita inestable a medida que μ disminuye con el atractor caótico que existe justo debajo de la bifurcación de nodo de silla. Estas bifurcaciones ocurren en todas partes.
+
+\
+\
+
+Figure 2.12 reveals a sequence of dark lines, also revealed in Fig. 2.13, whose behaviour seems related to the bifurcations exhibited by the map. These form what has been called the \'skeleton\' of the bifurcation diagram by Hao Bai-Lin, and we can explain their presence quite simply. For a unimodal map x n+1 = f (x n , μ), the \'stability\' of any string {x1 . . . x p } (not necessarily periodic) is given by the product∏p 1 f ′(x i ). In particular, if x1 = 0 (where f ′ = 0), then ∏p 1 f ′(x i ) = 0, and the string is \'superstable\'. What this means is, that if the behaviour is chaotic, then points which land close to zero will stay closer to subsequent iterates of zero for longer than other trajectories remain close to each other. Therefore, in a chaotic region, we expect to see iterates of zero (but not zero itself) occur more frequently than other points.
+
+\
+
+La figura 2.12 revela una secuencia de líneas oscuras, también reveladas en la figura 2.13, cuyo comportamiento parece estar relacionado con las bifurcaciones exhibidas por el mapa. Estas forman lo que Hao Bai-Lin ha llamado el "esqueleto" del diagrama de bifurcación, y podemos explicar su presencia de manera bastante simple. Para un mapa unimodal x n+1 = f (x n , μ), la "estabilidad" de cualquier cadena {x1 . . . x p } (no necesariamente periódica) está dada por el producto ∏p 1 f ′(x i ). En particular, si x1 = 0 (donde f ′ = 0), entonces ∏p 1 f ′(x i ) = 0, y la cadena es "superestable". Lo que esto significa es que, si el comportamiento es caótico, los puntos que caen cerca de cero permanecerán más cerca de iteraciones posteriores de cero durante más tiempo que otras trayectorias permanecen cerca unas de otras. Por lo tanto, en una región caótica, esperamos ver iteraciones de cero (pero no de cero en sí) con mayor frecuencia que otros puntos.
+
+\
+\
+
+Let us define the functions Pk (μ) as the successive iterates of zero: thus
+
+\
+
+P1(μ) = f (0, μ), . . . , Pn (μ) = f \[Pn−1(μ), μ\]. (2.29)
+
+\
+
+These define curves in (x, μ) space, and these curves form the skeleton of the bifur-
+
+cation diagram. For example, if f = 1 − μx2 , we have
+
+\
+
+P1 = 1,
+
+P2 = 1 − μ,
+
+P3 = 1 − μ + 2μ2 − μ3,
+
+P4 = 1 − μ + 2μ2 − 5μ3 + 6μ4 − 6μ5 − 4μ6 − μ7, (2.30)
+
+\
+
+and so on. Some of these curves are shown in Fig. 2.16, and Fig. 2.17 shows them superimposed on the bifurcation tree, which shows the relation between them and the periodic windows.
+
+\
+
+y así sucesivamente. Algunas de estas curvas se muestran en la figura 2.16, y la figura 2.17 las muestra superpuestas al árbol de bifurcación, que muestra la relación entre ellas y las ventanas periódicas.
+
+\
+\
+
+It is instructive, for example, to consider the period-three window. Figure 2.18 shows the graph of f 3 , for μ just lower than the value μc where the period-three orbit comes into existence. As μ increases, the troughs dip down below the 45 degree line, and a pair of orbits (one stable, one unstable) is created, as in Fig. 2.13. For μ slightly below μc, the chaotic attractor spends most of its time near the incipient period-three orbit. The trajectories become intermittently chaotic, as indicated in Fig. 2.19, and in particular, the iterates of the minima of f 3 are all close to the period-three orbit.
+
+\
+
+Resulta instructivo, por ejemplo, considerar la ventana de período tres. La figura 2.18 muestra el gráfico de f 3 , para μ justo por debajo del valor μc donde surge la órbita de período tres. A medida que μ aumenta, los valles descienden por debajo de la línea de 45 grados y se crea un par de órbitas (una estable, una inestable), como en la figura 2.13. Para μ ligeramente por debajo de μc, el atractor caótico pasa la mayor parte de su tiempo cerca de la incipiente órbita de período tres. Las trayectorias se vuelven intermitentemente caóticas, como se indica en la figura 2.19, y en particular, las iteraciones de los mínimos de f 3 están todas cerca de la órbita de período tres.
+
+\
+\
+
+It follows that for μ near μc many of the curves Pn pass close to the fixed points of f 3 . For a slightly higher value of μ, the minima of f 3 become fixed points themselves, i.e. the period-three orbit becomes super-stable, and at this point P3(μ) = P6(μ) = P9(μ) = . . .. It follows that such points of confluence of the functions Pn can be approximately associated with the onset of periodic windows via the creation of a pair of orbits in a saddle-node bifurcation and the simultaneous crisis as these fixed points collide with the chaotic attractor. Such approximation becomes better for higher period orbits, since f n becomes steeper, and the parameter values where ( f n )′ = 1 and ( f n )′ = 0 become very close.
+
+\
+
+De ello se deduce que para μ cerca de μc muchas de las curvas Pn pasan cerca de los puntos fijos de f 3 . Para un valor ligeramente superior de μ, los mínimos de f 3 se convierten en puntos fijos en sí mismos, es decir, la órbita de periodo tres se vuelve superestable, y en este punto P3(μ) = P6(μ) = P9(μ) = . . .. De ello se deduce que dichos puntos de confluencia de las funciones Pn pueden asociarse aproximadamente con el inicio de ventanas periódicas mediante la creación de un par de órbitas en una bifurcación de nodo de silla y la crisis simultánea cuando estos puntos fijos colisionan con el atractor caótico. Dicha aproximación se vuelve mejor para órbitas de periodo superior, ya que f n se vuelve más empinada y los valores de los parámetros donde ( f n )′ = 1 y ( f n )′ = 0 se vuelven muy cercanos.
+
+\
+\
+
+It is not difficult to show that the {Pkn } curves associated with saddle-node crises are tangential. Other types of intersection might be termed \'stars\'; the most prominent in Fig. 2.12 is that associated with the merging of two separate pieces of the attractor. To understand this, consider Fig. 2.20. The two pieces of chaotic attractor are associated with period-doubling sequences associated with each fixed point of f 2 . The period-doubling sequence reaches its limit before the separate regions merge. It is clear that the merger of the two attracting sets is associated with an orbit which connects the turning points to the (unstable) fixed point. Specifically, f 3(0) = x∗ is the fixed point, so that this bifurcation is associated with the value of μ for which P3(μ) = P4(μ) = P5(μ) = . . ..
+
+\
+
+No es difícil demostrar que las curvas {Pkn } asociadas con las crisis de los nodos de silla son tangenciales. Otros tipos de intersección podrían denominarse "estrellas"; la más destacada en la figura 2.12 es la asociada con la fusión de dos partes separadas del atractor. Para entender esto, considere la figura 2.20. Las dos partes del atractor caótico están asociadas con secuencias de duplicación de período asociadas con cada punto fijo de f 2 . La secuencia de duplicación de período alcanza su límite antes de que las regiones separadas se fusionen. Está claro que la fusión de los dos conjuntos de atracción está asociada con una órbita que conecta los puntos de inflexión con el punto fijo (inestable). Específicamente, f 3(0) = x∗ es el punto fijo, de modo que esta bifurcación está asociada con el valor de μ para el cual P3(μ) = P4(μ) = P5(μ) = . . ..
+
+\
+\
+
+**2.4 Symbolic Dynamics: The Kneading Sequence**
+
+\
+
+The ideas used previously in discussing the dynamics of the tent map can be very elegantly generalised to describe the progress from order to chaos as the bifurcation parameter μ increases. However, it is now convenient to revert to a definition of a unimodal map as a one-humped function on the unit interval, with a fixed point at the left:
+
+\
+
+Las ideas utilizadas anteriormente al analizar la dinámica de la función de tienda de campaña se pueden generalizar de forma muy elegante para describir el progreso del orden al caos a medida que aumenta el parámetro de bifurcación μ. Sin embargo, ahora es conveniente volver a una definición de función unimodal como una función de una joroba en el intervalo unitario, con un punto fijo a la izquierda:
+
+\
+\
+
+**Definition**
+
+\
+
+A unimodal map f : \[0, 1\] → R is one for which f is continuous, f (0) = f (1) = 0,
+
+and is strictly monotone on each of \[0, c), (c, 1\], where c ∈ (0, 1).
+
+\
+
+We will continue to use μ as the bifurcation parameter. Note that the unit interval is invariant if f (c) ≤ 1, and we assume this. The logistic map takes f (x) = μx(1 − x), with 0 ≤ μ ≤ 4. There are two main combinatorial problems. Firstly, since for small μ there is a globally attracting fixed point, but for μ = 4 (in the logistic map) periodic orbits of all orbits exist, how do these orbits come into existence? As we have seen, the answer is essentially that periods of order k × 2n are generated by period-doubling, while basic odd periods can be generated by saddle-node bifurcations. But we want to know more than this. What order do the periodic orbits occur in? Moreover, how many orbits of any period p are there?
+
+\
+
+Continuaremos usando μ como el parámetro de bifurcación. Nótese que el intervalo unitario es invariante si f (c) ≤ 1, y asumimos esto. El mapa logístico toma f (x) = μx(1 − x), con 0 ≤ μ ≤ 4. Hay dos problemas combinatorios principales. En primer lugar, dado que para μ pequeño hay un punto fijo que atrae globalmente, pero para μ = 4 (en el mapa logístico) existen órbitas periódicas de todas las órbitas, ¿cómo surgen estas órbitas? Como hemos visto, la respuesta es esencialmente que los períodos de orden k × 2n se generan por duplicación de período, mientras que los períodos impares básicos pueden generarse por bifurcaciones de nodos de silla. Pero queremos saber más que esto. ¿En qué orden ocurren las órbitas periódicas? Además, ¿cuántas órbitas de cualquier período p hay?
+
+\
+\
+
+We define the itinerary of a point x as the infinite sequence of symbols which indicates whether f n (x) is less than, greater than, or equal to, the turning point c. More precisely,
+
+\
+
+Definimos el itinerario de un punto x como la secuencia infinita de símbolos que indica si f n (x) es menor, mayor o igual que el punto de inflexión c. Más precisamente,
+
+\
+\
+
+S(x) = s = s0s1s2 . . . , (2.31)
+
+\
+
+where
+
+\
+
+s j = 0 if f j (x) \< c,
+
+= 1 if f j (x) \> c,
+
+= C if f j (x) = c. (2.32)
+
+\
+
+Although we have used 0 and 1, the sequence s should be thought of as a lexicographic string, not a number, although we retain the ordering. 14
+
+\
+
+Next, we define the kneading sequence, which is the itinerary of f (c):
+
+\
+
+K ( f ) = S\[ f (c)\]. (2.33)
+
+\
+
+The aim is to identify points with their itineraries, in the same sort of way as we were able to do for the tent map. This is facilitated by a natural ordering (denoted ≺) on the set of itineraries. Let s = (s0s1s2 . . .) and t = (t0t1t2 . . .) be two itineraries. Suppose si = ti for 0 ≤ i ≤ n − 1 but s n = t n , and let τn (s) be the number of 1\'s in s0, s1 . . . s n . Then we define
+
+\
+
+El objetivo es identificar puntos con sus itinerarios, de la misma manera que pudimos hacerlo para el mapa de la tienda. Esto se facilita mediante un ordenamiento natural (denotado ≺) en el conjunto de itinerarios. Sean s = (s0s1s2 . . .) y t = (t0t1t2 . . .) dos itinerarios. Supongamos que si = ti para 0 ≤ i ≤ n − 1 pero s n = t n , y sea τn (s) el número de 1 en s0, s1 . . . s n . Luego definimos
+
+\
+\
+
+s ≺ t if either s n \< t n and τn−1(s) is even;
+
+\
+
+or s n \> t n and τn−1(s) is odd : (2.34)
+
+\
+
+otherwise s  t. In this definition, we take τ−1 = 0, i.e. if s0 = t0 then the ordering is that of the first symbol. We take 0 \< C \< 1 in this definition. It is an awkward but trivial exercise to show that this defines a complete ordering on the set of itineraries. Moreover, this is the same as that on the real line, due to the following
+
+\
+
+de lo contrario s t. En esta definición, tomamos τ−1 = 0, es decir, si s0 = t0 entonces el orden es el del primer símbolo. Tomamos 0 \< C \< 1 en esta definición. Es un ejercicio complicado pero trivial demostrar que esto define un ordenamiento completo en el conjunto de itinerarios. Además, esto es lo mismo que en la línea real, debido a la siguiente
+
+\
+\
+
+**Theorem**
+
+\
+
+If S(x) ≺ S(y), then x \< y :
+
+if x \< y, then S(x)  S(y). (2.35)
+
+\
+
+The equality in the second part (which follows directly from the first) cannot be removed, since if f has a stable periodic orbit, then there will generally be an interval of points with identical itineraries.
+
+\
+
+La igualdad de la segunda parte (que se sigue directamente de la primera) no se puede eliminar, ya que si f tiene una órbita periódica estable, entonces generalmente habrá un intervalo de puntos con itinerarios idénticos.
+
+\
+\
+
+The proof of the (first part of) the theorem is by induction on n, the discrepancy between s and t. 15 Let us assume S(x) = s ≺ S(y) = t. If the discrepancy n = 0, then we have directly s0 \< t0 , thus x \< y in view of (2.32).
+
+\
+
+La prueba de la (primera parte del) teorema es por inducción sobre n, la discrepancia entre s y t. 15 Supongamos que S(x) = s ≺ S(y) = t. Si la discrepancia n = 0, entonces tenemos directamente s0 \< t0 , por tanto x \< y en vista de (2.32).
+
+\
+\
+
+Now suppose the theorem is true for all sequences with discrepancies less than n, and suppose that S(x) = s ≺ S(y) = t, where s and t have discrepancy n \> 0. Since S\[ f (x)\] = s1s2 . . . and S\[ f (y)\] = t1t2 . . ., these two sequences have discrepancy n − 1.
+
+\
+
+Supongamos ahora que el teorema es verdadero para todas las secuencias con discrepancias menores que n, y supongamos que S(x) = s ≺ S(y) = t, donde s y t tienen discrepancia n \> 0. Como S\[ f (x)\] = s1s2 . . . y S\[ f (y)\] = t1t2 . . ., estas dos secuencias tienen discrepancia n − 1.
+
+\
+\
+
+There are three cases to consider. If s0 = t0 = 0, the number of ones in s0 . . . s n is the same as in s1 . . . s n , and therefore in this case S(x) ≺ S(y) implies S\[ f (x)\] ≺ S\[ f (y)\], which by the inductive assumption implies f (x) \< f (y); but since s0 = t0 = 0 implies x \< c, y \< c, where f is increasing, then this implies x \< y.
+
+\
+
+Hay tres casos a considerar. Si s0 = t0 = 0, el número de unos en s0 . . . s n es el mismo que en s1 . . . s n , y por lo tanto en este caso S(x) ≺ S(y) implica S\[ f (x)\] ≺ S\[ f (y)\], lo que por el supuesto inductivo implica f (x) \< f (y); pero como s0 = t0 = 0 implica x \< c, y \< c, donde f es creciente, entonces esto implica x \< y.
+
+\
+\
+
+Alternatively, if s0 = t0 = 1, then the number of ones in s0 . . . s n is one more than in s1 . . . s n , and therefore in this case S(x) ≺ S(y) implies S\[ f (x)\]  S\[ f (y)\], which by the inductive assumption implies f (x) \> f (y); but since s0 = t0 = 1 implies x \> c, y \> c, on which f is decreasing, then we again obtain x \< y.
+
+\
+
+Alternativamente, si s0 = t0 = 1, entonces el número de unos en s0 . . . s n es uno más que en s1 . . . s n , y por lo tanto en este caso S(x) ≺ S(y) implica S\[ f (x)\] S\[ f (y)\], lo que por el supuesto inductivo implica f (x) \> f (y); pero como s0 = t0 = 1 implica x \> c, y \> c, en lo que f es decreciente, entonces obtenemos nuevamente x \< y.
+
+\
+\
+
+The final possibility is that s0 = t0 = C, but this implies x = y = c, and thus S(x) = S(y), a contradiction. Thus we have proved the inductive step, and hence the theorem is proved.
+
+\
+
+La última posibilidad es que s0 = t0 = C, pero esto implica x = y = c, y por lo tanto S(x) = S(y), una contradicción. Así pues, hemos demostrado el paso inductivo y, por tanto, el teorema queda demostrado.
+
+\
+\
+
+Now, amongst all possible sequences s, we want to identify those which are the itineraries of some point x. We call such sequences admissible. The admissible sequences will then basically tell us how many periodic (and aperiodic) orbits there are. Notice that we have f (x) ≤ f (c) ≤ 1 for all x ∈ \[0, 1\]. If we denote the shift map on symbolic sequences (s0s1s2 . . .) by
+
+\
+
+Ahora, entre todas las posibles secuencias s, queremos identificar aquellas que son los itinerarios de algún punto x. Llamamos a estas secuencias admisibles. Las secuencias admisibles nos dirán básicamente cuántas órbitas periódicas (y aperiódicas) hay. Nótese que tenemos f (x) ≤ f (c) ≤ 1 para todo x ∈ \[0, 1\]. Si denotamos la función de desplazamiento en las secuencias simbólicas (s0s1s2 . . .) por
+
+\
+\
+\
+
+σ (s0s1s2 . . .) = (s1s2s3 . . .), (2.36)
+
+\
+
+then we have that
+
+\
+
+S\[ f (x)\] = σ \[S(x)\]. (2.37)
+
+\
+
+It follows that σ n \[S(x)\] = S\[ f n (x)\], and f n (x) ≤ f (c), whence by the Theorem (2.35), σ n \[S(x)\] = S\[ f n (x)\]  S\[ f (c)\] = K ( f ), for any n. Thus any admissible sequence must satisfy the above criterion. Remarkably, the converse is also (almost) true. In fact, we have the
+
+\
+
+De ello se deduce que σ n \[S(x)\] = S\[ f n (x)\], y f n (x) ≤ f (c), de donde por el Teorema (2.35), σ n \[S(x)\] = S\[ f n (x)\] S\[ f (c)\] = K ( f ), para cualquier n. Por lo tanto, cualquier secuencia admisible debe satisfacer el criterio anterior. Sorprendentemente, la inversa también es (casi) cierta. De hecho, tenemos la
+
+\
+\
+
+**Theorem (Milnor--Thurston)**
+
+\
+
+If c is not periodic, 16 and if σ n (t) ≺ K ( f ) ∀ n ≥ 1, then ∃ x with S(x) = t.
+
+\
+
+To prove this, first note that if v = C . . ., then σ (v) = K ( f ). It follows from this
+
+that if t satisfies the conditions of the theorem, then t j = C for all j (otherwise
+
+σ j+1(t) = K ( f )).
+
+\
+
+Next, we use an overbar to signify a repeating sequence, thus ¯0 = 000 . . ., 1¯0 =
+
+1000 . . ., 10 = 101010 . . ., etc. Since f (0) = f (1) = 0, it follows that
+
+\
+
+S(0) = ¯0, S(1) = 1¯0. (2.38)
+
+\
+
+Since both ¯0 and 1¯0 are itineraries of points (0 and 1) we can assume that t = ¯0, 1¯0.
+
+\
+
+We then have
+
+\
+
+ ¯0 ≺ t ≺ 1¯0. (2.39)
+
+\
+
+The first of these follows from the fact that (since we take t = ¯0), there is a first non-zero value of tk , so that the discrepancy is k and the number of 1s in the first k − 1 symbols is zero, thus even, and 0 \< t k . The second follows similarly: if t0 = 1, then the discrepancy is zero, the number of preceding 1s is zero, thus even, and t0 \< 1, while if t0 = 1 and t k is the first value for k \> 0 such that t k = 0, then the discrepancy is k and the number of 1s is odd, and tk \> 0.
+
+\
+
+La primera de ellas se sigue del hecho de que (ya que tomamos t = ¯0), hay un primer valor distinto de cero de tk , de modo que la discrepancia es k y el número de 1 en los primeros k − 1 símbolos es cero, por lo tanto par, y 0 \< t k . La segunda se sigue de manera similar: si t0 = 1, entonces la discrepancia es cero, el número de 1 precedentes es cero, por lo tanto par, y t0 \< 1, mientras que si t0 = 1 y t k es el primer valor para k \> 0 tal que t k = 0, entonces la discrepancia es k y el número de 1 es impar, y tk \> 0.
+
+\
+\
+
+Now let L t = {x\|S(x) ≺ t} and R t = {x\|S(x)  t}. Both these sets are non-empty, since 0 ∈ L t and 1 ∈ R t , and their intersection is clearly empty. We shall show that they are open sets. It will then follow that the set {x\|S(x) = t} = \[0, 1\] \\ (L t ∪ R t ) is closed and non-empty, which proves the theorem. 17
+
+\
+
+Ahora, sean L t = {x\|S(x) ≺ t} y R t = {x\|S(x) t}. Ambos conjuntos no son vacíos, puesto que 0 ∈ L t y 1 ∈ R t , y su intersección es claramente vacía. Demostraremos que son conjuntos abiertos. De ello se deducirá que el conjunto {x\|S(x) = t} = \[0, 1\] \\ (L t ∪ R t ) es cerrado y no vacío, lo que demuestra el teorema. 17
+
+\
+\
+
+We shall show that L t is open; the argument for R t is similar. Let v = v0v1v2 . . . be such that v j = C for j = 0, . . . , n and denote U n (v) = {x\|S(x) = v0 . . . vn wn+1 . . .}, where wk is arbitrary for k \> n. This set is open, since small perturbations to x ∈ U n (v) leave the iterates f j (x + δx), j = 0, . . . , n on the same side of c as f j (x).
+
+\
+
+Demostraremos que L t es abierto; el argumento para R t es similar. Sea v = v0v1v2 . . . tal que v j = C para j = 0, . . . , n y denotemos U n (v) = {x\|S(x) = v0 . . . vn wn+1 . . .}, donde wk es arbitrario para k \> n. Este conjunto es abierto, ya que pequeñas perturbaciones en x ∈ U n (v) dejan los iterados f j (x + δx), j = 0, . . . , n en el mismo lado de c que f j (x).
+
+\
+\
+
+Now suppose we select z ∈ L t so that S(z) = s ≺ t. Let the discrepancy of s and t be n, and suppose for example t n = 1 (the case t n = 0 is similar), so that s n = 0 or C. Since s ≺ t and s n \< t n in this case, there must be an even number of 1s in s0, . . . , s n−1 . If s n = 0, then z ∈ U n (s), and all x ∈ U n (s) have itinerary S(x) with the same discrepancy with t as s, and so satisfy S(x) ≺ t. Thus z ∈ U n (s) ⊂ L t .
+
+\
+
+Ahora supongamos que seleccionamos z ∈ L t de modo que S(z) = s ≺ t. Sea n la discrepancia de s y t, y supongamos, por ejemplo, que t n = 1 (el caso t n = 0 es similar), de modo que s n = 0 o C. Como s ≺ t y s n \< t n en este caso, debe haber un número par de 1 en s0, . . . , s n−1 . Si s n = 0, entonces z ∈ U n (s), y todos los x ∈ U n (s) tienen itinerario S(x) con la misma discrepancia con t cuando s, y por lo tanto satisfacen S(x) ≺ t. Por lo tanto, z ∈ U n (s) ⊂ L t .
+
+\
+\
+
+Alternatively, suppose that s n = C. Then since c is assumed not to be periodic, we have that s k = C for k \> n. Furthermore, σ n+1(s) = K ( f ). It must therefore be the case that there is some minimum k ≥ 1 such that s n+k = t n+k , for otherwise σ n+1(t) = σ n+1(s) = K ( f ), contradicting our assumption. Let there be an even number of 1s in t n+1, . . . , t n+k−1 (the odd case is similar); then we must have t n+k = 0, s n+k = 1 in order that σ n+1(t) = t n+1 . . . ≺ σ n+1(s) = K ( f ).
+
+\
+
+Alternativamente, supongamos que s n = C. Entonces, como se supone que c no es periódica, tenemos que s k = C para k \> n. Además, σ n+1(s) = K ( f ). Por lo tanto, debe ser el caso de que exista algún mínimo k ≥ 1 tal que s n+k = t n+k , porque de lo contrario σ n+1(t) = σ n+1(s) = K ( f ), contradiciendo nuestra suposición. Sea un número par de 1 en t n+1, . . . , t n+k−1 (el caso impar es similar); entonces debemos tener t n+k = 0, s n+k = 1 para que σ n+1(t) = t n+1 . . . ≺ σ n+1(s) = K ( f ).
+
+\
+\
+
+Now let W be the set {x\|S(x) = s0 . . . s n−1ξ s n+1 . . . s n+k wn+k+1 . . .}, where wn+ j is arbitrary for j \> k, and also ξ = 0, C or 1. In particular, z ∈ W , and small perturbations of w ∈ W remain in W , so that W is open.
+
+\
+
+Sea ahora W el conjunto {x\|S(x) = s0 . . . s n−1ξ s n+1 . . . s n+k wn+k+1 . . .}, donde wn+ j es arbitrario para j \> k, y también ξ = 0, C o 1. En particular, z ∈ W , y pequeñas perturbaciones de w ∈ W permanecen en W , de modo que W está abierto.
+
+\
+\
+
+If ξ = 0 or C, it is immediate that S(x) ≺ t for x ∈ W , since the discrepancy is n and we have supposed an even number of 1s in the first n − 1 elements of t. On the other hand, if ξ = 1, then the first n + k − 1 elements of S(x) and t coincide, and further, there are an odd number of 1s in the first n + k − 1 elements (the even ones in s0 . . . s n−1 , the even ones in s n+1 . . . s n+k−1 and the odd one at s n ); furthermore, by definition of W , S(x)n+k = 1 and t n+k = 0. Therefore, we have that S(x) ≺ t in this case also, and so z ∈ W ⊂ L t . Since both U n (s) and W are open sets, it follows that L t is open. The various alternatives are treated similarly, and this concludes the proof.
+
+\
+
+Si ξ = 0 o C, es inmediato que S(x) ≺ t para x ∈ W , ya que la discrepancia es n y hemos supuesto un número par de 1 en los primeros n − 1 elementos de t. Por otro lado, si ξ = 1, entonces los primeros n + k − 1 elementos de S(x) y t coinciden, y además, hay un número impar de 1 en los primeros n + k − 1 elementos (los pares en s0 . . . s n−1 , los pares en s n+1 . . . s n+k−1 y el impar en s n ); además, por definición de W , S(x)n+k = 1 y t n+k = 0. Por lo tanto, tenemos que S(x) ≺ t también en este caso, y por lo tanto z ∈ W ⊂ L t . Como tanto U n (s) como W son conjuntos abiertos, se sigue que L t es abierto. Las distintas alternativas se tratan de manera similar, y esto concluye la prueba.
+
+\
+\
+
+It follows from this that the existence and number of periodic orbits are determined by the kneading sequence. Bifurcations in the set of periodic orbits, therefore, occur when the kneading sequence changes, and this happens precisely at values of μ where c is periodic---i.e. at the Pn intersections previously referred to. Using this special ordering, one can deduce the progressive appearance of periodic orbits. We do no more here than give the theorem due to Šarkowskii (1964):
+
+\
+
+De esto se deduce que la existencia y el número de órbitas periódicas están determinados por la secuencia de amasado. Por lo tanto, las bifurcaciones en el conjunto de órbitas periódicas ocurren cuando cambia la secuencia de amasado, y esto sucede precisamente en valores de μ donde c es periódico, es decir, en las intersecciones Pn a las que nos referimos anteriormente. Usando este ordenamiento especial, se puede deducir la aparición progresiva de órbitas periódicas. Aquí no hacemos más que dar el teorema debido a Šarkowskii (1964):
+
+\
+\
+
+Order the integers as follows:
+
+\
+
+1  2  4 . . .  2k  2k+1  . . .
+
+2k+1(2l + 1)  2k+1(2l − 1)  . . .  2k+1.5  2k+1.3  . . .
+
+2k (2l + 1)  2k (2l − 1)  . . .  2k .3  . . .
+
+. . .  2.5  2.3  . . .
+
+(2l + 1)  (2l − 1) . . .  5  3.
+
+(2.40)
+
+\
+
+If f is a continuous map of an interval into itself with a periodic point of period p, then f has periodic points of period q for all q  p. In particular, period-three implies periods of all orders. In terms of admissible sequences, this involves finding periodic sequences s such that σ n (s) ≺ K ( f ) = 10C (if we take the superstable period-three orbit 18 for example); in this case the Milnor--Thurston theorem does not immediately apply, since c is periodic, but it does if one adds the extra condition (in this case) that σ n (s) ≺ 101. 19
+
+\
+
+Si f es una función continua de un intervalo en sí mismo con un punto periódico de periodo p, entonces f tiene puntos periódicos de periodo q para todo q p. En particular, el periodo tres implica periodos de todos los órdenes. En términos de sucesiones admisibles, esto implica encontrar sucesiones periódicas s tales que σ n (s) ≺ K ( f ) = 10C (si tomamos la órbita superestable de periodo tres 18 por ejemplo); en este caso el teorema de Milnor-Thurston no se aplica inmediatamente, ya que c es periódico, pero sí se aplica si se añade la condición adicional (en este caso) de que σ n (s) ≺ 101. 19
+
+\
+\
+
+**2.5 Notes and References**
+
+\
+
+**2.5.1 The Feigenbaum Conjectures**
+
+\
+
+Mitchell Feigenbaum came to M. I. T. to give a seminar in about 1980 on his recent work on period-doubling (Feigenbaum 1978, 1979). The room was full. And it was a big lecture theatre: four hundred people had turned up. At the time, the idea of universality in physical systems seemed to provide a route to understanding turbulence in fluid mechanical systems (we will see more of this in Chap. 6). Certainly, there was an influx of physicists and analysts (with inertial manifold theory) into the classical territory of fluid dynamics, and there was some friction as a consequence. Less attention is now paid to the Feigenbaum period-doubling cascade. 
+
+\
+
+Mitchell Feigenbaum llegó al MIT en 1980 para dar un seminario sobre su reciente trabajo sobre la duplicación del período (Feigenbaum 1978, 1979). La sala estaba llena y era una gran sala de conferencias: habían acudido cuatrocientas personas. En ese momento, la idea de la universalidad en los sistemas físicos parecía proporcionar una vía para comprender la turbulencia en los sistemas mecánicos de fluidos (veremos más sobre esto en el capítulo 6). Ciertamente, hubo una afluencia de físicos y analistas (con teoría de variedades inerciales) en el territorio clásico de la dinámica de fluidos, y hubo cierta fricción como consecuencia. Ahora se presta menos atención a la cascada de duplicación del período de Feigenbaum.
+
+\
+\
+
+The key to the publicity attached at the time to the Feigenbaum \'route to chaos\' lies in the glamour of physics. The idea of \'universality\', and the use of the fashionable ideas of renormalisation, guaranteed an immediate and well-publicised success for Feigenbaum\'s ideas. There is no doubt that physicists\' enthusiasm for the concepts has provided a major advance in our understanding of physical processes. But nor is there any doubt that the details of fluid turbulence are more complicated than their description by one-dimensional maps, and the hyperbole of those days is no longer with us. The proofs of the Feigenbaum conjectures mentioned in the text are due to Lanford (1982) and Eckmann and Wittwer (1987).
+
+\
+
+La clave de la publicidad que se dio en su momento a la «ruta al caos» de Feigenbaum reside en el glamour de la física. La idea de «universalidad» y el uso de las ideas de moda de la renormalización garantizaron un éxito inmediato y bien publicitado de las ideas de Feigenbaum. No cabe duda de que el entusiasmo de los físicos por estos conceptos ha supuesto un avance importante en nuestra comprensión de los procesos físicos. Pero tampoco cabe duda de que los detalles de la turbulencia de los fluidos son más complicados que su descripción mediante mapas unidimensionales, y la hipérbole de aquellos días ya no existe. Las pruebas de las conjeturas de Feigenbaum mencionadas en el texto se deben a Lanford (1982) y a Eckmann y Wittwer (1987).
+
+\
+\
+
+**2.5.2 Kneading Theory**
+
+\
+
+The description of the kneading theory, and indeed much of this chapter, follows the exposition in the book by Devaney (1986). It must be said that this book is very well written, making what is essentially pure mathematics comprehensible even to an applied mathematician. The proof of the Milnor--Thurston theorem which we give here follows that of Devaney, but his proof (p. 145) has been elaborated in the present text.
+
+\
+
+La descripción de la teoría del amasado, y de hecho gran parte de este capítulo, sigue la exposición del libro de Devaney (1986). Hay que decir que este libro está muy bien escrito, haciendo que lo que es esencialmente matemática pura sea comprensible incluso para un matemático aplicado. La demostración del teorema de Milnor-Thurston que presentamos aquí sigue la de Devaney, pero su demostración (p. 145) ha sido elaborada en el presente texto.
+
+\
+\
+
+**2.5.3 Period-Doubling in Experiments**
+
+\
+
+A good deal of the excitement caused by the \'period-doubling route to chaos\' was the fact that it was observed in various fluid dynamical experiments. A summary of some of these is given in the monograph by Argyris et al. (2015). Among the early experimentalists, Albert Libchaber and Harry Swinney were prominent figures. Libchaber\'s work focussed on convection experiments with liquid helium and also mercury in a tiny box, while Swinney was more concerned with the transition to turbulent flow observed in Taylor--Couette flow. 
+
+\
+\
+
+Gran parte del entusiasmo que suscitó la «ruta de duplicación del período hacia el caos» se debió al hecho de que se observó en varios experimentos de dinámica de fluidos. En la monografía de Argyris et al. (2015) se ofrece un resumen de algunos de ellos. Entre los primeros experimentalistas, Albert Libchaber y Harry Swinney fueron figuras destacadas. El trabajo de Libchaber se centró en experimentos de convección con helio líquido y también mercurio en una caja diminuta, mientras que Swinney se ocupó más de la transición al flujo turbulento observado en el flujo de Taylor-Couette.
+
+\
+\
+
+These latter experiments (e.g. Gollub and Swinney (1975), involving the shear flow induced by the differential motion caused by rotation of the inner of two concentric cylinders, found a sequence consisting of Hopf bifurcation and secondary Hopf bifurcation, before the appearance of broadband noise signalled the onset of chaotic motion. This is consistent with transitions described in Chap. 3. Libchaber, on the other hand, found transitions associated with period-doubling. Some of this work is reviewed by Libchaber (1983).
+
+\
+
+Estos últimos experimentos (por ejemplo, Gollub y Swinney (1975), que involucran el flujo de corte inducido por el movimiento diferencial causado por la rotación del interior de dos cilindros concéntricos, encontraron una secuencia que consiste en bifurcación de Hopf y bifurcación de Hopf secundaria, antes de que la aparición de ruido de banda ancha señalara el inicio del movimiento caótico. Esto es consistente con las transiciones descritas en el Cap. 3. Libchaber, por otro lado, encontró transiciones asociadas con la duplicación del período. Parte de este trabajo es revisado por Libchaber (1983).
+
+\
+\
+
+**2.6 Exercises**
+
+\
+
+2.1 Give a formal justification that a fixed point x∗ is stable if ∣ ∣ f ′(x∗)∣ ∣ \< 1. (That is, prove that if f is continuously differentiable and x0 is close enough to x∗, then x n → x∗ as n → ∞.) Show also that the stability of the periodic orbit {x1, \...x p } of f is determined by ∣ ∣∏p 1 f ′(x j )∣ ∣.
+
+\
+
+2.1 Dé una justificación formal de que un punto fijo x∗ es estable si ∣ ∣ f ′(x∗)∣ ∣ \< 1. (Es decir, demuestre que si f es continuamente diferenciable y x0 está suficientemente cerca de x∗, entonces x n → x∗ cuando n → ∞.) Demuestre también que la estabilidad de la órbita periódica {x1, \...x p } de f está determinada por ∣ ∣∏p 1 f ′(x j )∣ ∣.
+
+\
+\
+\
+
+2.2 Use the implicit function theorem20 to show that if x → f (x, ε) is a smooth (C1) map, and x∗ = f (x∗, 0) with f ′(x∗, 0) = 1, then for sufficiently small ε, there is a fixed point x(ε) of f with x(0) = x∗. Deduce (with some care!) that the map
+
+\
+
+2.2 Utilice el teorema de la función implícita20 para demostrar que si x → f (x, ε) es una función suave (C1), y x∗ = f (x∗, 0) con f ′(x∗, 0) = 1, entonces, para ε suficientemente pequeño, hay un punto fijo x(ε) de f con x(0) = x∗. Deduzca (¡con algo de cuidado!) que la función
+
+\
+\
+
+θ → f s
+
+ε (θ) = θ + sε sin sθ + O(ε2) (mod 2π)
+
+\
+
+defined on the unit circle, i.e. θ ∈ \[0, 2π\], has 2s fixed points for small ε, where
+
+O(ε2) is a C2 perturbation.
+
+\
+
+\[The notation g ∈ C n means the function g and its first n derivatives are con-
+
+tinuous. Hint: consider, in the statement of the implicit function theorem, the
+
+functions g(x, ε) = f (x, ε) − x, g(θ, ε) = ( f s
+
+ε (θ) − θ)/ε.\]
+
+\
+
+2.3 By expanding in Taylor series in the vicinity of the bifurcation point, show in
+
+detail that a period-doubling bifurcation generates a single periodic orbit, and
+
+give a criterion for its stability in terms of the Schwarzian derivative at the fixed
+
+point,
+
+\
+
+S f = f ′′′
+
+f ′ − 3
+
+2
+
+( f ′′
+
+f ′
+
+)2
+
+.
+
+2.4 Classify all bifurcations of fixed points (stating the bifurcation parameter values)
+
+of the following maps:
+
+\
+
+\(i\) x → μ − x2;
+
+\(ii\) x → μx(1 − x);
+
+\(iii\) x → μx − x3.
+
+\
+
+Sketch the local bifurcation diagrams.
+
+\
+
+2.5 If x → f (x, μ) = x\[μ/{x2 + (μ − x2)e−4πμ}\]1/2 , show that if μ \< 0, f has a
+
+stable fixed point x = 0, and if μ \> 0 then f has an unstable fixed point x = 0,
+
+and two stable fixed points x = ±√μ. Find f n (x, μ) (the notation f n denotes
+
+the n-th iterate of f ). What are the domains of attraction of these stable fixed
+
+points?
+
+\
+
+2.6 Draw a graph of F(x) = 4x3 − 3x on the interval \[−1, 1\]. Show that the map
+
+x → F(x) has three fixed points, and examine their stability. By using a suit-
+
+able trigonometric transformation, show that the map is chaotic, and construct
+
+a suitable symbolic representation for orbits of F. \[Hint: write x as a ternary
+
+fraction\]. Use the symbolic representation of x to find how many fixed points
+
+and period-2 cycles there are, and verify your answer using the map
+
+\
+
+2.7 Let f : I → I be a unimodal map, let K ( f ) be non-repeating, and let s =
+
+s0s1 . . . s n−1 be a periodic sequence satisfying σ i (s) ≺ K ( f ) ∀ i. Assuming that
+
+J = {z ∈ I \| S(z) = s} is non-empty and closed, show
+
+\
+
+\(i\) that f n (J ) ⊂ J ;
+
+\(ii\) if J is a single point, J = {x}, then x generates a period n orbit;
+
+\(iii\) that otherwise, J = \[a, b\] is a closed interval; and then:
+
+\(iv\) f i (x) = c ∀ x ∈ J , ∀i;
+
+\(v\) f n (x) is strictly monotone on J ;
+
+\(vi\) f n (a) = a or b, f n (b) = a or b;
+
+\
+
+deduce that f has a periodic point x of period n with S(x) = s.
+
+\
+
+2.8 (i) Fermat\'s little theorem states that p \| a p − a ( p divides a p − a) if p is
+
+prime and a is a positive integer. Equivalently, using arithmetic modulo
+
+p (where r ≡ s mod p means that r = s + kp for some integer k ∈ Z),
+
+a p ≡ a mod p. If p \| a, the result is obvious, so assume p  a. Show that the
+
+sequence {ra, r = 1, 2, . . . , p − 1} is a permutation of {1, 2, . . . , p − 1}.
+
+Hence deduce the theorem by multiplying the elements of each set.
+
+\
+
+\(ii\) The logistic map is given by
+
+\
+
+z → f (z) = 1 − μz2,
+
+\
+
+where z and μ are in general complex. Show that the nth iterate f n (z) is a
+
+polynomial of degree 2n . Deduce that if q is prime, the number of period-q
+
+orbits is 2q − 2
+
+q , explaining why this is an integer. Deduce the number of
+
+period-3, period-5 and period-7 orbits. What is the number of period 4 orbits?
+
+\
+
+\(iii\) Write down the eighth degree polynomial corresponding to f 3(z) − z, and
+
+by factorising it, show that the sixth degree polynomial whose roots corre-
+
+spond to the period-3 orbits is given by
+
+\
+
+p6(ζ, μ) = a0 − a1ζ + a2ζ 2 + a3ζ 3 − a4ζ 4 − ζ 5 + ζ 6,
+
+\
+
+where ζ = μz and
+
+\
+
+a0 = 1 − μ(1 − μ)2, a1 = (1 − μ)2, a2 = (1 − 3μ + 3μ2),
+
+a3 = −(1 − 2μ), a4 = −(1 − 3μ).
+
+\
+
+Now note from Figs. 2.14 and 2.15 that the bifurcating period-3 orbit at
+
+μ = 1.75 is approximately at z = 0.0314, together with its first and second
+
+iterate, and thus ζ ≈ 0.055. Corroborate this by plotting p6(ζ, 1.75) and show-
+
+ing that it has three double roots.
+
+\
+
+Since one of the roots is small and close to zero, a perturbation method is
+
+suggested. Calculate the values of a0 , a1 and a2 at μ = 1.75 and show that
+
+a0  1, a1 ∼ 1, and the discriminant of the quadratic formed by the first three
+
+terms,
+
+\
+
+= a2
+
+1 − 4a0a2,
+
+\
+
+is small. Define
+
+\
+
+ε = a1
+
+2a2
+
+, β0 = 2a2
+
+a3
+
+1
+
+, β3 = a3
+
+a2
+
+, β4 = a4
+
+a2
+
+, b = 2
+
+a1
+
+,
+
+\
+
+and calculate the values of these constants when μ = 1.75.
+
+Show that if we define ζ = ε X, the scaled polynomial
+
+\
+
+p(X) = 2 p6
+
+εa1
+
+= (1 − X)2 − εβ0 + εβ3 X3 − ε2β4 X4 − ε4bX5 + ε5bX6,
+
+\
+
+and hence show that the real values of z = x for μ \> 1.75 are approximately
+
+\
+
+x = ε
+
+μ
+
+\[1 ± {ε(β0 − β3)}1/2\] . (∗)
+
+\
+
+Plot β0 as a function of μ for 1.75 \< μ \< 2, and explain why it becomes so
+
+large. Figure 2.21 shows a comparison of the approximation in (∗) with the
+
+exact solution for 1.75 \< μ \< 2. By consideration of the variation of the other
+
+constants with μ, explain why the approximation is so good, given the largeness
+
+of β0 . Plot an improved correction including β4 . Is it better? Why, or why not?
+
+\
+
+2.9 Let 2 be the sequence space of symbols 0 or 1, s = s0s1s2 . . . ∈ 2 , si = 0 or 1.
+
+\
+
+Define d(s, t) =
+
+∞∑
+
+0
+
+\|si − ti \|
+
+2i . Show that d is a metric for 2 , i.e. d(s, t) ≥ 0,
+
+\
+
+d(s, t) = 0 iff si = ti , d(s, t) = d(t, s), d(r, s) + d(s, t) ≥ d(r, t). Show that
+
+the shift map σ : 2 → 2 defined by σ (s0s1s2 . . .) = (s1s2s3 . . .) is continu-
+
+ous.
+
+\
+
+2.10 If s is a finite sequence of symbols s0 . . . s n , let us identify s with the periodic
+
+sequence ¯s. For such a periodic sequence, we define the maximal sequence to
+
+be M(s) = σ j (s) such that σ i (s) ≺ σ j (s) for all i = j (we assume s has no
+
+periodic subsequences). Finally we define the concatenation of two periodic
+
+sequences s and t to be the periodic sequence st.
+
+\
+
+Consider now periodic sequences containing only 0s and 1s. If s = s0 . . . s n ,
+
+define ˆs = s0 . . . s n−1 ˆs n , where ˆs n = s n . Let the sequences τ 0, τ 1, τ 2, . . . be
+
+defined inductively by τ 0 = 1, τ j+1 = τ j ˆτ j . Write down the first few such
+
+sequences.
+
+Show that
+
+\
+
+\(i\) τ j has period 2 j ;
+
+\(ii\) τ j has an odd number of 1s;
+
+\(iii\) τ 0 ≺ τ 1 ≺ τ 2 . . .;
+
+\(iv\) τ j is a maximal sequence. \[Hint: use induction.\]
+
+\
+
+Suppose that f (x; λ) is a family of maps such that K ( f ) = ¯0 when λ = λ0 and
+
+K ( f ) = 1¯0 when λ = λ1 \> λ0 , and that K ( f ) increases monotonically with
+
+λ. (The logistic map with λ0 = 0 and λ1 = 4 is such a family.) Deduce that the
+
+period 2r orbits of such a family occur in the order 2  2 2  . . .  2k
+
+2k+1 . . ..
+
+\
+
+Show also that if t is any periodic sequence, ti = C, t = ¯0, t = τ j ∀ j, then
+
+M(t)  τ j ∀ j, where M(t) is the maximal sequence of t. Hence show that all
+
+period 2r orbits appear before any odd period orbits.
+
+\

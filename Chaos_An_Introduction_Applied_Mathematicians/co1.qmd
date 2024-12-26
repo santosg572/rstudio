@@ -1,0 +1,493 @@
+---
+title: "c01"
+---
+
+Chaos_An_Introduction_Applied_Mathematicians_C01
+
+\
+
+Andrew Fowler • Mark McGuinness
+
+Chaos
+
+An Introduction for Applied Mathematicians
+
+\
+
+Chapter 1
+
+Introduction
+
+\
+
+### **1.1 Limit Cycles**
+
+El comportamiento de las ecuaciones diferenciales ordinarias autónomas (es decir, donde el tiempo no está representado explícitamente) en $R^2$ se entiende bien. El comportamiento cualitativo de la ecuación
+
+$$
+\dot{x} = f (x), x ∈ R^2
+$$\
+(1.1)
+
+está organizada por sus *puntos fijos*, donde $\dot{x} = f (x) = 0$. Los textos elementales muestran cómo estos pueden clasificarse en sillas, espirales y nodos dependiendo de los valores propios del jacobiano $Df (x)$ en el punto fijo. En particular, si estos valores propios son conjugados complejos, hay una espiral o foco; si son reales y de signo opuesto, hay una silla; y si son reales y del mismo signo, hay un nodo: vea la Fig. 1.1. Los nodos y espirales pueden ser estables o inestables dependiendo de si los valores propios λ tienen Re λ \< 0 o Re λ \> 0, respectivamente; las sillas son siempre inestables. Pueden ocurrir otros casos degenerados (centro, nodo degenerado), si Re λ = 0, o si dos valores propios se fusionan.
+
+El conocimiento del comportamiento de las trayectorias cerca de puntos fijos informa el método de análisis del plano de fase. Un ejemplo de su uso es encontrar soluciones de onda solitaria viajera de la ecuación de Korteweg-de Vries
+
+$$
+u_t + uu_x + u_{xxx} = 0 
+$$\
+\
+(1.2)
+
+\
+in the form $u = f (x − ct) = f (ξ )$, so that
+
+$$
+− c f′ + f f ′ + f ′′′ = 0, 
+$$\
+(1.3)
+
+con primera integral\
+
+$$
+− c f + \frac{1}{2} f^2 + f ′′ = 0 
+$$
+
+(1.4)
+
+(de modo que f (±∞) = 0). Esto representa un oscilador no lineal con potencial $V( f ) =- \frac{1}{2} c f^2 + \frac{1}{6} f^3$ . 1 Si tomamos $c > 0$ (sin pérdida de generalidad), entonces el plano de fase es como en la Fig. 1.2. Hay dos puntos fijos, $f = 0$, y $f = 2c$, que son respectivamente una silla y un centro. (Este último persiste como un centro en presencia de términos no lineales en virtud de la existencia de una primera integral, que a su vez está asociada con la ausencia de un término de amortiguamiento.) Existen ondas solitarias, en virtud de la órbita homoclínica que conecta 0 consigo mismo. Vemos además que existe una familia de órbitas periódicas que se encuentran dentro del bucle homoclínico. Uno puede pensar en la órbita homoclínica como un miembro limitante de esta familia con período infinito.
+
+En términos más generales, el comportamiento periódico se produce en sistemas bidimensionales en ciclos límite aislados. Un ciclo límite es una curva cerrada en un espacio de fases (que, por lo tanto, representa una serie temporal periódica) a la que tienden las trayectorias cercanas cuando t → +∞ (ciclo límite estable) o cuando t → −∞ (ciclo límite inestable). Un ejemplo sencillo (véase también el ejercicio 1.7) lo ofrece el sistema
+
+$$
+\dot{x} = x − y − x(x^2 + y^2), \\
+\dot{y} = x + y − y(x^2 + y^2); 
+$$\
+\
+Al transformar a coordenadas polares (r, θ), es sencillo encontrar el plano de fase que se muestra en la figura 1.3. Hay un ciclo límite estable en r = 1 y un foco inestable en r = 0.
+
+A menudo nos interesa el comportamiento de un sistema (físico) a medida que cambia un parámetro (por ejemplo, el clima de la Tierra a medida que cambia el nivel de CO2 atmosférico). En este caso, se podrían estudiar ecuaciones diferenciales de la forma
+
+$$
+\dot{x} = f (x, μ),
+$$\
+\
+donde μ es un parámetro. Para algunos rangos de μ, el sistema puede exhibir un comportamiento estable, en otros puede comportarse periódicamente. Uno desea entonces graficar regiones en el espacio de parámetros donde ocurren tales cambios cualitativos. Estos delinean valores particulares de μ en los cuales tales bifurcaciones tienen lugar, y μ entonces se llama un parámetro de bifurcación.
+
+### **1.2 Bifurcation Theory**
+
+El regulador de Watt (véase la figura 1.4) es un dispositivo inventado por James Watt alrededor de 1788 para controlar el flujo de vapor hacia los cilindros de un motor. Es un dispositivo simple pero eficiente, que actúa sobre la base de la teoría de la bifurcación. Como se muestra en la figura, el dispositivo consiste en esencia en un par de péndulos rígidos unidos a un eje central, que gira sobre su eje a una velocidad determinada por la presión del vapor en el motor. El objetivo es tener un dispositivo tal que si esta velocidad de rotación se vuelve demasiado grande, entonces los brazos del dispositivo se elevan, abriendo así una válvula que alivia la presión.
+
+Si denotamos el ángulo de los brazos del gobernador con la vertical descendente como θ, y la velocidad angular del eje como $\Omega$ , entonces la ecuación que gobierna la dinámica es, ignorando la fricción (ver pregunta 5.1),
+
+$$
+\ddot{θ} - \Omega^2 \sin θ \cos θ + \Omega^2_c \sin θ = 0, 
+$$\
+\
+(1.7)
+
+\
+
+where
+
+$$
+\Omega_c = \sqrt{\frac{g}{l}}
+$$\
+\
+
+$g$ es la aceleración debida a la gravedad y l es la longitud de los brazos del péndulo.
+
+Los estados estacionarios del sistema son θ = 0, π y también $±\cos^{−1} (\frac{\Omega^2_c}{\Omega^2})$ si $\Omega > \Omega_c$. La función del regulador se puede ver en el hecho de que podemos tener θ como una función creciente de $\Omega$ si $\Omega> \Omega_c$, abriendo así la válvula, y su funcionamiento depende de la existencia de una bifurcación en horquilla en $\Omega = \Omega_c$. Más precisamente, si linealizamos (1.7) cerca del origen, vemos que
+
+$$
+\ddot{θ} ≈ (\Omega^2 − \Omega^2_c ) θ
+$$\
+(1.9)
+
+y por lo tanto el estado vertical pierde estabilidad para $\Omega> \Omega_c$. Expandiendo más en θ y suponiendo también que $\Omega - \Omega_c$ es pequeño, tenemos
+
+$$
+\ddot{θ} ≈ (\Omega^2 - \Omega^2_c) θ - \frac{1}{2} \Omega^2_c θ^3 . . . , 
+$$\
+\
+Lo que demuestra explícitamente que existe un intercambio de estabilidad entre θ = 0 y los puntos fijos distintos de cero. La teoría de la bifurcación se analiza con más detalle en el capítulo 3.
+
+### **1.2.1 Hopf Bifurcation**
+
+\
+La transición del comportamiento estable al periódico suele estar asociada a una bifurcación de Hopf, como lo ejemplifica la siguiente versión generalizada de (1.5):
+
+$$
+\dot{x} = μx − \Omega y − x(x^2 + y^2),\\
+\dot{y} = \Omega x + μy − y(x^2 + y^2). 
+$$\
+
+Es sencillo encontrar que el origen es un foco estable para μ \< 0, un foco inestable para μ \> 0 y que para μ \> 0 existe una solución periódica estable, cuya amplitud $A = |z|_{max} = |x + iy|_{max} = O(√μ)$ (y de hecho es igual a √μ).
+
+El diagrama de bifurcación se muestra en la Fig. 1.5. Las características salientes son que, si el sistema linealizado tiene soluciones $\propto e^{σ t }$, entonces un par de valores propios conjugados complejos $σ = μ ± i\Omega$ del punto fijo cruzan el eje imaginario en μ = 0, a una "tasa" distinta de cero $(d[Re σ ]/dμ \neq 0)$, y como resultado, existe un ciclo límite en μ \> 0. Esto se conoce como una bifurcación de Hopf, y se considerará más adelante en el Cap. 3. Nótese el hecho de que el ciclo límite existe (para μ pequeño) en μ \> 0 o μ \< 0, de modo que su estabilidad es opuesta a la del punto fijo con el que coexiste. Además, su amplitud es O(√μ). Todas estas características son generalmente verdaderas.
+
+Los puntos fijos y las soluciones periódicas son \"todo\" lo que puede presentar un sistema bidimensional. Esto se debe a que las trayectorias no pueden intersecarse en el espacio de fases, debido al siguiente teorema de existencia:
+
+**Theorem (Picard)** If $\dot{x} = f (x)$ and $x(0) = x_0$, and f is Lipschitz continuous (i.e.
+
+$| f (x) − f (y)| < K |x − y|$ for some K ), then $x$ exists locally (in t) and is unique.
+
+\
+De hecho, aquí podemos tomar $x ∈ R^n$ , siempre que se elija una norma adecuada. En términos de diferenciabilidad, una condición suficiente para f es que $f ∈ C^1$ (es decir, f es continuamente diferenciable); el ejemplo habitual de necesidad es el de $\dot{x} = x^{1/2}$ , x(0) = 0, que tiene infinitas soluciones de la forma $x = \frac{1}{4} [t - t0]^2_{+}$, donde $t_0 ≥ 0$.2
+
+### **1.3 Strange Attractors**
+
+En tres o más dimensiones, sigue siendo cierto que las trayectorias no se cruzan, pero esto ya no restringe las órbitas de la forma en que lo hace en dos dimensiones. Es muy posible imaginar una trayectoria acotada en tres dimensiones que nunca se repita. Si tales trayectorias se pueden realizar es otra cuestión, por supuesto, pero la figura 1.6 sugiere que sí. Esto muestra una solución numérica de un conjunto de tres ecuaciones diferenciales ordinarias, conocidas como ecuaciones de Lorenz (escritas explícitamente en (1.14) a continuación, y que volveremos a encontrar más adelante, particularmente en el capítulo 4); la órbita parece trazar una superficie, aunque sea convoluta, en la que la órbita es densa (es decir, "rellena" la superficie). Estas observaciones plantean ciertos problemas conceptuales. Llamamos ecuación diferencial
+
+$$
+\dot{x} = f (x), x ∈ R^n
+$$(1.12)
+
+\
+disipativo si ∇. f \< 0; las ecuaciones de Lorenz son un ejemplo de un sistema disipativo. Es fácil demostrar que un volumen arbitrario V de puntos iniciales en el espacio de fases satisface la ecuación
+
+$$
+\dot{V} = V ∇. f. 
+$$\
+
+Por lo tanto, si ∇. f \< 0 (y está acotado desde cero), entonces V → 0 cuando t → ∞. Si, además, las soluciones están acotadas para todo t (por ejemplo, si x. f \< 0 para valores grandes de \|\|x\|\|), entonces todas las trayectorias deben ser atraídas hacia un conjunto de volumen cero.
+
+Consideremos las ecuaciones de Lorenz en tres dimensiones. La intuición nos dice que debemos esperar que el atractor de volumen cero sea de dimensión dos, es decir, una superficie. Y, sin embargo, ya hemos señalado que las órbitas en una superficie no pueden ser más excitantes que periódicas, en contraste con la figura 1.6. La resolución de esta paradoja debe residir en el hecho de que, si bien el atractor es localmente bidimensional, forma un conjunto entrelazado de superficies conectadas, sobre las cuales las órbitas pueden vagar eternamente. Por lo tanto, el área del atractor es ilimitada y, en cierto sentido, su dimensión es mayor que dos.
+
+Esta es una faceta de lo que se denomina un atractor extraño. Otra es que las trayectorias cercanas divergen (exponencialmente) en el tiempo. Es esta dependencia sensible de las condiciones iniciales lo que motivó el artículo original de Lorenz, y lo que (probablemente) explica por qué los meteorólogos no pueden predecir el tiempo con más de una semana de antelación. Cualquier incertidumbre inicial en los datos actuales (por ejemplo, debido a un número insuficiente de estaciones meteorológicas que recopilen información) se magnifica exponencialmente en el tiempo, de modo que las predicciones más allá de unos pocos días son poco fiables. Es probable que la naturaleza abunde con este tipo de fenómenos inherentemente impredecibles.
+
+### 1.4 Turbulence
+
+Durante siglos se ha observado con frecuencia que el agua fluye de forma irregular. La figura 1.7 muestra un dibujo de Leonardo da Vinci del agua que fluye hacia una piscina. Es una masa de burbujas y espirales dispuestas de forma irregular. Osborne Reynolds fue el primero en realizar investigaciones sistemáticas sobre este fenómeno de la turbulencia, a partir de 1880. Estudió el flujo en una tubería cilíndrica y descubrió que cuando un parámetro proporcional al caudal que atravesaba la tubería aumentaba hasta un valor crítico, el flujo experimentaba una transición desde un estado estacionario y uniforme a uno irregular, dependiente del tiempo y turbulento. Este parámetro, ahora llamado número de Reynolds (denominado Re), actúa así como un parámetro de bifurcación para el flujo de fluidos. Otros tipos de transición a la "turbulencia" en fluidos, por ejemplo en la convección térmica, el flujo rotatorio de Couette, los flujos estratificados rotatorios, etc., están asociados con cambios en el número de Rayleigh Ra, el número de Taylor Ta y el número de Rossby Ro.
+
+\
+La analogía entre la transición en ecuaciones diferenciales ordinarias desde un punto fijo a un movimiento periódico y, en última instancia, al caos, y transiciones similares en algunos experimentos de flujo de fluidos, sugiere que una estrategia útil para comprender estos fenómenos puede ser estudiar las bifurcaciones asociadas con las transiciones. En algunos experimentos, este enfoque ha tenido un éxito notable.
+
+La palabra «turbulencia» ha adquirido un significado particular para los especialistas en dinámica de fluidos, que a menudo la asocian con transiciones en flujos de cizallamiento (por ejemplo, flujos de Reynolds en una tubería, flujos de Poiseuille en el plano o flujos de capa límite). Se caracteriza por el desorden temporal y espacial y la existencia de «remolinos» en muchas escalas de longitud diferentes. Además, los flujos de cizallamiento se diferencian de otros experimentos con fluidos, como la convección de Rayleigh-Bénard (el movimiento inducido por el calentamiento de una capa de fluido desde abajo), en que los mecanismos de transición no muestran una analogía obvia con las transiciones en sistemas de dimensión finita. Como tal, se distinguen de los experimentos de «comportamiento más correcto».
+
+Algunos matemáticos y físicos han pisado este terreno sagrado, al incorporar la palabra «turbulencia» para sus propios fines, a veces simplemente para caracterizar el movimiento caótico en ecuaciones diferenciales ordinarias, o como término general para describir el desorden espacio-temporal. Al hacerlo, esto ha alejado a algunos especialistas en dinámica de fluidos, lo cual es una lástima, ya que no hay duda de que (en palabras de Ed Spiegel) «la turbulencia es caos, pero el caos no es turbulencia». Pero la clave para comprender la turbulencia en fluidos se encuentra en la teoría moderna del caos en sistemas dinámicos.
+
+### **1.5 Stochasticity**
+
+\
+Osborne Reynolds comenzó sus experimentos sobre el flujo en tuberías en 1880, y el primer artículo que informaba de sus resultados apareció en 1883. Un segundo artículo, que esbozaba las bases para la descripción estadística de la turbulencia y presentaba las tensiones de Reynolds, apareció en 1885. Ese mismo año, el rey Oscar II de Suecia propuso un premio para la solución de un problema aparentemente no relacionado con el tema mucho más antiguo de la mecánica celeste, a saber, la estabilidad de las órbitas del problema de los n cuerpos. Dado un sistema de puntos de masa autogravitantes, el premio pedía representaciones en serie convergentes de sus trayectorias para todos los tiempos. Dicho de otro modo, planteaba la cuestión de si el famoso principio de determinismo de Laplace3 podía ponerse en práctica: ¿son predecibles los movimientos de los cuerpos celestes? ¿Es estable el sistema solar?
+
+A primera vista, una pregunta de este tipo parece ridícula; el sistema solar, en particular, parece el epítome de la predictibilidad. Si se considera a los planetas como puntos de masa que interactúan según la gravitación newtoniana, se pueden predecir con precisión las trayectorias de la Tierra, la Luna y los demás planetas durante miles de años en el futuro o en el pasado. Los eclipses ya no son un presagio de catástrofes y las naves espaciales navegan por las trayectorias bien trazadas de los planetas. La mecánica newtoniana elemental nos enseña que las órbitas planetarias (el problema de los dos cuerpos) son elipses. La complicación surge cuando se intenta incluir el efecto perturbador de otros planetas en estas simples trayectorias elípticas. Aunque estas perturbaciones son pequeñas, el aumento del número de grados de libertad significa que ya no se puede estar seguro de la predictibilidad de las órbitas.
+
+El enigma es el siguiente: los métodos de la teoría de perturbaciones permiten calcular órbitas reales con la precisión que se desee para un tiempo finito, pero la cuestión de la estabilidad exige el estudio de la dinámica para todo el tiempo. Esquemáticamente, podemos encontrar representaciones precisas en serie para pequeñas perturbaciones de O(ε), por ejemplo, para t \< T. Es decir, se pueden calcular con precisión trayectorias para un valor T fijo como ε → 0. Pero la realidad es que ε es pequeño pero finito, y lo que realmente se desea es estudiar el límite T → ∞. Las series que se obtienen no son necesariamente convergentes, sino asintóticas.
+
+La no convergencia de las representaciones de las series de perturbaciones para las trayectorias planetarias está asociada con el fenómeno de la estocasticidad en la dinámica hamiltoniana. Un sistema como el sistema solar (nueve planetas más el Sol, digamos) está representado por la dinámica hamiltoniana asociada con el hamiltoniano H (que será simplemente la suma de las energías cinética y potencial). Este hamiltoniano es cercano al que describe las trayectorias como nueve problemas de dos cuerpos desacoplados, H0, digamos.
+
+En correspondencia con H0, el movimiento es de nueve osciladores separados, cada una de cuyas trayectorias puede considerarse como si se encontrara en un círculo en su propio espacio de fase bidimensional. Por lo tanto, las órbitas de H0 se encuentran en el producto cartesiano de nueve círculos, S1 × S1 × . . . × S1, o un toro de nueve, en el espacio de fase posicional de 18 dimensiones. ¿Qué sucede si H0 se perturba a H? La pregunta es si el toro de nueve es robusto a las perturbaciones y también si, de ser así, las trayectorias en él son cercanas a cuasi periódicas (es decir, no tienen más de nueve frecuencias independientes). De hecho, existe una familia de un parámetro de 9-toros correspondientes a diferentes valores de la energía H.
+
+Poincaré ganó el premio del Rey al demostrar, entre otras cosas, que las expansiones en serie en ε (si H − H0 ∼ ε) eran divergentes, y también sabía que dicha divergencia estaba asociada con la destrucción de ciertos toros. El logro de Kolmogorov, Arnold y Moser, en el célebre teorema KAM, fue demostrar que la mayoría de los toros (en el sentido de medida) se conservan bajo perturbación, y por lo tanto la respuesta a la pregunta: ¿es estable el sistema solar? es: probablemente. Sin embargo, cerca de los toros que son destruidos por una perturbación, existen regiones de comportamiento irregular y estocástico, y a medida que la perturbación crece en amplitud, las regiones de estocasticidad crecen en tamaño, hasta que finalmente, envuelven el espacio de fases.
+
+La estabilidad celeste es un problema clásico y de interés por sí mismo. Sin embargo, la cuestión de si el sistema solar podría desintegrarse en unos pocos millones de años puede parecer demasiado abstrusa. Sin embargo, hay otros problemas más prácticos en los que estas cuestiones son centrales. Los aceleradores de partículas y otros dispositivos de confinamiento magnético como los tokamaks, funcionan acelerando partículas atómicas alrededor de bucles cerrados. Tienen que mantener órbitas casi circulares durante muchos millones de rotaciones. En este caso, la estabilidad a largo plazo de movimientos casi periódicos es una preocupación central, lo que hace que el estudio del problema análogo de la mecánica celeste sea bastante menos académico.
+
+### **1.6 The Lorenz Equations**
+
+Sin embargo, el reciente aumento del interés por el comportamiento caótico no se debe a un gran avance en los estudios sobre la turbulencia ni a las revelaciones que ofrece el teorema KAM. En cambio, fue un problema más mundano, aunque difícil, el que dio origen a gran parte de lo que vino después: la predicción del tiempo.
+
+Ed Lorenz era un meteorólogo del MIT interesado en la predicción meteorológica a medio plazo y, en particular, en la cuestión de si el tiempo era en principio predecible más allá de un tiempo óptimo. Dado que las condiciones iniciales (el tiempo actual) sólo pueden conocerse de forma incompleta y, en el mejor de los casos, de forma aproximada, ¿divergirán la solución real y la aproximada tan rápidamente que la predicción será, en efecto, imposible después de un tiempo finito?5 La cuestión se ejemplifica con la sencilla ecuación $\dot{x} = x$, x(0) = 1 o 1 + ε. Las soluciones, $e^t$ y $e^{εt} e^t$ divergen, de modo que en el momento t = O(1/ε), la relación es O(1). Sin embargo, esta divergencia es bastante lenta. Un ejemplo más dramático es el de las condiciones iniciales x = 0 o x = ε. Lorenz quería demostrar que un conjunto \"realista\" de ecuaciones no lineales (es decir, que guardan alguna relación con un modelo físico) podía exhibir el mismo comportamiento y, además, que las soluciones mismas podían ser irregulares y aperiódicas.
+
+El requisito mínimo es un conjunto de tres ecuaciones diferenciales ordinarias no lineales, y Lorenz derivó las ecuaciones que llevan su nombre escribiendo una representación en serie de Fourier para la función de corriente y la temperatura en convección bidimensional de Boussinesq6. Al conservar solo tres términos, obtuvo lo siguiente:
+
+$$
+\dot{x} = −σ x + σ y, \\
+\dot{y} = (r − z)x − y, \\
+\dot{z} = x y − bz. 
+$$\
+Los tres parámetros r, σ, b son todos positivos; r representa el forzamiento externo y normalmente se utiliza como parámetro de bifurcación. Ya hemos visto, en la figura 1.6, que las soluciones de estas ecuaciones pueden parecer caóticas cuando se las observa en el espacio de fases. La figura 1.8 muestra una serie temporal típica, que es aparentemente caótica.
+
+Lorenz hizo varias observaciones clave que le permitieron comprender parcialmente el comportamiento que observó y le plantearon más preguntas. En primer lugar, la divergencia del lado derecho de (1.14) (tomado como un vector) es −(σ + b + 1) \< 0, y por lo tanto los volúmenes de fase se contraen uniformemente en el tiempo. En segundo lugar, las órbitas están limitadas en el espacio de fases. Por lo tanto, existe un conjunto de atracción limitado, al que se aproximan todas las trayectorias. A partir de sus integraciones numéricas, Lorenz supuso que podría ser capaz de caracterizar las órbitas mediante alguna característica única, como el valor máximo de z como el bucle circular. Por lo tanto, tabuló la secuencia de máximos en z, { $M_n$ }, y graficó $M_{n+1}$ frente a $M_n$ : el resultado se muestra en la figura 1.9.
+
+A primera vista, parece que se puede utilizar M n como predictor de M n+1 . En cierto sentido, la secuencia {M n } codifica las órbitas, y por lo tanto nos vemos obligados a estudiar el mapa de diferencias dado en la Fig. 1.9. La cuestión de por qué la ecuación diferencial debería codificarse de esta manera, y cómo se debería derivar la Fig. 1.9 a partir de (1.14) es bastante más difícil; volveremos a ella en el Cap. 4. Tendremos más que decir sobre los mapas unidimensionales en el Cap. 2. Por el momento, seguimos a Lorenz, quien optó por estudiar el mapa de tiendas más simple dado por
+
+$$
+M_{n+1} = \left\{\begin{matrix}
+2M_n & M_n < \frac{1}{2}  \\ 
+2-2M_n & M_n > \frac{1}{2}  \\\end{matrix}\right.
+$$\
+(1.15)
+
+que se muestra en la figura 1.10. Su dinámica es extremadamente complicada, pero sin embargo sencilla de entender.
+
+\
+Lorenz argued as follows. Iterates of (1.15) satisfy
+
+$$
+M_n = m_n ± 2^n M_0
+$$\
+(1.16)
+
+donde $m_n$ es par. Consideremos primero un valor inicial $M_0 = u/2^p$ , donde u es impar (y $M_0 < \frac{1}{2}$ ). Entonces \$M\_{p−1} = \\frac{1}{2} , $M_p = 1$ y $M_{p+1} = 0$. Por lo tanto, hay un número contable de trayectorias que son bi-asintóticas a 0 (es decir, $M_i → 0$ cuando i → ±∞); tales trayectorias se denominan trayectorias homoclínicas. Si $M_0 = \frac{u}{2^p v}$, donde u, v son primos entre sí (e impares), entonces para todo k \< 0, $M_{p+k} = \frac{u_k}{v}$ , donde $u_k$ , v son primos entre sí y u k es par. Por lo tanto, todos estos valores de $M_0$ conducen a sucesiones asintóticamente periódicas, ya que para cualquier v, solo puede ocurrir un número finito de valores pares de u k \< v. Finalmente, supongamos que M0 es irracional; Es fácil ver a partir de (1.16) que $M_{n+k} \neq M_n$ para todos los valores de n y k, y por lo tanto tales secuencias son aperiódicas. En consecuencia,
+
+\(i\) there are a countable number of periodic orbits;
+
+\
+
+\(i\) hay un número contable de órbitas periódicas;
+
+\(ii\) there are an uncountable number of aperiodic orbits.
+
+Furthermore, if $M′_0 = M_0 + ε$, ε \<\< 1, then for sufficiently small ε and given k,
+
+$$
+M′_k = M_k ± 2^k \varepsilon . 
+$$\
+(1.17)
+
+It follows from this that
+
+\
+(iii) el mapa muestra una dependencia sensible de las condiciones iniciales.
+
+No importa cuán cerca estén dos valores iniciales M0 y M′0, sus iteraciones divergen después de un número finito de términos.
+
+Los tres ingredientes anteriores se toman a menudo como la definición del caos determinista. Es decir, se dice que un conjunto invariante que incluye (i) y (ii) y muestra (iii) es caótico. Dado que (iii) implica que las órbitas periódicas son inestables, se deduce que las órbitas "parecerán" caóticas. Un cuarto ingrediente, no considerado por Lorenz, es
+
+\(iv\) the existence of a dense 7 orbit.
+
+Es decir, existe una órbita que se aproxima a cualquier punto del conjunto invariante de forma arbitraria. Es fácil ver que existe una órbita densa para (1.15). En primer lugar, (1.16) implica que si M0 se escribe como una expansión binaria $M_0 = .a_1a_2a_3 . . .$ entonces
+
+$$
+M_n = .a_n a_{n+1}a_{n+2} . . . \text{ or } 1 - .a_n a_{n+1}a_{n+2} . . . . 
+$$\
+(1.18)
+
+Sea s ∈ (0, 1) con expansión binaria $s = .s_1s_2s_3 . . .$ , entonces si $\widetilde{s}  = .s_1s_2 . . . s_k$ , tenemos $|s - \widetilde{s}| < 2^{-k}$ . Supongamos también \$\\widetilde{t} = 1 - \\widetilde{s}= .t_1t_2 . . . t_k . Entonces si $M_0 = a_0a_1 . . . s_1s_2 . . . s_k t_1t_2 . . . t_k . . .$, vemos que alguna iteración de $M_0$ se encuentra dentro de $2^{-k}$ de s. Al incluir secuencialmente todos esos números para k cada vez mayores, creamos un M0 cuyas iteraciones se acercan arbitrariamente (y con una frecuencia infinita) a cualquier punto en el intervalo. Por ejemplo,
+
+$$
+M_0 = .01011011001010011100101110111 . . . 
+$$\
+(1.19)
+
+Es un punto de este tipo. Y hay un sinnúmero de puntos de este tipo.
+
+### **1.7 Notes and References**
+
+\
+Los métodos de dinámica no lineal que describen la teoría de bifurcación, el análisis del plano de fase, etc., se analizan en numerosos libros sobre ecuaciones diferenciales; dos de los más populares, que continúan con los sistemas dinámicos y el caos, son los de Strogatz (1994) y Alligood et al. (1997).
+
+Aunque se puede pensar que los sistemas dinámicos comenzaron con el trabajo de Poincaré hace más de cien años, el tema del caos realmente floreció en la década de 1980. En Chaos II (1990), una colección de reimpresiones importantes, Hao Bao-Lin enumera 117 libros o actas de conferencias hasta fines de 1989 (no todos sobre el caos, sin embargo). Entre los primeros de ellos se encuentra el de Guckenheimer y Holmes (1983). Hay mucha información contenida en este libro, aunque el orden no será del gusto de todos y el estilo es sólidamente matemático. Los puntos fuertes están en la teoría de ecuaciones diferenciales.
+
+El libro de Devaney (1986) (existe una segunda edición de 2003) se ocupa exclusivamente de mapas y es un buen texto de matemáticas para estudiantes de grado. Por otra parte, hay varios libros de físicos; uno de ellos es el de Lichtenberg y Lieberman (1983) (con una segunda edición de 1992 y una edición de bolsillo de 2010), que es exhaustivo pero se ocupa principalmente de los sistemas hamiltonianos y sus perturbaciones, y no es fácil de leer.
+
+La colección de reimpresiones de Hao Bao-Lin (1990) contiene una introducción muy útil al caos, al igual que la de Cvitanoviˇc (1984), y ambos libros son fuentes muy útiles de artículos de revistas científicas. La introducción de este último, en particular, contiene un análisis lúcido de la duplicación del período (mejor que los artículos originales de Feigenbaum (1978, 1979), que son una lectura bastante densa).
+
+Un buen libro, también de físicos, es el de Bergé et al. (1986), que termina con un debate un tanto galo entre los tres autores. El libro de Arnold (1983) está lleno de cosas buenas, aunque comparte con el de Guckenheimer y Holmes un orden un tanto perverso.
+
+El libro de Thompson y Stewart (1986) (segunda edición de 2002), ingenieros de formación, es muy distinto. Es muy claro y fácil de leer, aunque no llega al nivel de detalle necesario para satisfacer incluso a un matemático aplicado. Es muy útil como referencia. Mackay y Meiss (1987) es una gran colección de reimpresiones sobre mecánica hamiltoniana, que incluye artículos clásicos de Kolmogorov y Arnold sobre el teorema KAM. Otro libro con sabor hamiltoniano es el de Tabor (1989).
+
+Un libro muy interesante sobre las ecuaciones de Lorenz es el de Sparrow (1982), que destacó desde el principio la importancia de las bifurcaciones homoclínicas. Un libro que las analiza con enorme detalle es el de Wiggins (1990). El prolífico Hao Bao-Lin (1989) también ha escrito un buen libro sobre dinámica simbólica.
+
+Los libros sobre temas relacionados son los de Carr (1981) sobre la teoría de variedades centrales, el de Hassard et al. (1981) sobre el teorema de bifurcación de Hopf (pero incluyendo formas normales) y el libro sobre ecuaciones diferenciales ordinarias de Hartman (1982), que contiene muchos resultados de suavidad que se utilizan en los diversos análisis de bifurcación.
+
+De lo anterior se desprende que en los años 1980 y 1990 hubo un florecimiento de libros sobre el caos, y muchos de ellos se consideran ahora clásicos. Por supuesto, se siguen publicando libros sobre el caos, a menudo como segundas ediciones mucho más tardías. Ejemplos recientes incluyen los libros de Argyris et al. (2015), Shivamoggi (2014) y Barreira y Valls (2012). El último de ellos se ocupa en gran medida de los mapas y tiene un sabor abstracto y analítico. Los otros dos son segundas ediciones de libros mucho más anteriores y son más sustanciales. El libro de Shivamoggi es un recorrido por muchos de los temas del presente libro, y más: solitones, la propiedad Painlevé, entre otras cosas. El libro de Argyris et al. es un monstruo de más de 800 páginas y es adecuadamente minucioso; en particular, hay un uso liberal de las ilustraciones. Sin embargo, los temas principales son los de los libros más antiguos, aunque con algunos añadidos eclécticos: por ejemplo, el último capítulo sobre la dinámica de las reacciones químicas de superficie.
+
+Uno de los principales avances en el tema en los últimos años ha sido el desarrollo del tema de los sistemas dinámicos no suaves o discontinuos por partes. Estos surgen en una variedad de aplicaciones, por ejemplo, involucrando osciladores de impacto, sistemas con fricción, etc., y ya hay varios libros sobre el tema, por ejemplo, el de di Bernardo et al. (2008). Sin embargo, su estudio va más allá de la aspiración del presente libro.
+
+### **1.7.1 Poincaré and the Swedish Prize**
+
+An extensive account of King Oscar\'s prize competition, its conduct and the award of the prize to Poincaré is given by Barrow-Green (1997), and to a lesser extent by Daniel Goroff in his introduction to the translation of Poincaré\'s Méthodes nouvelles de la Mécanique Céleste (Poincaré 1993). 
+
+Barrow-Green (1997) y, en menor medida, Daniel Goroff en su introducción a la traducción de Méthodes nouvelles de la Mécanique Céleste (Poincaré 1993) ofrecen un relato extenso del concurso del premio Rey Oscar, su desarrollo y la concesión del premio a Poincaré.
+
+Curiosamente, los dos relatos históricos difieren ligeramente en su interpretación. La propuesta original de Poincaré contenía un error, detectado por el revisor Phragmén, que implicaba la suposición de que las variedades estables e inestables8 de puntos fijos de una función de Poincaré para un sistema hamiltoniano se intersectarían (si es que lo hacían) suavemente. De hecho, este no es necesariamente el caso, y la intersección transversal proporciona un mecanismo explícito para el comportamiento caótico, como se explica en el capítulo 5, sección 5.3.6. El error se corrigió en las memorias finalmente publicadas en Acta Mathematica, pero fue causa de cierta vergüenza para el comité del premio, ninguno de los cuales lo había notado.
+
+### **1.7.2 Weather Predictability**
+
+Mencionamos brevemente el clima en la sección 1.3 y nuevamente en la sección 1.6. El problema de predecir el clima se complica por dos cuestiones. La primera de ellas es que, muy probablemente, las ecuaciones del modelo que describen los patrones climáticos tienen soluciones caóticas, con la implicación específica de que pequeños cambios en las condiciones iniciales conducen después de un tiempo finito a resultados muy diferentes. Esta característica del caos, la \"dependencia sensible de las condiciones iniciales\", se conoce pintorescamente como \"el efecto mariposa\", el título del primer capítulo del popular libro de James Gleick sobre el caos (Gleick 1988), y una frase atribuida a Edward Lorenz.
+
+El propio Lorenz hace un comentario interesante sobre la frase en su propio relato, que es muy conocido y fácil de leer (Lorenz 1993). Parece que tiene su origen en el título de una charla que dio Lorenz en 1972, \"¿El aleteo de las alas de una mariposa en Brasil desencadena un tornado en Texas?\". Curiosamente, exactamente la misma idea (e incluso con una mariposa desempeñando el papel clave) aparece en el cuento de Ray Bradbury \"El sonido del trueno\", que aparece en su colección \"Las manzanas doradas del sol\"; el cuento se publicó originalmente en 1952.
+
+La consecuencia de esto es que, incluso si las ecuaciones del modelo pudieran resolverse con exactitud (cosa que no puede hacerse), la necesaria imprecisión en la especificación de las condiciones iniciales para las variables, debido al conocimiento incompleto del estado de la atmósfera, conduce a una divergencia entre el pronóstico y la realidad después de un tiempo finito, que generalmente se considera de alrededor de una semana. Un segundo problema es que las ecuaciones del modelo que gobiernan son en sí mismas representaciones imperfectas de la atmósfera real, de modo que incluso si las soluciones no fueran caóticas, habría una divergencia entre el tiempo pronosticado y el que realmente ocurre. La dependencia sensible de las condiciones iniciales conduce a una divergencia exponencial en el tiempo de las trayectorias de solución vecinas, mientras que el error del modelo causa un crecimiento lineal; cuál de estos es el más importante es un tema de debate.
+
+En la práctica, los pronósticos actuales intentan evitar el problema utilizando pronósticos de conjunto, en los que se realiza un conjunto de predicciones diferentes utilizando una distribución de diferentes condiciones iniciales. Los pronósticos entonces adquieren un carácter probabilístico. Véase, por ejemplo, Gneiting y Raftery (2005).
+
+### **1.8 Exercises**
+
+1.1 The pair of equations
+
+$$
+\dot{x} = f (x, y),˙
+\dot{y} = g(x, y)
+$$\
+
+has an equilibrium point at $x = x_0 , y = y_0$ .
+
+If the matrix A is given by
+
+$$
+A= \begin{pmatrix} f_x & f_y  \\
+g_x & g_y  \\\end{pmatrix}
+$$\
+\
+evaluada en $(x_0, y_0)$, y su traza y determinante se denotan por T = tr A, D = det A, muestra que la estabilidad de $(x_0, y_0)$ está determinada por T y D, y delinea las curvas en el espacio (T, D) que separan regiones en las que el punto crítico es una silla, un nodo (estable o inestable), etc.
+
+\
+1.2 The Lorenz equations are given by
+
+$$
+\dot{x} = −σ x + σ y, \\˙
+\dot{y} = (r − z)x − y,˙\\
+\dot{z} = x y − bz,
+$$\
+
+where r, σ, b \> 0. Show that the origin is a stable equilibrium point if r \< 1, and unstable if r \> 1.
+
+Demuestre que si r \> 1, hay dos equilibrios adicionales $C_{±}$, dados por $x = y = ± \sqrt{b(r − 1)}$, z = r − 1, y demuestre que los valores propios λ del jacobiano de las ecuaciones linealizadas en cualquiera de los equilibrios satisfacen
+
+$$
+p(λ, r) ≡ λ^3 + (σ + b + 1)λ^2 + b(σ + r)λ + 2bσ (r − 1) = 0.
+$$\
+
+Considerando la gráfica de p para r \> 1, demuestre que siempre hay al menos una raíz de p que es negativa, y demuestre que λ = 0 nunca es una raíz para r \> 1. Demuestre que cuando r = 1, las otras dos raíces también son negativas. Deduzca que este también es el caso si r ≈ 1. \[Pista: a medida que r varía, las raíces λ(r) de p = 0 varían continuamente. ¿Por qué?\]
+
+Demuestre que las dos raíces distintas de la negativa pueden ser un par imaginario $\pm i \Omega$ sólo si $r = r_c$, donde
+
+$$
+r_c = \frac{σ (σ + b + 3)}{σ − b − 1} 
+$$\
+Deduce that the equilibria $C_{±}$ are stable if 1 \< r \< r c, and unstable if $r > r_c$.
+
+\
+1.3 If x ∈ R satisfies $\dot{x} = f (x, μ)$, with
+
+$$
+f(0, 0) = 0, f_x (0, 0) = 0,
+$$\
+
+Escriba una ecuación aproximada para x cerca de 0 mediante la expansión de f en una serie de Taylor, conservando los términos hasta el grado 3. Al considerar la magnitud relativa de estos términos cuando x y μ son pequeños, demuestre que
+
+\
+(i) if $f_μ \neq 0$, then approximately
+
+$$
+\dot{x} = μf_μ + \frac{1}{2} x^2 f_{xx} ;
+$$\
+
+\(ii\) if $f_μ = 0$, approximately
+
+$$
+\dot{x} = μx f_{xμ} + \frac{1}{2} x^2 f_{xx} + \frac{1}{2} μ^2 f_{μμ};
+$$\
+
+\(iii\) if $f_μ = 0$ and $f_{xx} = 0$, approximately
+
+$$
+\dot{x} = μx f_{xμ} + \frac{1}{6} x^3 f_{xxx} + \frac{1}{2} μ^2 f_{μμ} ,
+$$\
+y que en el último caso, el término μ2 también puede ignorarse. Describa los diagramas de bifurcación correspondientes que representan gráficamente los estados estacionarios de x en función del parámetro μ, e indican la estabilidad de los diversos puntos fijos. \[Estas bifurcaciones se conocen como bifurcaciones de nodo de silla, transcríticas y de horquilla, respectivamente.\]
+
+### 1.4 Show that the system
+
+$$
+\dot{x} = μ − x^2, \\
+\dot{y} = −y, 
+$$\
+(1.20)
+
+has a bifurcation at μ = 0 where a saddle in x \< 0 joins a node in x \> 0 (hence the name saddle-node bifurcation).
+
+1.5 The Lotka--Volterra equations are
+
+$$
+\dot{x} = ax − bx y, \\
+\dot{y} = −cy + dx y.
+$$\
+\
+Show by a scaling argument that they can be written in the dimensionless form
+
+$$
+\dot{x} = x(1 − y), \\
+\dot{y} = γ y(x − 1),
+$$\
+
+and define γ in terms of a, b, c and d.
+
+Show that there is a (linear) centre at (1, 1) and a saddle at (0, 0).
+
+Considerando dy/dx o cualquier otro, encuentre una primera integral y deduzca cuidadosamente que las trayectorias del sistema no lineal forman órbitas cerradas alrededor de (1, 1). De ahí, construya el plano de fase para las ecuaciones de Lotka-Volterra.
+
+1.6 The Van der Pol equation is
+
+$$
+\ddot{x} + μ(x^2 − 1) \dot{x} + x = 0.
+$$\
+\
+Mediante una definición apropiada de y, escriba esta ecuación como un par de ecuaciones de primer orden para x e y. Demuestre que existe un único punto fijo y que es estable si μ \< 0 e inestable si μ \> 0.
+
+\
+What kind of bifurcation occurs at μ = 0?
+
+\
+1.7 A λ-ω system is given by
+
+$$
+\dot{u} = λu − ωv, \\
+\dot{v} = ωu + λv,
+$$\
+\
+in which λ = λ(r), ω = ω(r) and $r^2 = u^2 + v^2$ .
+
+Write the pair of equations as a single equation for the complex variable z =
+
+u + iv.
+
+Hence, or otherwise, show that
+
+$$
+\dot{r} = λ(r)r.
+$$\
+Deducir que si ω(r) ≡ 1 y $λ(r) = μ − r^2$ , se produce una bifurcación de Hopf en μ = 0. Dibuje el diagrama de bifurcación resultante. Si, en cambio, $λ = μr^2 − r^4$ , demuestre que el diagrama de bifurcación permanece igual. ¿Se produce una bifurcación de Hopf en este caso? Si no, ¿por qué?
+
+\
+1.8 Sketch the bifurcation diagrams for the systems
+
+$$
+(i) \dot{x} = x(μ − c − μbx), b, c > 0; \\
+(ii) \dot{x} = μx − bx^2 + cx^3, b > 0; \\
+(iii) \dot{x} = −x(x^2 − 2bx − μ), b > 0;
+$$\
+indican la estabilidad de las ramas de la solución. (No se debe asumir necesariamente que el valor crítico de μ es cero).
+
+\
+1.9 Describe el retrato de fase (x, y) de los siguientes sistemas, escrito en coordenadas polares (r, θ), para μ \> \< 0, y determina cuál de ellos tiene una bifurcación de Hopf en μ = 0:
+
+$$
+(a) \dot{r} = r(μ − r^2)(2μ − r^2)^2; \\
+(b) \dot{r} = r(r + μ)(r − μ); \\
+(c) \dot{r} = −μ^2r(r + μ)^2(r − μ)^2;
+$$\
+\
+with $\dot{θ} = 1$ in all cases.
+
+\
+1.10 A feedback control system is modelled by
+
+$$
+\ddot{x} + δ ˙x + x(x2 − 1) = −z,˙z + αz = αγ x,
+$$
+
+donde x es la amplitud de un resorte no lineal amortiguado y z es el controlador. Evalúe los puntos fijos y su estabilidad, y demuestre que pueden ocurrir bifurcaciones en tres superficies distintas en el espacio (α, δ, γ). Demuestre que estas superficies se encuentran en γ = 1, δ = 1/α, donde hay una bifurcación degenerada.
+
+\
+1.11 The equation
+
+$$
+ε \dot{x} = −x + f(x_1),
+$$\
+
+donde $x_1 = x(t − 1)$, se denomina ecuación diferencial retardada. Explique por qué los datos iniciales para esta ecuación son x = u(t), t ∈ \[−1, 0\], y deduzca que el sistema es de dimensión infinita. Al definir adecuadamente x n , demuestre que, para N grande, la ecuación puede aproximarse mediante el conjunto de dimensión (N + 1)
+
+$$
+ε \dot{x}_0 = −x_0 + f (x_N ), \\
+\frac{1}{N} \dot{x}_n = −x_n + x_{n−1}, n = 1, 2, ...N . 
+$$\
+
+Demuestre, pues, que el sistema es disipativo. Si $x^∗$ es un punto de equilibrio, derive una ecuación trascendental para los exponentes σ de perturbaciones infinitesimales $e^{σt}$ a $x^∗$, para la ecuación de retardo. Demuestre, pues, que $|f'|< 1$, el punto fijo es estable. ¿Existe un resultado correspondiente para la aproximación (N + 1)-dimensional?
+
+\[Esto se denomina ecuación de reclutamiento por retardo. Si la función x → f (x) tiene una dinámica caótica, entonces también la tiene la ecuación diferencial por retardo para valores de ε suficientemente pequeños. El punto fijo x∗ pierde estabilidad por una bifurcación de Hopf (si f ′(x∗) \< −1), y entonces el período se duplica9 hacia un comportamiento caótico.\]
+
+\
